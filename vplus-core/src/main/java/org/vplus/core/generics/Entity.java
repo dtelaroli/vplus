@@ -1,4 +1,4 @@
-package org.vplus.core.crud;
+package org.vplus.core.generics;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

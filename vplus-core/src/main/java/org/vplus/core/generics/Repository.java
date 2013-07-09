@@ -1,4 +1,4 @@
-package org.vplus.core.crud;
+package org.vplus.core.generics;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
