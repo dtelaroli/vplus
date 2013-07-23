@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 
-public abstract class Repository<T extends Entity> {
+public abstract class Repository<T extends Model> {
 	
 	protected final EntityManager entityManager;
 	protected final Class<T> clazz;
@@ -42,7 +42,7 @@ public abstract class Repository<T extends Entity> {
 		return entityManager.find(clazz, id);
 	}
 	
-	public List<T> findAll() {
+	public List<T> find() {
 		CriteriaQuery<T> criteria = entityManager.getCriteriaBuilder().createQuery(clazz);
 		TypedQuery<T> query = entityManager.createQuery(criteria);
 		return query.getResultList();

@@ -3,13 +3,15 @@ package org.vplus.core.jpa;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vplus.core.jpa.JPAUtil;
 
 public class JPAUtilTest {
 
@@ -19,28 +21,34 @@ public class JPAUtilTest {
 	public void setUp() throws Exception {
 		jpa = new JPAUtil();
 	}
-
+	
 	@After
-	public void tearDown() throws Exception {
-		jpa = null;
+	public void tearDown() {
+		jpa.destroy();
 	}
 
 	@Test
-	public void shouldReturnServiceRegistry() {
+	public void shouldReturnPersistenceUnitName() {
 		jpa.withUnit("test");
 		assertThat(jpa.unit, notNullValue());
 	}
 	
 	@Test
-	public void shouldReturnService() {
-		EntityManager em = jpa.withUnit("test").build();
+	public void shouldReturnEntityManager() {
+		EntityManager em = jpa.withUnit("test").entityManager();
 		assertThat(em, notNullValue());
 	}
 	
 	@Test(expected = PersistenceException.class)
 	public void shouldDispatchErrorOnBuildWithoutInvokeWithUnit() {
-		EntityManager em = jpa.build();
+		EntityManager em = jpa.entityManager();
 		assertThat(em, notNullValue());
+	}
+	
+	@Test
+	public void shouldReturnConnection() throws SQLException {
+		Connection conn = jpa.withUnit("test").connection();
+		assertThat(conn.isClosed(), notNullValue());
 	}
 
 }

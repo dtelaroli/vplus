@@ -1,13 +1,18 @@
 package org.vplus.core.generics;
 
+import java.io.Serializable;
+
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class Entity {
+public abstract class Model implements Serializable {
 	
-	@Id @GeneratedValue
+	private static final long serialVersionUID = -3870444760824221901L;
+	
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	public void setId(Long id) {
@@ -31,7 +36,7 @@ public abstract class Entity {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		final Entity other = (Entity) obj;
+		final Model other = (Model) obj;
 		if (id != other.id && (id == null || !id.equals(other.id))) {
 			return false;
 		}
