@@ -10,33 +10,28 @@ import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vplus.core.dbunit.DBUnitUtil;
-import org.vplus.core.jpa.JPAUtil;
+import org.vplus.core.util.TestUtil;
 
-import br.com.caelum.vraptor.environment.DefaultEnvironment;
+public class DefaultDBListTest {
 
-public class DefaultListTest {
-
-	DefaultList listDAO;
-	private DBUnitUtil util;
+	DefaultDBList listDAO;
+	private TestUtil testUtil;
 	
 	@Before
 	public void setUp() throws Exception {
-		JPAUtil jpa = new JPAUtil().withUnit("test");
-		util = new DBUnitUtil(jpa, new DefaultEnvironment("vplus"));
-		util.from(MyEntity.class).init();
-		listDAO = new DefaultList(jpa.entityManager());
+		testUtil = TestUtil.create();
+		testUtil.from(MyEntity.class).init();
+		listDAO = new DefaultDBList(testUtil.entityManager());
 	}
 	
 	@After
 	public void tearDown() throws DatabaseUnitException {
-		util.cleanAndDestroy();
+		testUtil.cleanAndDestroy();
 	}
 	
 	@Test
 	public void shouldSetClassType() {
-		listDAO = listDAO.of(MyEntity.class);
-		assertThat(listDAO.type().isAssignableFrom(MyEntity.class), is(true));
+		assertThat(listDAO.of(MyEntity.class).type().isAssignableFrom(MyEntity.class), is(true));
 	}
 
 	@Test

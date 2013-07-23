@@ -1,4 +1,4 @@
-package org.vplus.core.dbunit;
+package org.vplus.core.util;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,7 +17,6 @@ import org.dbunit.operation.DatabaseOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vplus.core.generics.Model;
-import org.vplus.core.jpa.JPAUtil;
 
 import br.com.caelum.vraptor.environment.Environment;
 
@@ -48,13 +47,14 @@ public class DBUnitUtil {
 		return dataset;
 	}
 
-	public void init() throws DatabaseUnitException {
+	public DBUnitUtil init() throws DatabaseUnitException {
 		validateDataSet();
 		try {
 			DatabaseOperation.CLEAN_INSERT.execute(connection(), createDataset());
 		} catch (DatabaseUnitException | SQLException | IOException e) {
 			throw new DatabaseUnitException(e);
 		}
+		return this;
 	}
 
 	private void validateDataSet() {

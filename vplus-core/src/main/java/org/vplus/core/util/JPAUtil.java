@@ -1,4 +1,4 @@
-package org.vplus.core.jpa;
+package org.vplus.core.util;
 
 import java.sql.Connection;
 
@@ -58,10 +58,25 @@ public class JPAUtil {
 	}
 
 	public void destroy() {
-		if(em != null) {
+		if(em == null) {
+			LOG.warn("EntityManager already closed");
+		}
+		else {
 			LOG.debug("Close EntityManager");
 			em.close();
 		}
+	}
+
+	public void beginTransaction() {
+		entityManager().getTransaction().begin();	
+	}
+
+	public void commit() {
+		entityManager().getTransaction().commit();		
+	}
+
+	public void rollback() {
+		entityManager().getTransaction().rollback();
 	}
 	
 }

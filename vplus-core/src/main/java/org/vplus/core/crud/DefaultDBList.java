@@ -8,29 +8,38 @@ import javax.persistence.criteria.Root;
 
 import org.vplus.core.generics.Model;
 
-public class DefaultList implements DAO {
+import br.com.caelum.vraptor.ioc.Component;
+
+@Component
+public class DefaultDBList implements DBList {
 
 	private EntityManager em;
 	private Class<? extends Model> clazz;
 
-	public DefaultList(EntityManager em) {
+	public DefaultDBList(EntityManager em) {
 		this.em = em;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
-	public <T> List<T> find() {
+	public <T extends Model> List<T> find() {
+		if(clazz == null) {
+			throw new IllegalArgumentException("Entity is null. Execute the of(Class<? extends Model> clazz) method.");
+		}
 		CriteriaQuery<T> criteria = (CriteriaQuery<T>) em.getCriteriaBuilder().createQuery(clazz);
 	    Root<T> entityRoot = (Root<T>) criteria.from(clazz);
 	    criteria.select(entityRoot);
 		return em.createQuery(criteria).getResultList();
 	}
 
-	public DefaultList of(Class<? extends Model> clazz) {
+	@Override
+	public DBList of(Class<? extends Model> clazz) {
 		this.clazz = clazz;
 		return this;
 	}
 
-	public Class<?> type() {
+	@Override
+	public Class<? extends Model> type() {
 		return clazz;
 	}
 

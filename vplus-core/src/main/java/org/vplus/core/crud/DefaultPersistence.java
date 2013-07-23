@@ -1,7 +1,9 @@
 package org.vplus.core.crud;
 
+import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.Container;
 
+@Component
 public class DefaultPersistence implements Persistence {
 
 	private final Container container;

@@ -1,4 +1,4 @@
-package org.vplus.core.dbunit;
+package org.vplus.core.util;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -20,7 +20,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vplus.core.crud.MyEntity;
-import org.vplus.core.jpa.JPAUtil;
+import org.vplus.core.util.DBUnitUtil;
 
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
