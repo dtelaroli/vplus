@@ -15,6 +15,13 @@ public class MyEntity extends Model {
 
 	String name;
 	
+	public MyEntity() {}
+	
+	public MyEntity(Long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 	@Override
 	public String getLabel() {
 		return name;

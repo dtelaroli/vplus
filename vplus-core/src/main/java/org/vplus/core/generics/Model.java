@@ -13,7 +13,7 @@ public abstract class Model implements Serializable {
 	private static final long serialVersionUID = -3870444760824221901L;
 	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	protected Long id;
 	
 	public void setId(Long id) {
 		this.id = id;
