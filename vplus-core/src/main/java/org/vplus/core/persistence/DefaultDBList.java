@@ -38,9 +38,4 @@ public class DefaultDBList implements DBList {
 		return this;
 	}
 
-	@Override
-	public Class<? extends Model> type() {
-		return clazz;
-	}
-
 }

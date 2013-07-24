@@ -38,10 +38,6 @@ public class DefaultControllerListTest {
 			public <T extends DAO> T use(Class<T> dao) {
 				return (T) new DBList() {
 					@Override
-					public Class<? extends Model> type() {
-						return null;
-					}
-					@Override
 					public DBList of(Class<? extends Model> clazz) {
 						return this;
 					}

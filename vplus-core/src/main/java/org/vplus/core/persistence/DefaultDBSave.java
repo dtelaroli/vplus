@@ -23,11 +23,6 @@ public class DefaultDBSave implements DBSave {
 	}
 
 	@Override
-	public Class<? extends Model> type() {
-		return clazz;
-	}
-
-	@Override
 	public <T extends Model> T persist(T model) {
 		if(clazz == null) {
 			throw new IllegalArgumentException("Entity is null. Execute the of(Class<? extends Model> clazz) method.");

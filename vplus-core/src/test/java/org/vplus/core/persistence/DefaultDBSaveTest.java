@@ -1,7 +1,6 @@
 package org.vplus.core.persistence;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -10,8 +9,6 @@ import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vplus.core.persistence.DefaultDBSave;
-import org.vplus.core.persistence.MyEntity;
 import org.vplus.core.util.TestUtil;
 
 public class DefaultDBSaveTest {
@@ -32,14 +29,6 @@ public class DefaultDBSaveTest {
 		testUtil.cleanAndDestroy();
 	}
 	
-	@Test
-	public void shouldSetClassType() {
-		assertThat(
-				save.of(MyEntity.class).type().isAssignableFrom(MyEntity.class), 
-				is(true)
-		);
-	}
-
 	@Test
 	public void shouldFirstEntity() {
 		testUtil.beginTransaction();

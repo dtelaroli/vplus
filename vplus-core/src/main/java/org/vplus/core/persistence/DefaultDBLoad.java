@@ -34,12 +34,4 @@ public class DefaultDBLoad implements DBLoad {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.vplus.core.crud.DBLoad#type()
-	 */
-	@Override
-	public Class<? extends Model> type() {
-		return clazz;
-	}
-
 }
