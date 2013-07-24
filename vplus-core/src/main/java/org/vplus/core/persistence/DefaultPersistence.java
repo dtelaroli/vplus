@@ -1,4 +1,4 @@
-package org.vplus.core.crud;
+package org.vplus.core.persistence;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.Container;

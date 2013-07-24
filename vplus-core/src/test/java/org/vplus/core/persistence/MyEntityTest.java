@@ -1,4 +1,4 @@
-package org.vplus.core.crud;
+package org.vplus.core.persistence;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.vplus.core.persistence.MyEntity;
 
 public class MyEntityTest {
 

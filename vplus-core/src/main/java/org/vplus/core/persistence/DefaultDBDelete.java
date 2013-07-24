@@ -1,4 +1,4 @@
-package org.vplus.core.crud;
+package org.vplus.core.persistence;
 
 import javax.persistence.EntityManager;
 

@@ -1,4 +1,4 @@
-package org.vplus.core.crud;
+package org.vplus.core.persistence;
 
 import org.vplus.core.generics.Model;
 

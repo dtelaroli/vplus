@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.vplus</groupId>
+		<artifactId>vplus-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>vplus-web</artifactId>
+	<packaging>war</packaging>
+	<name>vplus-web Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<build>
+		<finalName>vplus-web</finalName>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>org.vplus</groupId>
+			<artifactId>vplus-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>br.com.caelum.vraptor</groupId>
+			<artifactId>vraptor-jpa</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+</project>

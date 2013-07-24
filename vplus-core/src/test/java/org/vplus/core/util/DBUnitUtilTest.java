@@ -19,7 +19,7 @@ import org.dbunit.dataset.IDataSet;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vplus.core.crud.MyEntity;
+import org.vplus.core.persistence.MyEntity;
 import org.vplus.core.util.DBUnitUtil;
 
 import br.com.caelum.vraptor.environment.DefaultEnvironment;

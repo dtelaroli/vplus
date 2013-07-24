@@ -1,26 +1,29 @@
-package org.vplus.core.crud;
+package org.vplus.core.persistence;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.List;
+
 import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.vplus.core.persistence.DefaultDBList;
+import org.vplus.core.persistence.MyEntity;
 import org.vplus.core.util.TestUtil;
 
-public class DefaultDBLoadTest {
+public class DefaultDBListTest {
 
-	DefaultDBLoad loadDAO;
+	DefaultDBList listDAO;
 	private TestUtil testUtil;
 	
 	@Before
 	public void setUp() throws Exception {
 		testUtil = TestUtil.create();
 		testUtil.from(MyEntity.class).init();
-		
-		loadDAO = new DefaultDBLoad(testUtil.entityManager());
+		listDAO = new DefaultDBList(testUtil.entityManager());
 	}
 	
 	@After
@@ -30,22 +33,18 @@ public class DefaultDBLoadTest {
 	
 	@Test
 	public void shouldSetClassType() {
-		assertThat(
-				loadDAO.of(MyEntity.class).type().isAssignableFrom(MyEntity.class), 
-				is(true)
-		);
+		assertThat(listDAO.of(MyEntity.class).type().isAssignableFrom(MyEntity.class), is(true));
 	}
 
 	@Test
-	public void shouldReturnFirstEntity() {
-		MyEntity my = loadDAO.of(MyEntity.class).find(1L);
-		assertThat(my.getId(), equalTo(1L));
-		assertThat(my.getLabel(), equalTo("Entity 1"));
+	public void shouldReturn3Items() {
+		List<MyEntity> list = listDAO.of(MyEntity.class).find();
+		assertThat(list.size(), equalTo(3));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldDispatchErrorIfTypeNotConfig() {
-		loadDAO.find(1L);
+		listDAO.find();
 	}
 
 }

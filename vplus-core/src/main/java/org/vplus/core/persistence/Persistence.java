@@ -1,4 +1,4 @@
-package org.vplus.core.crud;
+package org.vplus.core.persistence;
 
 
 public interface Persistence {

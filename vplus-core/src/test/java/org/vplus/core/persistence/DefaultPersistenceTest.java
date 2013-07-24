@@ -1,14 +1,14 @@
-package org.vplus.core.crud;
+package org.vplus.core.persistence;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
-import static org.vplus.core.crud.Persistences.delete;
-import static org.vplus.core.crud.Persistences.list;
-import static org.vplus.core.crud.Persistences.load;
-import static org.vplus.core.crud.Persistences.save;
+import static org.vplus.core.persistence.Persistences.delete;
+import static org.vplus.core.persistence.Persistences.list;
+import static org.vplus.core.persistence.Persistences.load;
+import static org.vplus.core.persistence.Persistences.save;
 
 import java.util.List;
 
@@ -19,6 +19,18 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.generics.Model;
+import org.vplus.core.persistence.DAO;
+import org.vplus.core.persistence.DBDelete;
+import org.vplus.core.persistence.DBList;
+import org.vplus.core.persistence.DBLoad;
+import org.vplus.core.persistence.DBSave;
+import org.vplus.core.persistence.DefaultDBDelete;
+import org.vplus.core.persistence.DefaultDBList;
+import org.vplus.core.persistence.DefaultDBLoad;
+import org.vplus.core.persistence.DefaultDBSave;
+import org.vplus.core.persistence.DefaultPersistence;
+import org.vplus.core.persistence.MyEntity;
+import org.vplus.core.persistence.Persistence;
 import org.vplus.core.util.TestUtil;
 
 import br.com.caelum.vraptor.ioc.Component;

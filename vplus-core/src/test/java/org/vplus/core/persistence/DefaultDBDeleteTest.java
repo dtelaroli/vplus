@@ -1,8 +1,6 @@
-package org.vplus.core.crud;
+package org.vplus.core.persistence;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
@@ -10,11 +8,13 @@ import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.vplus.core.persistence.DefaultDBDelete;
+import org.vplus.core.persistence.MyEntity;
 import org.vplus.core.util.TestUtil;
 
-public class DefaultDBSaveTest {
+public class DefaultDBDeleteTest {
 
-	DefaultDBSave save;
+	DefaultDBDelete delete;
 	private TestUtil testUtil;
 	
 	@Before
@@ -22,7 +22,7 @@ public class DefaultDBSaveTest {
 		testUtil = TestUtil.create();
 		testUtil.from(MyEntity.class).init();
 		
-		save = new DefaultDBSave(testUtil.entityManager());
+		delete = new DefaultDBDelete(testUtil.entityManager());
 	}
 	
 	@After
@@ -33,28 +33,26 @@ public class DefaultDBSaveTest {
 	@Test
 	public void shouldSetClassType() {
 		assertThat(
-				save.of(MyEntity.class).type().isAssignableFrom(MyEntity.class), 
+				delete.of(MyEntity.class).type().isAssignableFrom(MyEntity.class), 
 				is(true)
 		);
 	}
 
 	@Test
-	public void shouldFirstEntity() {
+	public void shouldDeleteFirstEntity() {
 		testUtil.beginTransaction();
 		MyEntity my = new MyEntity();
 		assertThat(my.getId(), nullValue());
 		my.name = "New Item";
+		my.setId(1L);
 		
-		my = save.of(MyEntity.class).persist(my);
+		delete.of(MyEntity.class).delete(my);
 		testUtil.commit();
-		
-		assertThat(my.getId(), notNullValue());
-		assertThat(my.getLabel(), equalTo("New Item"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldDispatchErrorIfTypeNotConfig() {
-		save.persist(null);
+		delete.delete(null);
 	}
 
 }
