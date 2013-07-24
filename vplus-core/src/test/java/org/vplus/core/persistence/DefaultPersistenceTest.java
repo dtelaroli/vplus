@@ -92,7 +92,7 @@ public class DefaultPersistenceTest {
 		MyEntity model = new MyEntity();
 		model.name = "New";
 		
-		model = persistence.use(save()).of(MyEntity.class).persist(model);
+		model = persistence.use(save()).persist(model);
 		testUtil.commit();
 		
 		assertThat(model.getId(), notNullValue());
@@ -105,7 +105,7 @@ public class DefaultPersistenceTest {
 		MyEntity model = new MyEntity();
 		model.setId(1L);
 		
-		persistence.use(delete()).of(MyEntity.class).delete(model);
+		persistence.use(delete()).delete(model);
 		testUtil.commit();
 	}
 

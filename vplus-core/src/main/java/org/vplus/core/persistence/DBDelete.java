@@ -6,6 +6,4 @@ public interface DBDelete extends DAO {
 
 	<T extends Model> void delete(T model);
 	
-	DBDelete of(Class<? extends Model> clazz);
-
 }

@@ -34,7 +34,7 @@ public class DefaultDBListTest {
 		assertThat(list.size(), equalTo(3));
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalStateException.class)
 	public void shouldDispatchErrorIfTypeNotConfig() {
 		listDAO.find();
 	}

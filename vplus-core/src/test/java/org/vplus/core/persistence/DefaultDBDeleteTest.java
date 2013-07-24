@@ -35,7 +35,7 @@ public class DefaultDBDeleteTest {
 		my.name = "New Item";
 		my.setId(1L);
 		
-		delete.of(MyEntity.class).delete(my);
+		delete.delete(my);
 		testUtil.commit();
 	}
 	

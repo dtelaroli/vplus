@@ -36,16 +36,11 @@ public class DefaultDBSaveTest {
 		assertThat(my.getId(), nullValue());
 		my.name = "New Item";
 		
-		my = save.of(MyEntity.class).persist(my);
+		my = save.persist(my);
 		testUtil.commit();
 		
 		assertThat(my.getId(), notNullValue());
 		assertThat(my.getLabel(), equalTo("New Item"));
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void shouldDispatchErrorIfTypeNotConfig() {
-		save.persist(null);
-	}
-
 }

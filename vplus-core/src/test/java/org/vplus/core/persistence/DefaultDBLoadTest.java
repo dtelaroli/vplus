@@ -34,7 +34,7 @@ public class DefaultDBLoadTest {
 		assertThat(my.getLabel(), equalTo("Entity 1"));
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalStateException.class)
 	public void shouldDispatchErrorIfTypeNotConfig() {
 		loadDAO.find(1L);
 	}

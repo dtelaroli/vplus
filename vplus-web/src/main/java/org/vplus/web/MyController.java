@@ -17,12 +17,12 @@ public class MyController {
 
 	public MyController(Controller controller, Persistence persistence) {
 		this.controller = controller;
-		persistence.use(save()).of(MyEntity.class).persist(new MyEntity());
+		persistence.use(save()).persist(new MyEntity());
 	}
 
 	@Get("/my")
 	public void index() {
-		controller.use(ControllerList.class).of(MyEntity.class).serialize();
+		controller.use(ControllerList.class).serialize();
 	}
 	
 	@Get("/my/{id}")
