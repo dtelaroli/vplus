@@ -10,19 +10,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vplus.core.exeption.VPlusException;
-import org.vplus.core.persistence.DBListImpl.DBListExecute;
+import org.vplus.core.generics.Model;
 import org.vplus.core.util.TestUtil;
 
-public class DBListImplTest {
+public class DBListTest {
 
-	DBListImpl listDAO;
+	DBList listDAO;
 	private TestUtil testUtil;
 	
 	@Before
 	public void setUp() throws Exception {
 		testUtil = TestUtil.create();
 		testUtil.from(MyEntity.class).init();
-		listDAO = new DBListImpl(new DBListExecute(testUtil.entityManager()));
+		listDAO = new DBList(testUtil.entityManager());
 	}
 	
 	@After
@@ -32,8 +32,7 @@ public class DBListImplTest {
 	
 	@Test
 	public void shouldReturn3ItemsFromDBUnit() throws VPlusException {
-		List<MyEntity> list = listDAO.of(MyEntity.class).find();
+		List<Model> list = listDAO.of(MyEntity.class).find();
 		assertThat(list.size(), equalTo(3));
 	}
-	
 }

@@ -10,9 +10,9 @@ import org.junit.Test;
 import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.util.TestUtil;
 
-public class DBLoadImplTest {
+public class DBLoadTest {
 
-	DBLoadImpl loadDAO;
+	DBLoad loadDAO;
 	private TestUtil testUtil;
 	
 	@Before
@@ -20,7 +20,7 @@ public class DBLoadImplTest {
 		testUtil = TestUtil.create();
 		testUtil.from(MyEntity.class).init();
 		
-		loadDAO = new DBLoadImpl(testUtil.entityManager());
+		loadDAO = new DBLoad(testUtil.entityManager());
 	}
 	
 	@After
@@ -30,7 +30,7 @@ public class DBLoadImplTest {
 	
 	@Test
 	public void shouldReturnFirstEntity() throws VPlusException {
-		MyEntity my = loadDAO.of(MyEntity.class).find(1L);
+		MyEntity my = (MyEntity) loadDAO.of(MyEntity.class).find(new MyEntity(1L));
 		assertThat(my.getId(), equalTo(1L));
 		assertThat(my.getLabel(), equalTo("Entity 1"));
 	}

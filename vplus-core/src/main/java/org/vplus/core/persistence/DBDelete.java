@@ -1,9 +1,21 @@
 package org.vplus.core.persistence;
 
+import javax.persistence.EntityManager;
+
 import org.vplus.core.generics.Model;
 
-public interface DBDelete extends Dao {
+import br.com.caelum.vraptor.ioc.Component;
 
-	<T extends Model> void delete(T model);
-	
+@Component
+public class DBDelete implements Dao {
+
+	private EntityManager em;
+
+	public DBDelete(EntityManager em) {
+		this.em = em;
+	}
+
+	public void delete(Model model) {
+		em.remove(em.merge(model));
+	}
 }

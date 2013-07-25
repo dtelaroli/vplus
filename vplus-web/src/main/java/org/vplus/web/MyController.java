@@ -2,6 +2,8 @@ package org.vplus.web;
 
 import static org.vplus.core.persistence.Persistences.save;
 
+import org.vplus.core.controller.ActionList;
+import org.vplus.core.controller.ActionLoad;
 import org.vplus.core.controller.Controller;
 import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.persistence.MyEntity;
@@ -22,11 +24,11 @@ public class MyController {
 
 	@Get("/my")
 	public void index() throws VPlusException {
-		controller.of(MyEntity.class).find().json();
+		controller.use(ActionList.class).of(MyEntity.class).render();
 	}
 
 	@Get("/my/{id}")
 	public void get(long id) throws VPlusException {
-		controller.of(MyEntity.class).find(id).json();
+		controller.use(ActionLoad.class).withId(id).of(MyEntity.class).render();
 	}
 }

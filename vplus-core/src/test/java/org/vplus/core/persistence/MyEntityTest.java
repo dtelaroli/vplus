@@ -38,8 +38,7 @@ public class MyEntityTest {
 	@Test
 	public void shouldCompareTwoEntityHashCode() {
 		my.setId(1L);
-		MyEntity other = new MyEntity();
-		other.setId(1L);
+		MyEntity other = new MyEntity(1L);
 		assertThat(my.hashCode(), equalTo(other.hashCode()));
 	}
 	

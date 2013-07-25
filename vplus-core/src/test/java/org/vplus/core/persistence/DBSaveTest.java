@@ -9,11 +9,12 @@ import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.vplus.core.generics.Model;
 import org.vplus.core.util.TestUtil;
 
-public class DBSaveImplTest {
+public class DBSaveTest {
 
-	DBSaveImpl save;
+	DBSave save;
 	private TestUtil testUtil;
 	
 	@Before
@@ -21,7 +22,7 @@ public class DBSaveImplTest {
 		testUtil = TestUtil.create();
 		testUtil.from(MyEntity.class).init();
 		
-		save = new DBSaveImpl(testUtil.entityManager());
+		save = new DBSave(testUtil.entityManager());
 	}
 	
 	@After
@@ -32,9 +33,8 @@ public class DBSaveImplTest {
 	@Test
 	public void shouldFirstEntity() {
 		testUtil.beginTransaction();
-		MyEntity my = new MyEntity();
+		Model my = new MyEntity(null, "New Item");
 		assertThat(my.getId(), nullValue());
-		my.name = "New Item";
 		
 		my = save.persist(my);
 		testUtil.commit();

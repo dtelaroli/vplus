@@ -17,6 +17,10 @@ public class MyEntity extends Model {
 	
 	public MyEntity() {}
 	
+	public MyEntity(Long id) {
+		this.id = id;
+	}
+	
 	public MyEntity(Long id, String name) {
 		this.id = id;
 		this.name = name;
