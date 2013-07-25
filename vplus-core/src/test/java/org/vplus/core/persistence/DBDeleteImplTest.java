@@ -9,9 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.vplus.core.util.TestUtil;
 
-public class DefaultDBDeleteTest {
+public class DBDeleteImplTest {
 
-	DefaultDBDelete delete;
+	DBDeleteImpl delete;
 	private TestUtil testUtil;
 	
 	@Before
@@ -19,7 +19,7 @@ public class DefaultDBDeleteTest {
 		testUtil = TestUtil.create();
 		testUtil.from(MyEntity.class).init();
 		
-		delete = new DefaultDBDelete(testUtil.entityManager());
+		delete = new DBDeleteImpl(testUtil.entityManager());
 	}
 	
 	@After

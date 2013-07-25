@@ -7,11 +7,11 @@ import org.vplus.core.generics.Model;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class DefaultDBDelete implements DBDelete {
+public class DBDeleteImpl implements DBDelete {
 
 	private EntityManager em;
 
-	public DefaultDBDelete(EntityManager em) {
+	public DBDeleteImpl(EntityManager em) {
 		this.em = em;
 	}
 

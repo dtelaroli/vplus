@@ -8,12 +8,12 @@ import org.vplus.core.generics.Model;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class DefaultDBLoad implements DBLoad {
+public class DBLoadImpl implements DBLoad {
 
 	private EntityManager em;
 	private Class<? extends Model> clazz;
 
-	public DefaultDBLoad(EntityManager em) {
+	public DBLoadImpl(EntityManager em) {
 		this.em = em;
 	}
 

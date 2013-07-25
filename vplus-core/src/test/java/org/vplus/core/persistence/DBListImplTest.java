@@ -1,27 +1,28 @@
 package org.vplus.core.persistence;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
+
+import java.util.List;
 
 import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.vplus.core.exeption.VPlusException;
+import org.vplus.core.persistence.DBListImpl.DBListExecute;
 import org.vplus.core.util.TestUtil;
 
-public class DefaultDBSaveTest {
+public class DBListImplTest {
 
-	DefaultDBSave save;
+	DBListImpl listDAO;
 	private TestUtil testUtil;
 	
 	@Before
 	public void setUp() throws Exception {
 		testUtil = TestUtil.create();
 		testUtil.from(MyEntity.class).init();
-		
-		save = new DefaultDBSave(testUtil.entityManager());
+		listDAO = new DBListImpl(new DBListExecute(testUtil.entityManager()));
 	}
 	
 	@After
@@ -30,17 +31,9 @@ public class DefaultDBSaveTest {
 	}
 	
 	@Test
-	public void shouldFirstEntity() {
-		testUtil.beginTransaction();
-		MyEntity my = new MyEntity();
-		assertThat(my.getId(), nullValue());
-		my.name = "New Item";
-		
-		my = save.persist(my);
-		testUtil.commit();
-		
-		assertThat(my.getId(), notNullValue());
-		assertThat(my.getLabel(), equalTo("New Item"));
+	public void shouldReturn3ItemsFromDBUnit() throws VPlusException {
+		List<MyEntity> list = listDAO.of(MyEntity.class).find();
+		assertThat(list.size(), equalTo(3));
 	}
 	
 }

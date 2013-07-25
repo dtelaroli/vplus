@@ -7,11 +7,11 @@ import org.vplus.core.generics.Model;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class DefaultDBSave implements DBSave {
+public class DBSaveImpl implements DBSave {
 
 	private EntityManager em;
 
-	public DefaultDBSave(EntityManager em) {
+	public DBSaveImpl(EntityManager em) {
 		this.em = em;
 	}
 

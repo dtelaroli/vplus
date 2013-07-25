@@ -20,14 +20,14 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.generics.Model;
-import org.vplus.core.persistence.DefaultDBList.DBListExecute;
+import org.vplus.core.persistence.DBListImpl.DBListExecute;
 import org.vplus.core.util.TestUtil;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.Container;
 
 @Component
-public class DefaultPersistenceTest {
+public class PersistenceImplTest {
 	
 	Persistence persistence;
 	@Mock Container container;
@@ -36,7 +36,7 @@ public class DefaultPersistenceTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		persistence = new DefaultPersistence(container);
+		persistence = new PersistenceImpl(container);
 		testUtil = TestUtil.create();
 		testUtil.from(MyEntity.class).init();
 	}
@@ -57,20 +57,20 @@ public class DefaultPersistenceTest {
 	
 	@Test
 	public void shouldReturnInstanceOfList() {
-		when(container.instanceFor(DBList.class)).thenReturn(new DefaultDBList(null));
+		when(container.instanceFor(DBList.class)).thenReturn(new DBListImpl(null));
 		assertThat(persistence.use(list()), instanceOf(DBList.class));
 	}
 	
 	@Test
 	public void shouldReturnListWith3Items() throws VPlusException {
-		when(container.instanceFor(DBList.class)).thenReturn(new DefaultDBList(new DBListExecute(testUtil.entityManager())));
+		when(container.instanceFor(DBList.class)).thenReturn(new DBListImpl(new DBListExecute(testUtil.entityManager())));
 		List<Model> find = persistence.use(list()).of(MyEntity.class).find();
 		assertThat(find.size(), equalTo(3));
 	}
 	
 	@Test
 	public void shouldReturnListWithItem1() throws VPlusException {
-		when(container.instanceFor(DBLoad.class)).thenReturn(new DefaultDBLoad(testUtil.entityManager()));
+		when(container.instanceFor(DBLoad.class)).thenReturn(new DBLoadImpl(testUtil.entityManager()));
 		Model model = persistence.use(load()).of(MyEntity.class).find(1L);
 		assertThat(model.getId(), equalTo(1L));
 	}
@@ -78,7 +78,7 @@ public class DefaultPersistenceTest {
 	@Test
 	public void shouldSaveItem() {
 		testUtil.beginTransaction();
-		when(container.instanceFor(DBSave.class)).thenReturn(new DefaultDBSave(testUtil.entityManager()));
+		when(container.instanceFor(DBSave.class)).thenReturn(new DBSaveImpl(testUtil.entityManager()));
 		MyEntity model = new MyEntity();
 		model.name = "New";
 		
@@ -91,7 +91,7 @@ public class DefaultPersistenceTest {
 	@Test
 	public void shouldDeleteItem() {
 		testUtil.beginTransaction();
-		when(container.instanceFor(DBDelete.class)).thenReturn(new DefaultDBDelete(testUtil.entityManager()));
+		when(container.instanceFor(DBDelete.class)).thenReturn(new DBDeleteImpl(testUtil.entityManager()));
 		MyEntity model = new MyEntity();
 		model.setId(1L);
 		

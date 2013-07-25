@@ -12,11 +12,11 @@ import org.vplus.core.generics.Model;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class DefaultDBList implements DBList {
+public class DBListImpl implements DBList {
 
 	private DBListExecute listExecute;
 
-	public DefaultDBList(DBListExecute listExecute) {
+	public DBListImpl(DBListExecute listExecute) {
 		this.listExecute = listExecute;
 	}
 
