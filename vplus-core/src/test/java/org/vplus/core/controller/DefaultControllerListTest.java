@@ -3,22 +3,22 @@ package org.vplus.core.controller;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.EntityManager;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.vplus.core.controller.DefautControllerList.ControllerListExecute;
 import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.generics.Model;
-import org.vplus.core.persistence.DAO;
-import org.vplus.core.persistence.DBList;
+import org.vplus.core.persistence.DefaultDBList.DBListExecute;
 import org.vplus.core.persistence.MyEntity;
-import org.vplus.core.persistence.Persistence;
 
 import br.com.caelum.vraptor.util.test.MockSerializationResult;
 
@@ -26,46 +26,30 @@ public class DefaultControllerListTest {
 
 	ControllerList controller;
 	MockSerializationResult result;
-	@Mock Persistence persistence;
-	@Mock EntityManager em;
+	@Mock ControllerListExecute controllerListExecute;
+	@Mock DBListExecute dbListExecute;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		result = new MockSerializationResult();
-		persistence = new Persistence() {
-			@SuppressWarnings("unchecked")
+		controller = new ControllerList() {
 			@Override
-			public <T extends DAO> T use(Class<T> dao) {
-				return (T) new DBList() {
-					private Class<? extends Model> clazz;
-					@Override
-					public DBList of(Class<? extends Model> clazz) {
-						this.clazz = clazz;
-						return this;
-					}
-					@SuppressWarnings("hiding")
-					@Override
-					public <T extends Model> List<T> find() throws VPlusException {
-						if(clazz == null) throw new VPlusException("");
-						return (List<T>) Arrays.asList(new MyEntity(1L, "Entity"));
-					}
-				};
+			public ControllerListExecute of(Class<? extends Model> clazz)
+					throws VPlusException {
+				controllerListExecute = spy(new ControllerListExecute(result, null));
+				List<Model> list = new ArrayList<Model>();
+				list.add(new MyEntity(1L, "Test"));
+				doReturn(list).when(controllerListExecute).getList();
+				return controllerListExecute;
 			}
 		};
-		
-		controller = new DefautControllerList(result, persistence);
 	}
 
 	@Test
 	public void shouldReturnType() throws VPlusException {
-		ControllerList c = controller.of(MyEntity.class);
-		assertThat(c, instanceOf(ControllerList.class));
-	}
-	
-	@Test(expected = VPlusException.class)
-	public void shouldSerializeEmptyListOnNull() throws Exception {
-		controller.serialize();
+		ControllerListExecute c = controller.of(MyEntity.class);
+		assertThat(c, instanceOf(ControllerListExecute.class));
 	}
 	
 	@Test

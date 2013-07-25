@@ -20,18 +20,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.generics.Model;
-import org.vplus.core.persistence.DAO;
-import org.vplus.core.persistence.DBDelete;
-import org.vplus.core.persistence.DBList;
-import org.vplus.core.persistence.DBLoad;
-import org.vplus.core.persistence.DBSave;
-import org.vplus.core.persistence.DefaultDBDelete;
-import org.vplus.core.persistence.DefaultDBList;
-import org.vplus.core.persistence.DefaultDBLoad;
-import org.vplus.core.persistence.DefaultDBSave;
-import org.vplus.core.persistence.DefaultPersistence;
-import org.vplus.core.persistence.MyEntity;
-import org.vplus.core.persistence.Persistence;
+import org.vplus.core.persistence.DefaultDBList.DBListExecute;
 import org.vplus.core.util.TestUtil;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -74,7 +63,7 @@ public class DefaultPersistenceTest {
 	
 	@Test
 	public void shouldReturnListWith3Items() throws VPlusException {
-		when(container.instanceFor(DBList.class)).thenReturn(new DefaultDBList(testUtil.entityManager()));
+		when(container.instanceFor(DBList.class)).thenReturn(new DefaultDBList(new DBListExecute(testUtil.entityManager())));
 		List<Model> find = persistence.use(list()).of(MyEntity.class).find();
 		assertThat(find.size(), equalTo(3));
 	}

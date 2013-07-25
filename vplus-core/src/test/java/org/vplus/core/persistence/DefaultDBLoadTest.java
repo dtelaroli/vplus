@@ -35,9 +35,4 @@ public class DefaultDBLoadTest {
 		assertThat(my.getLabel(), equalTo("Entity 1"));
 	}
 	
-	@Test(expected = VPlusException.class)
-	public void shouldDispatchErrorIfTypeNotConfig() throws VPlusException {
-		loadDAO.find(1L);
-	}
-
 }

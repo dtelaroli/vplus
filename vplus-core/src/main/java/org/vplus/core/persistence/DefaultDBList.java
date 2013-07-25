@@ -8,34 +8,44 @@ import javax.persistence.criteria.Root;
 
 import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.generics.Model;
-import org.vplus.core.util.ClassUtil;
 
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class DefaultDBList implements DBList {
 
-	private final EntityManager em;
-	private ClassUtil classUtil;
+	private DBListExecute listExecute;
 
-	public DefaultDBList(EntityManager em) {
-		this.em = em;
-		this.classUtil = ClassUtil.create();
+	public DefaultDBList(DBListExecute listExecute) {
+		this.listExecute = listExecute;
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public <T extends Model> List<T> find() throws VPlusException {
-		CriteriaQuery<T> criteria = (CriteriaQuery<T>) em.getCriteriaBuilder().createQuery(classUtil.getClazz());
-	    Root<T> entityRoot = (Root<T>) criteria.from(classUtil.getClazz());
-	    criteria.select(entityRoot);
-		return em.createQuery(criteria).getResultList();
+	public DBListExecute of(Class<? extends Model> clazz) {
+		return listExecute.of(clazz);
 	}
+	
+	@Component
+	public static class DBListExecute {
+		private final EntityManager em;
+		private Class<? extends Model> clazz;
+		
+		public DBListExecute(EntityManager em) {
+			this.em = em;
+		}
+		
+		private DBListExecute of(Class<? extends Model> clazz) {
+			this.clazz = clazz;
+			return this;
+		}
 
-	@Override
-	public DBList of(Class<? extends Model> clazz) {
-		classUtil = classUtil.from(clazz);
-		return this;
+		@SuppressWarnings("unchecked")
+		public <T extends Model> List<T> find() throws VPlusException {
+			CriteriaQuery<T> criteria = (CriteriaQuery<T>) em.getCriteriaBuilder().createQuery(clazz);
+		    Root<T> entityRoot = (Root<T>) criteria.from(clazz);
+		    criteria.select(entityRoot);
+			return em.createQuery(criteria).getResultList();
+		}
 	}
 
 }

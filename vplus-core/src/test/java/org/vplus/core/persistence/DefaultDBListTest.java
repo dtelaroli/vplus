@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vplus.core.exeption.VPlusException;
+import org.vplus.core.persistence.DefaultDBList.DBListExecute;
 import org.vplus.core.util.TestUtil;
 
 public class DefaultDBListTest {
@@ -21,7 +22,7 @@ public class DefaultDBListTest {
 	public void setUp() throws Exception {
 		testUtil = TestUtil.create();
 		testUtil.from(MyEntity.class).init();
-		listDAO = new DefaultDBList(testUtil.entityManager());
+		listDAO = new DefaultDBList(new DBListExecute(testUtil.entityManager()));
 	}
 	
 	@After
@@ -35,9 +36,4 @@ public class DefaultDBListTest {
 		assertThat(list.size(), equalTo(3));
 	}
 	
-	@Test(expected = VPlusException.class)
-	public void shouldDispatchErrorIfTypeNotConfig() throws VPlusException {
-		listDAO.find();
-	}
-
 }
