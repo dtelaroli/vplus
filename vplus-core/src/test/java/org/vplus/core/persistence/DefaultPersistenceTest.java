@@ -46,7 +46,7 @@ public class DefaultPersistenceTest {
 		testUtil.cleanAndDestroy();
 	}
 	
-	class DaoImpl implements DAO {
+	class DaoImpl implements Dao {
 	}
 
 	@Test

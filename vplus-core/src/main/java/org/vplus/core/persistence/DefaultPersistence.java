@@ -13,7 +13,7 @@ public class DefaultPersistence implements Persistence {
 	}
 
 	@Override
-	public <T extends DAO> T use(Class<T> type) {
+	public <T extends Dao> T use(Class<T> type) {
 		return container.instanceFor(type);
 	}
 

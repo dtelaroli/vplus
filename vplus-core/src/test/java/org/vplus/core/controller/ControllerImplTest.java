@@ -11,18 +11,18 @@ import org.mockito.MockitoAnnotations;
 
 import br.com.caelum.vraptor.ioc.Container;
 
-public class DefaultControllerTest {
+public class ControllerImplTest {
 
-	DefaultController controller;
+	ControllerImpl controller;
 	@Mock Container container;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		controller = new DefaultController(container);
+		controller = new ControllerImpl(container);
 	}
 	
-	interface MyController extends GenericController {
+	interface MyController extends Action {
 	}
 	class MyControl implements MyController {
 	}

@@ -1,8 +1,10 @@
 package org.vplus.core.controller;
 
+import org.vplus.core.generics.Model;
+
 
 public interface Controller {
 	
-	<T extends GenericController> T use(Class<T> type);
+	Database of(Class<? extends Model> clazz);
 	
 }
