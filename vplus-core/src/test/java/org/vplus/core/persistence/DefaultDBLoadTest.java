@@ -7,6 +7,7 @@ import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.util.TestUtil;
 
 public class DefaultDBLoadTest {
@@ -28,14 +29,14 @@ public class DefaultDBLoadTest {
 	}
 	
 	@Test
-	public void shouldReturnFirstEntity() {
+	public void shouldReturnFirstEntity() throws VPlusException {
 		MyEntity my = loadDAO.of(MyEntity.class).find(1L);
 		assertThat(my.getId(), equalTo(1L));
 		assertThat(my.getLabel(), equalTo("Entity 1"));
 	}
 	
-	@Test(expected = IllegalStateException.class)
-	public void shouldDispatchErrorIfTypeNotConfig() {
+	@Test(expected = VPlusException.class)
+	public void shouldDispatchErrorIfTypeNotConfig() throws VPlusException {
 		loadDAO.find(1L);
 	}
 

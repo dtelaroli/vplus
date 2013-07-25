@@ -4,6 +4,7 @@ import static org.vplus.core.persistence.Persistences.save;
 
 import org.vplus.core.controller.Controller;
 import org.vplus.core.controller.ControllerList;
+import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.persistence.MyEntity;
 import org.vplus.core.persistence.Persistence;
 
@@ -21,8 +22,8 @@ public class MyController {
 	}
 
 	@Get("/my")
-	public void index() {
-		controller.use(ControllerList.class).serialize();
+	public void index() throws VPlusException {
+		controller.use(ControllerList.class).of(MyEntity.class).serialize();
 	}
 	
 	@Get("/my/{id}")

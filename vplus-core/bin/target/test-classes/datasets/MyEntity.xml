@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<MyEntity id="1" name="Entity 1"/>
+	<MyEntity id="2" name="Entity 2"/>
+	<MyEntity id="3" name="Entity 3"/>
+</dataset>

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.persistence.MyEntity;
 
 public class ClassUtilTest {
@@ -17,9 +18,14 @@ public class ClassUtilTest {
 	}
 
 	@Test
-	public void shouldSetClass() {
+	public void shouldSetClass() throws VPlusException {
 		util = util.from(MyEntity.class);
 		assertThat(util.getClazz().isAssignableFrom(MyEntity.class), is(true));
+	}
+	
+	@Test(expected = VPlusException.class)
+	public void shouldDispatchExceptionIfClassIsNull() throws VPlusException {
+		util.getClazz();
 	}
 	
 }

@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.util.ClassUtil;
 
@@ -24,7 +25,7 @@ public class DefaultDBList implements DBList {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public <T extends Model> List<T> find() {
+	public <T extends Model> List<T> find() throws VPlusException {
 		CriteriaQuery<T> criteria = (CriteriaQuery<T>) em.getCriteriaBuilder().createQuery(classUtil.getClazz());
 	    Root<T> entityRoot = (Root<T>) criteria.from(classUtil.getClazz());
 	    criteria.select(entityRoot);

@@ -1,5 +1,6 @@
 package org.vplus.core.util;
 
+import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.generics.Model;
 
 public class ClassUtil {
@@ -19,9 +20,9 @@ public class ClassUtil {
 		return this;
 	}
 	
-	public Class<?> getClazz() {
+	public Class<?> getClazz() throws VPlusException {
 		if(clazz == null) {
-			throw new IllegalStateException("Entity is null. Execute the of(Class<? extends Model> clazz) method.");
+			throw new VPlusException("Entity is null. Execute the of(Class<? extends Model> clazz) method.");
 		}
 		return clazz;
 	}

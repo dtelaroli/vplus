@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.persistence.DAO;
 import org.vplus.core.persistence.DBList;
@@ -37,13 +38,16 @@ public class DefaultControllerListTest {
 			@Override
 			public <T extends DAO> T use(Class<T> dao) {
 				return (T) new DBList() {
+					private Class<? extends Model> clazz;
 					@Override
 					public DBList of(Class<? extends Model> clazz) {
+						this.clazz = clazz;
 						return this;
 					}
 					@SuppressWarnings("hiding")
 					@Override
-					public <T extends Model> List<T> find() {
+					public <T extends Model> List<T> find() throws VPlusException {
+						if(clazz == null) throw new VPlusException("");
 						return (List<T>) Arrays.asList(new MyEntity(1L, "Entity"));
 					}
 				};
@@ -54,9 +58,14 @@ public class DefaultControllerListTest {
 	}
 
 	@Test
-	public void shouldReturnType() {
+	public void shouldReturnType() throws VPlusException {
 		ControllerList c = controller.of(MyEntity.class);
 		assertThat(c, instanceOf(ControllerList.class));
+	}
+	
+	@Test(expected = VPlusException.class)
+	public void shouldSerializeEmptyListOnNull() throws Exception {
+		controller.serialize();
 	}
 	
 	@Test

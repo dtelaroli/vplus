@@ -9,6 +9,7 @@ import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.util.TestUtil;
 
 public class DefaultDBListTest {
@@ -29,13 +30,13 @@ public class DefaultDBListTest {
 	}
 	
 	@Test
-	public void shouldReturn3Items() {
+	public void shouldReturn3ItemsFromDBUnit() throws VPlusException {
 		List<MyEntity> list = listDAO.of(MyEntity.class).find();
 		assertThat(list.size(), equalTo(3));
 	}
 	
-	@Test(expected = IllegalStateException.class)
-	public void shouldDispatchErrorIfTypeNotConfig() {
+	@Test(expected = VPlusException.class)
+	public void shouldDispatchErrorIfTypeNotConfig() throws VPlusException {
 		listDAO.find();
 	}
 

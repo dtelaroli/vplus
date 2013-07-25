@@ -2,6 +2,7 @@ package org.vplus.core.persistence;
 
 import javax.persistence.EntityManager;
 
+import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.util.ClassUtil;
 
@@ -20,7 +21,7 @@ public class DefaultDBLoad implements DBLoad {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public <T extends Model> T find(Long id) {
+	public <T extends Model> T find(Long id) throws VPlusException {
 		return (T) em.find(classUtil.getClazz(), id);
 	}
 

@@ -18,6 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.vplus.core.exeption.VPlusException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.persistence.DAO;
 import org.vplus.core.persistence.DBDelete;
@@ -72,14 +73,14 @@ public class DefaultPersistenceTest {
 	}
 	
 	@Test
-	public void shouldReturnListWith3Items() {
+	public void shouldReturnListWith3Items() throws VPlusException {
 		when(container.instanceFor(DBList.class)).thenReturn(new DefaultDBList(testUtil.entityManager()));
 		List<Model> find = persistence.use(list()).of(MyEntity.class).find();
 		assertThat(find.size(), equalTo(3));
 	}
 	
 	@Test
-	public void shouldReturnListWithItem1() {
+	public void shouldReturnListWithItem1() throws VPlusException {
 		when(container.instanceFor(DBLoad.class)).thenReturn(new DefaultDBLoad(testUtil.entityManager()));
 		Model model = persistence.use(load()).of(MyEntity.class).find(1L);
 		assertThat(model.getId(), equalTo(1L));
