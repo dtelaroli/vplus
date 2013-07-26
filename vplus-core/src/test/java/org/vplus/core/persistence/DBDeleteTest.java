@@ -1,8 +1,5 @@
 package org.vplus.core.persistence;
 
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
-
 import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
@@ -30,10 +27,7 @@ public class DBDeleteTest {
 	@Test
 	public void shouldDeleteFirstEntity() {
 		testUtil.beginTransaction();
-		MyEntity my = new MyEntity();
-		assertThat(my.getId(), nullValue());
-		my.name = "New Item";
-		my.setId(1L);
+		MyEntity my = new MyEntity(1L);
 		
 		delete.delete(my);
 		testUtil.commit();

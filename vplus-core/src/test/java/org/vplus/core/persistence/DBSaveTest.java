@@ -33,7 +33,7 @@ public class DBSaveTest {
 	@Test
 	public void shouldFirstEntity() {
 		testUtil.beginTransaction();
-		Model my = new MyEntity(null, "New Item");
+		Model my = new MyEntity("New Item");
 		assertThat(my.getId(), nullValue());
 		
 		my = save.persist(my);

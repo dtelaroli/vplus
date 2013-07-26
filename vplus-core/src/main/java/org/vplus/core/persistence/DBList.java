@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.vplus.core.exeption.VPlusException;
+import org.vplus.core.exception.VPlusException;
 import org.vplus.core.generics.Model;
 
 import br.com.caelum.vraptor.ioc.Component;

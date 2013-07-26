@@ -18,7 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.vplus.core.exeption.VPlusException;
+import org.vplus.core.exception.VPlusException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.util.TestUtil;
 
@@ -79,7 +79,7 @@ public class PersistenceImplTest {
 	public void shouldSaveItem() {
 		testUtil.beginTransaction();
 		when(container.instanceFor(DBSave.class)).thenReturn(new DBSave(testUtil.entityManager()));
-		Model model = new MyEntity(null, "sdf");
+		Model model = new MyEntity("sdf");
 		
 		model = persistence.use(save()).persist(model);
 		testUtil.commit();

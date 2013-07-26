@@ -1,4 +1,4 @@
-package org.vplus.core.exeption;
+package org.vplus.core.exception;
 
 public class VPlusException extends Exception {
 

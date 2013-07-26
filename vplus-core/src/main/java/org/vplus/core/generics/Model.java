@@ -3,7 +3,6 @@ package org.vplus.core.generics;
 import java.io.Serializable;
 
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -12,9 +11,16 @@ public abstract class Model implements Serializable {
 	
 	private static final long serialVersionUID = -3870444760824221901L;
 	
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id @GeneratedValue
 	protected Long id;
 	
+	public Model() {
+	}
+
+	public Model(Long id) {
+		this.id = id;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}

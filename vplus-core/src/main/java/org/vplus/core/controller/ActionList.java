@@ -4,23 +4,21 @@ import static org.vplus.core.persistence.Persistences.list;
 
 import java.util.List;
 
-import org.vplus.core.exeption.VPlusException;
+import org.vplus.core.exception.VPlusException;
 import org.vplus.core.generics.Model;
-import org.vplus.core.persistence.Persistence;
 
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class ActionList extends AbstractAction {
 
-	public ActionList(Persistence persistence, Result result) {
-		super(persistence, result);
+	public ActionList(ActionFacade actionFacade) {
+		super(actionFacade);
 	}
 
 	@Override
-	public List<Model> persistence() throws VPlusException {
-		return persistence.use(list()).of(clazz).find();
+	public List<Model> operation() throws VPlusException {
+		return persistence().use(list()).of(type()).find();
 	}
 
 }
