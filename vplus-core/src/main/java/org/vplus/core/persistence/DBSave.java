@@ -18,5 +18,4 @@ public class DBSave implements Dao {
 	public Model persist(Model model) {
 		return em.merge(model);
 	}
-
 }

@@ -47,7 +47,7 @@ public class MyController {
 		controller.list();
 	}
 
-	@Get("/my/{entity.id}")
+	@Get("/my/{model.id}")
 	public void get(MyEntity model) throws VPlusException {
 		controller.load(model);
 	}
@@ -58,13 +58,13 @@ public class MyController {
 		edit(model);
 	}
 	
-	@Put("/my/{entity.id}")
+	@Put("/my/{model.id}")
 	@Consumes(value = "application/json")
 	public void edit(MyEntity model) throws VPlusException {
 		controller.save(model);
 	}
 	
-	@Delete("/my/{entity.id}")
+	@Delete("/my/{model.id}")
 	@Consumes(value = "application/json")
 	public void save(MyEntity model) throws VPlusException {
 		controller.delete(model);

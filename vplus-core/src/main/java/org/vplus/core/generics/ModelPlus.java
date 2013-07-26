@@ -3,6 +3,8 @@ package org.vplus.core.generics;
 import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Filter;
@@ -19,19 +21,14 @@ public abstract class ModelPlus extends Model {
 	private static final long serialVersionUID = 5183252859183741057L;
 
 	public ModelPlus() {
-		super();
-		created = new DateTime();
-		modified = new DateTime();
 		status = Status.ACTIVE;
 	}
 
 	@Column(updatable = false)
-	@NotNull
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime created;
 
 	@Column
-	@NotNull
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime modified;
 
@@ -54,6 +51,17 @@ public abstract class ModelPlus extends Model {
 
 	public DateTime getModified() {
 		return modified;
+	}
+	
+	@PrePersist
+	public void beforeInsert() {
+		created = new DateTime();
+		modified = new DateTime();
+	}
+	
+	@PreUpdate
+	public void beforeUpdate() {
+		modified = new DateTime();
 	}
 
 }
