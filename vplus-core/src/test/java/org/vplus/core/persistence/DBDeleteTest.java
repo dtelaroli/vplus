@@ -4,33 +4,34 @@ import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.vplus.core.generics.MyEntity;
 import org.vplus.core.util.TestUtil;
 
 public class DBDeleteTest {
 
 	DBDelete delete;
-	private TestUtil testUtil;
+	private TestUtil test;
 	
 	@Before
 	public void setUp() throws Exception {
-		testUtil = TestUtil.create();
-		testUtil.from(MyEntity.class).init();
+		test = TestUtil.create();
+		test.from(MyEntity.class).init();
 		
-		delete = new DBDelete(testUtil.entityManager());
+		delete = new DBDelete(test.entityManager());
 	}
 	
 	@After
 	public void tearDown() throws DatabaseUnitException {
-		testUtil.cleanAndDestroy();
+		test.cleanAndDestroy();
 	}
 	
 	@Test
 	public void shouldDeleteFirstEntity() {
-		testUtil.beginTransaction();
+		test.beginTransaction();
 		MyEntity my = new MyEntity(1L);
 		
 		delete.delete(my);
-		testUtil.commit();
+		test.commit();
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

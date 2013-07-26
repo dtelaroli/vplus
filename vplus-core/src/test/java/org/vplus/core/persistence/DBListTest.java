@@ -11,23 +11,24 @@ import org.junit.Before;
 import org.junit.Test;
 import org.vplus.core.exception.VPlusException;
 import org.vplus.core.generics.Model;
+import org.vplus.core.generics.MyEntity;
 import org.vplus.core.util.TestUtil;
 
 public class DBListTest {
 
 	DBList listDAO;
-	private TestUtil testUtil;
+	private TestUtil test;
 	
 	@Before
 	public void setUp() throws Exception {
-		testUtil = TestUtil.create();
-		testUtil.from(MyEntity.class).init();
-		listDAO = new DBList(testUtil.entityManager());
+		test = TestUtil.create();
+		test.from(MyEntity.class).init();
+		listDAO = new DBList(test.entityManager());
 	}
 	
 	@After
 	public void tearDown() throws DatabaseUnitException {
-		testUtil.cleanAndDestroy();
+		test.cleanAndDestroy();
 	}
 	
 	@Test

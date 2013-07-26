@@ -67,8 +67,8 @@ public class DBUnitUtil {
 		return new DatabaseConnection(jpa.connection());
 	}
 
-	public void destroy() {
-		jpa.destroy();
+	public void close() {
+		jpa.close();
 	}
 	
 	public void clean() throws DatabaseUnitException {
@@ -80,9 +80,9 @@ public class DBUnitUtil {
 		}
 	}
 	
-	public void cleanAndDestroy() throws DatabaseUnitException {
+	public void cleanAndClose() throws DatabaseUnitException {
 		clean();
-		destroy();
+		close();
 	}
 
 	protected String defaultDatasetPath() {

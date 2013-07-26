@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.persistence.Persistence;
+import org.vplus.core.util.TypeUtil;
 
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
@@ -18,11 +19,12 @@ public class ActionFacadeTest {
 	@Mock private Persistence persistence;
 	@Mock private Result result;
 	@Mock private Validator validator;
+	@Mock TypeUtil typeUtil;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		facade = new ActionFacade(persistence, result, validator);
+		facade = new ActionFacadeImpl(persistence, result, validator, typeUtil);
 	}
 
 	@Test
@@ -38,6 +40,11 @@ public class ActionFacadeTest {
 	@Test
 	public void shouldReturnValidator() {
 		assertThat(facade.validator(), equalTo(validator));
+	}
+	
+	@Test
+	public void shouldReturnTypeUtil() {
+		assertThat(facade.typeUtil(), equalTo(typeUtil));
 	}
 
 }

@@ -1,6 +1,6 @@
 package org.vplus.core.persistence;
 
-public class Persistences {
+public abstract class Persistences {
 
 	public static Class<DBList> list() {
 		return DBList.class;

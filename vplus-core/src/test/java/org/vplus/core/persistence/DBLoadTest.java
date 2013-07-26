@@ -8,24 +8,25 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vplus.core.exception.VPlusException;
+import org.vplus.core.generics.MyEntity;
 import org.vplus.core.util.TestUtil;
 
 public class DBLoadTest {
 
 	DBLoad loadDAO;
-	private TestUtil testUtil;
+	private TestUtil test;
 	
 	@Before
 	public void setUp() throws Exception {
-		testUtil = TestUtil.create();
-		testUtil.from(MyEntity.class).init();
+		test = TestUtil.create();
+		test.from(MyEntity.class).init();
 		
-		loadDAO = new DBLoad(testUtil.entityManager());
+		loadDAO = new DBLoad(test.entityManager());
 	}
 	
 	@After
 	public void tearDown() throws DatabaseUnitException {
-		testUtil.cleanAndDestroy();
+		test.cleanAndDestroy();
 	}
 	
 	@Test

@@ -6,20 +6,24 @@ import javax.persistence.EntityManager;
 
 import org.dbunit.DatabaseUnitException;
 import org.vplus.core.generics.Model;
+import org.vplus.core.mock.ActionFacadeMock;
 
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
+import br.com.caelum.vraptor.util.test.MockSerializationResult;
 
 public class TestUtil {
 	
 	protected JPAUtil jpaUtil;
 	protected DBUnitUtil dbUnitUtil;
 	protected Environment env;
+	private ActionFacadeMock actionFacadeMock;
 	
 	TestUtil() throws IOException {
 		jpaUtil = new JPAUtil("test");
 		env = new DefaultEnvironment("vplus");
 		dbUnitUtil = new DBUnitUtil(jpaUtil, env);
+		actionFacadeMock = new ActionFacadeMock();
 	}
 	
 	public static TestUtil create() throws IOException {
@@ -43,7 +47,7 @@ public class TestUtil {
 	}
 
 	public void cleanAndDestroy() throws DatabaseUnitException {
-		dbUnitUtil.cleanAndDestroy();
+		dbUnitUtil.cleanAndClose();
 	}
 	
 	public JPAUtil getJpaUtil() {
@@ -57,5 +61,16 @@ public class TestUtil {
 	public Environment getEnv() {
 		return env;
 	}
+
+	public ActionFacadeMock getActionFacadeMock() {
+		return actionFacadeMock;
+	}
+
+	public MockSerializationResult getResultMock() {
+		return actionFacadeMock.result();
+	}
 	
+	public TypeUtil getTypeUtil() {
+		return actionFacadeMock.typeUtil();
+	}
 }

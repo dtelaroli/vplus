@@ -20,6 +20,9 @@ public class TestUtilTest {
 		assertThat(util.getEnv(), notNullValue());
 		assertThat(util.getJpaUtil(), notNullValue());
 		assertThat(util.getDbUnitUtil(), notNullValue());
+		assertThat(util.getActionFacadeMock(), notNullValue());
+		assertThat(util.getResultMock(), notNullValue());
+		assertThat(util.getTypeUtil(), notNullValue());
 	}
 
 }

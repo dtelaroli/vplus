@@ -5,7 +5,6 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 import javax.persistence.EntityManager;
 
@@ -14,28 +13,22 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.exception.VPlusException;
+import org.vplus.core.generics.MyEntity;
+import org.vplus.core.mock.ActionFacadeMock;
 import org.vplus.core.persistence.DBLoad;
-import org.vplus.core.persistence.MyEntity;
-import org.vplus.core.persistence.Persistence;
-
-import br.com.caelum.vraptor.util.test.MockSerializationResult;
 
 public class ActionLoadTest {
 
 	ActionLoad action;
-	@Mock private Persistence persistence;
-	private MockSerializationResult result;
 	@Mock private EntityManager em;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		result = new MockSerializationResult();
 		
 		DBLoad dbLoad = spy(new DBLoad(em));
 		doReturn(new MyEntity()).when(dbLoad).find(any(MyEntity.class));
-		when(persistence.use(DBLoad.class)).thenReturn(dbLoad);
-		action = spy(new ActionLoad(new ActionFacade(persistence, result, null)));
+		action = spy(new ActionLoad(new ActionFacadeMock().withPersistence(dbLoad)));
 	}
 
 	@Test

@@ -23,7 +23,9 @@ public class JPAUtil {
 	private EntityManager em;
 	protected String unit;
 	
-	public JPAUtil() {}
+	public JPAUtil() {
+		this("test");
+	}
 
 	public JPAUtil(String unit) {
 		this.unit = unit;
@@ -57,7 +59,7 @@ public class JPAUtil {
 		return (SessionImpl) entityManager().getDelegate();
 	}
 
-	public void destroy() {
+	public void close() {
 		if(em == null) {
 			LOG.warn("EntityManager already closed");
 		}

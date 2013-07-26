@@ -20,6 +20,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.exception.VPlusException;
 import org.vplus.core.generics.Model;
+import org.vplus.core.generics.MyEntity;
 import org.vplus.core.util.TestUtil;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -30,19 +31,19 @@ public class PersistenceImplTest {
 	
 	Persistence persistence;
 	@Mock Container container;
-	private TestUtil testUtil;
+	private TestUtil test;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		persistence = new PersistenceImpl(container);
-		testUtil = TestUtil.create();
-		testUtil.from(MyEntity.class).init();
+		test = TestUtil.create();
+		test.from(MyEntity.class).init();
 	}
 	
 	@After
 	public void tearDown() throws DatabaseUnitException {
-		testUtil.cleanAndDestroy();
+		test.cleanAndDestroy();
 	}
 	
 	class DaoImpl implements Dao {
@@ -62,14 +63,14 @@ public class PersistenceImplTest {
 	
 	@Test
 	public void shouldReturnListWith3Items() throws VPlusException {
-		when(container.instanceFor(DBList.class)).thenReturn(new DBList(testUtil.entityManager()));
+		when(container.instanceFor(DBList.class)).thenReturn(new DBList(test.entityManager()));
 		List<Model> find = persistence.use(list()).of(MyEntity.class).find();
 		assertThat(find.size(), equalTo(3));
 	}
 	
 	@Test
 	public void shouldReturnListWithItem1() throws VPlusException {
-		when(container.instanceFor(DBLoad.class)).thenReturn(new DBLoad(testUtil.entityManager()));
+		when(container.instanceFor(DBLoad.class)).thenReturn(new DBLoad(test.entityManager()));
 		Model model = persistence.use(load()).of(MyEntity.class).find(new MyEntity(1L));
 		assertThat(model.getId(), equalTo(1L));
 		assertThat(model.getLabel(), equalTo("Entity 1"));
@@ -77,24 +78,24 @@ public class PersistenceImplTest {
 	
 	@Test
 	public void shouldSaveItem() {
-		testUtil.beginTransaction();
-		when(container.instanceFor(DBSave.class)).thenReturn(new DBSave(testUtil.entityManager()));
+		test.beginTransaction();
+		when(container.instanceFor(DBSave.class)).thenReturn(new DBSave(test.entityManager()));
 		Model model = new MyEntity("sdf");
 		
 		model = persistence.use(save()).persist(model);
-		testUtil.commit();
+		test.commit();
 		
 		assertThat(model, notNullValue());
 	}
 	
 	@Test
 	public void shouldDeleteItem() {
-		testUtil.beginTransaction();
-		when(container.instanceFor(DBDelete.class)).thenReturn(new DBDelete(testUtil.entityManager()));
+		test.beginTransaction();
+		when(container.instanceFor(DBDelete.class)).thenReturn(new DBDelete(test.entityManager()));
 		MyEntity model = new MyEntity(1L);
 		
 		persistence.use(delete()).delete(model);
-		testUtil.commit();
+		test.commit();
 	}
 
 }

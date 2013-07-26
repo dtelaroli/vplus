@@ -31,6 +31,10 @@ public abstract class Model implements Serializable {
 	
 	public abstract String getLabel();
 	
+	public String[] getIncludes() {
+		return new String[] { "created", "modified" };
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {

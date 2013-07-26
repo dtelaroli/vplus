@@ -5,7 +5,8 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+
+import java.io.IOException;
 
 import javax.persistence.EntityManager;
 
@@ -15,29 +16,25 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.exception.VPlusException;
 import org.vplus.core.generics.Model;
+import org.vplus.core.generics.MyEntity;
+import org.vplus.core.mock.ActionFacadeMock;
 import org.vplus.core.persistence.DBDelete;
-import org.vplus.core.persistence.MyEntity;
-import org.vplus.core.persistence.Persistence;
-
-import br.com.caelum.vraptor.util.test.MockSerializationResult;
 
 public class ActionDeleteTest {
 
 	ActionDelete action;
-	@Mock private Persistence persistence;
-	private MockSerializationResult result;
 	@Mock private EntityManager em;
 	private Model model;
 	
 	@Before
-	public void setUp() throws VPlusException {
+	public void setUp() throws VPlusException, IOException {
 		MockitoAnnotations.initMocks(this);
-		result = new MockSerializationResult();
 		
-		DBDelete db = spy(new DBDelete(em));
-		doNothing().when(db).delete(any(MyEntity.class));
-		when(persistence.use(DBDelete.class)).thenReturn(db);
-		action = spy(new ActionDelete(new ActionFacade(persistence, result, null)));
+		DBDelete dbDelete = spy(new DBDelete(em));
+		doNothing().when(dbDelete).delete(any(Model.class));
+		ActionFacade facade = new ActionFacadeMock().withPersistence(dbDelete);
+		action = new ActionDelete(facade);
+		model = new MyEntity(1L);
 	}
 	
 	@Test

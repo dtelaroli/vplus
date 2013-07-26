@@ -1,13 +1,9 @@
 package org.vplus.web;
 
-import org.vplus.core.controller.ActionDelete;
-import org.vplus.core.controller.ActionList;
-import org.vplus.core.controller.ActionLoad;
-import org.vplus.core.controller.ActionSave;
-import org.vplus.core.controller.Controller;
+import org.vplus.core.controller.CrudController;
 import org.vplus.core.exception.VPlusException;
-import org.vplus.core.persistence.MyEntity;
-import org.vplus.core.persistence.Persistence;
+import org.vplus.core.generics.MyEntity;
+import org.vplus.core.persistence.StatusFilter;
 
 import br.com.caelum.vraptor.Consumes;
 import br.com.caelum.vraptor.Delete;
@@ -19,38 +15,59 @@ import br.com.caelum.vraptor.Resource;
 @Resource
 public class MyController {
 
-	private Controller controller;
+	private CrudController controller;
+	private StatusFilter filter;
 
-	public MyController(Controller controller, Persistence persistence) {
+	public MyController(CrudController controller, StatusFilter filter) {
 		this.controller = controller;
+		this.filter = filter;
+		this.controller = controller.of(MyEntity.class);
 	}
 
 	@Get("/my")
-	public void index() throws VPlusException {
-		controller.use(ActionList.class).of(MyEntity.class).render();
+	public void all() throws VPlusException {
+		controller.list();
+	}
+	
+	@Get("/myActive")
+	public void active() throws VPlusException {
+		filter.setActive();
+		controller.list();
+	}
+	
+	@Get("/myInactive")
+	public void inactive() throws VPlusException {
+		filter.setInactive();
+		controller.list();
+	}
+	
+	@Get("/myRemoved")
+	public void removed() throws VPlusException {
+		filter.setRemoved();
+		controller.list();
 	}
 
 	@Get("/my/{entity.id}")
-	public void get(MyEntity entity) throws VPlusException {
-		controller.use(ActionLoad.class).withModel(entity).of(MyEntity.class).render();
+	public void get(MyEntity model) throws VPlusException {
+		controller.load(model);
 	}
 	
 	@Post("/my")
 	@Consumes(value = "application/json")
-	public void add(MyEntity entity) throws VPlusException {
-		edit(entity);
+	public void add(MyEntity model) throws VPlusException {
+		edit(model);
 	}
 	
 	@Put("/my/{entity.id}")
 	@Consumes(value = "application/json")
-	public void edit(MyEntity entity) throws VPlusException {
-		controller.use(ActionSave.class).withModel(entity).render();
+	public void edit(MyEntity model) throws VPlusException {
+		controller.save(model);
 	}
 	
 	@Delete("/my/{entity.id}")
 	@Consumes(value = "application/json")
-	public void save(MyEntity entity) throws VPlusException {
-		controller.use(ActionDelete.class).withModel(entity).render();
+	public void save(MyEntity model) throws VPlusException {
+		controller.delete(model);
 	}	
 	
 }

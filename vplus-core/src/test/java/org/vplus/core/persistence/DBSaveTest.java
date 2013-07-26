@@ -10,34 +10,35 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vplus.core.generics.Model;
+import org.vplus.core.generics.MyEntity;
 import org.vplus.core.util.TestUtil;
 
 public class DBSaveTest {
 
 	DBSave save;
-	private TestUtil testUtil;
+	private TestUtil test;
 	
 	@Before
 	public void setUp() throws Exception {
-		testUtil = TestUtil.create();
-		testUtil.from(MyEntity.class).init();
+		test = TestUtil.create();
+		test.from(MyEntity.class).init();
 		
-		save = new DBSave(testUtil.entityManager());
+		save = new DBSave(test.entityManager());
 	}
 	
 	@After
 	public void tearDown() throws DatabaseUnitException {
-		testUtil.cleanAndDestroy();
+		test.cleanAndDestroy();
 	}
 	
 	@Test
 	public void shouldFirstEntity() {
-		testUtil.beginTransaction();
+		test.beginTransaction();
 		Model my = new MyEntity("New Item");
 		assertThat(my.getId(), nullValue());
 		
 		my = save.persist(my);
-		testUtil.commit();
+		test.commit();
 		
 		assertThat(my.getId(), notNullValue());
 		assertThat(my.getLabel(), equalTo("New Item"));

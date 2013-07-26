@@ -15,6 +15,7 @@ public class ActionSave extends AbstractAction {
 
 	@Override
 	protected Object operation() throws VPlusException {
+		validateModel();
 		return persistence().use(save()).persist(model());
 	}
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<MyEntity id="1" name="Entity 1"/>
-	<MyEntity id="2" name="Entity 2"/>
-	<MyEntity id="3" name="Entity 3"/>
+	<MyEntity id="1" name="Entity 1" created="2013-01-01 00:00:00" modified="2013-01-01 00:00:00" status="1"/>
+	<MyEntity id="2" name="Entity 2" created="2013-01-01 00:00:00" modified="2013-01-01 00:00:00" status="0"/>
+	<MyEntity id="3" name="Entity 3" created="2013-01-01 00:00:00" modified="2013-01-01 00:00:00" status="2"/>
 </dataset>

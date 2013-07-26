@@ -1,21 +1,24 @@
-package org.vplus.core.persistence;
+package org.vplus.core.generics;
 
 import javax.persistence.Entity;
 
-import org.vplus.core.generics.Model;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Class for to help in tests 
  * @author denilson
  */
 @Entity
-public class MyEntity extends Model {
+public class MyEntity extends ModelPlus {
 	
 	private static final long serialVersionUID = 3180713002283133563L;
 
-	String name;
+	@NotEmpty
+	protected String name;
 	
-	public MyEntity() {}
+	public MyEntity() {
+		super();
+	}
 	
 	public MyEntity(Long id) {
 		this.id = id;

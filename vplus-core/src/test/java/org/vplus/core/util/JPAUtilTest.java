@@ -25,7 +25,7 @@ public class JPAUtilTest {
 	
 	@After
 	public void tearDown() {
-		jpa.destroy();
+		jpa.close();
 	}
 
 	@Test

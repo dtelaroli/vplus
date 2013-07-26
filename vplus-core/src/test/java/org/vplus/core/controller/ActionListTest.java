@@ -1,12 +1,12 @@
 package org.vplus.core.controller;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 
@@ -17,32 +17,31 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.exception.VPlusException;
+import org.vplus.core.generics.MyEntity;
 import org.vplus.core.persistence.DBList;
-import org.vplus.core.persistence.MyEntity;
-import org.vplus.core.persistence.Persistence;
+import org.vplus.core.util.TestUtil;
 
-import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.util.test.JSR303MockValidator;
 import br.com.caelum.vraptor.util.test.MockSerializationResult;
 import br.com.caelum.vraptor.validator.ValidationException;
 
 public class ActionListTest {
 
 	ActionList controller;
-	@Mock private Persistence persistence;
 	private MockSerializationResult result;
+	private TestUtil test;
 	@Mock private EntityManager em;
-	private Validator validator;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		result = new MockSerializationResult();
-		validator = new JSR303MockValidator();
-		DBList dblist = spy(new DBList(null));
+		DBList dblist = spy(new DBList(em));
+		
+		test = TestUtil.create();
+		result = test.getResultMock();
+		
 		doReturn(Arrays.asList(new MyEntity())).when(dblist).find();
-		when(persistence.use(DBList.class)).thenReturn(dblist);
-		controller = spy(new ActionList(new ActionFacade(persistence, result, validator)));
+		
+		controller = spy(new ActionList(test.getActionFacadeMock().withPersistence(dblist)));
 	}
 
 	@Test
@@ -68,5 +67,29 @@ public class ActionListTest {
 	public void shouldReturnErrorIfNotExists() throws Exception {
 		doReturn(null).when(controller).operation();
 		controller.render();
+	}
+	
+	@Test
+	public void shouldReturn2ItemsFromGetIncludes() {
+		String[] includes = controller.getIncludes(new MyEntity());
+		assertThat(includes.length, equalTo(2));
+	}
+	
+	@Test
+	public void shouldReturn0ItemsIfOtherType() {
+		String[] includes = controller.getIncludes("String");
+		assertThat(includes.length, equalTo(0));
+	}
+	
+	@Test
+	public void shouldReturn2ItemsIfListOfModel() {
+		String[] includes = controller.getIncludes(Arrays.asList(new MyEntity()));
+		assertThat(includes.length, equalTo(2));
+	}
+	
+	@Test
+	public void shouldReturn0ItemsIfListOther() {
+		String[] includes = controller.getIncludes(Arrays.asList("String"));
+		assertThat(includes.length, equalTo(0));
 	}
 }
