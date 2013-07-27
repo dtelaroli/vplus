@@ -34,5 +34,5 @@ public class ControllerImplTest {
 		MyController use = controller.use(MyController.class);
 		assertThat(use, instanceOf(MyControl.class));
 	}
-
+	
 }

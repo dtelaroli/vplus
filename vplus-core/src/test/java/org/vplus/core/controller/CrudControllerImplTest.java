@@ -116,9 +116,12 @@ public class CrudControllerImplTest {
 	}
 	
 	@Test
-	public void shouldSetOrder() {
-		crud.list("order");
-		assertThat(crud.order(), equalTo("order"));
+	public void shouldExecuteActionNull() throws CrudException {
+		ActionNull actionNull = new CrudControllerImpl.ActionNull(null);
+		assertThat(actionNull.operation(), nullValue());
+		assertThat(actionNull.withOrder(null), nullValue());
+		assertThat(actionNull.withDirection(null), nullValue());
+		assertThat(actionNull.result(), nullValue());
 	}
 	
 	@Test
@@ -126,15 +129,6 @@ public class CrudControllerImplTest {
 		mockOperation();
 		crud.asc();
 		assertThat(crud.isAsc(), equalTo(true));
-	}
-
-	@Test
-	public void shouldExecuteActionNull() throws CrudException {
-		ActionNull actionNull = new CrudControllerImpl.ActionNull(null);
-		assertThat(actionNull.operation(), nullValue());
-		assertThat(actionNull.withOrder(null), nullValue());
-		assertThat(actionNull.withDirection(null), nullValue());
-		assertThat(actionNull.result(), nullValue());
 	}
 
 	private void mockOperation() throws CrudException {
@@ -149,15 +143,24 @@ public class CrudControllerImplTest {
 	}
 	
 	@Test
-	public void shouldSetAscDirection() {
-		crud = crud.list("order").withDirection(Order.ASC);
-		assertThat(crud.isAsc(), equalTo(true));
+	public void shouldSetDescDirection() throws CrudException {
+		mockOperation();
+		crud.withDirection(Order.DESC);
+		assertThat(crud.isAsc(), equalTo(false));
 	}
 	
 	@Test
-	public void shouldSetDescDirection() {
-		crud = crud.withDirection(Order.DESC);
-		assertThat(crud.isAsc(), equalTo(false));
+	public void shouldSetOrder() throws CrudException {
+		mockOperation();
+		crud.withOrder("order");
+		assertThat(crud.order(), equalTo("order"));
+	}
+	
+	@Test
+	public void shouldSetLimit() throws CrudException {
+		mockOperation();
+		crud.withLimit(1);
+		assertThat(crud.limit(), equalTo(1));
 	}
 	
 }

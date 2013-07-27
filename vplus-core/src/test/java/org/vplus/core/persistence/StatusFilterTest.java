@@ -88,21 +88,21 @@ public class StatusFilterTest {
 	@Test
 	public void shouldSetFilterParameterToInactive() {
 		filter.setInactive();
-		verify(filter).setParameter(Status.INACTIVE);
+		verify(filter).setStatus(Status.INACTIVE);
 		assertThat(filter.isActive(), is(true));
 	}
 	
 	@Test
 	public void shouldSetFilterParameterToActive() {
 		filter.setActive();
-		verify(filter).setParameter(Status.ACTIVE);
+		verify(filter).setStatus(Status.ACTIVE);
 		assertThat(filter.isActive(), is(true));
 	}
 	
 	@Test
 	public void shouldSetFilterParameterToRemoved() {
 		filter.setRemoved();
-		verify(filter).setParameter(Status.REMOVED);
+		verify(filter).setStatus(Status.REMOVED);
 		assertThat(filter.isActive(), is(true));
 	}
 

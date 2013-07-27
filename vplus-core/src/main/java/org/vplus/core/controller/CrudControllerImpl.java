@@ -14,6 +14,7 @@ public class CrudControllerImpl implements CrudController {
 	private AbstractAction action;
 	private Order direction;
 	private String order;
+	private Integer limit;
 
 	public CrudControllerImpl(Controller controller) {
 		this.controller = controller;
@@ -56,26 +57,14 @@ public class CrudControllerImpl implements CrudController {
 
 	@Override
 	public void list() throws CrudException {
-		actionList();
-		actionExecute();
-	}
-
-	private void actionList() {
 		action = controller.use(Controllers.list());
-	}
-
-	@Override
-	public CrudController list(String order) {
-		this.order = order;
-		actionList();
-		return this;
-	}
-
-	@Override
-	public void asc() throws CrudException {
-		this.direction = Order.ASC;
-		actionList();
 		actionExecute();
+	}
+
+	@Override
+	public CrudController asc() throws CrudException {
+		this.direction = Order.ASC;
+		return this;
 	}
 
 	@Override
@@ -84,15 +73,20 @@ public class CrudControllerImpl implements CrudController {
 	}
 
 	@Override
-	public void desc() throws CrudException {
+	public CrudController desc() throws CrudException {
 		this.direction = Order.DESC;
-		actionList();
-		actionExecute();
+		return this;
 	}
 	
 	@Override
-	public CrudController withDirection(Order order) {
-		this.direction = order;
+	public CrudController withDirection(Order direction) throws CrudException {
+		this.direction = direction;
+		return this;
+	}
+	
+	@Override
+	public CrudController withOrder(String order) {
+		this.order = order;
 		return this;
 	}
 	
@@ -120,12 +114,23 @@ public class CrudControllerImpl implements CrudController {
 	}
 	
 	public void actionExecute() throws CrudException {
-		action.withDirection(direction).withOrder(order).of(type()).render();
+		action.withDirection(direction).withOrder(order).withLimit(limit).of(type()).render();
 	}
 
 	@Override
 	public Result result() {
 		return action.result();
+	}
+
+	@Override
+	public CrudController withLimit(Integer limit) {
+		this.limit = limit;
+		return this;
+	}
+
+	@Override
+	public Integer limit() {
+		return limit;
 	}
 
 }

@@ -1,8 +1,10 @@
 package org.vplus.web;
 
 import org.vplus.core.controller.CrudController;
+import org.vplus.core.controller.Order;
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.MyEntity;
+import org.vplus.core.generics.Status;
 import org.vplus.core.persistence.StatusFilter;
 
 import br.com.caelum.vraptor.Consumes;
@@ -29,9 +31,15 @@ public class MyController {
 		controller.list();
 	}
 	
-	@Get("/myOrder")
-	public void order() throws CrudException {
-		controller.list("name").desc();
+	@Get({"/myOrder/{order}/{direction}/{limit}", "/myOrder/{order}/{direction}"})
+	public void order(String order, Order direction, Integer limit) throws CrudException {
+		controller.withOrder(order).withDirection(direction).withLimit(limit).list();
+	}
+	
+	@Get("/myFilter/{status}")
+	public void active(Status status) throws CrudException {
+		filter.setStatus(status);
+		controller.list();
 	}
 	
 	@Get("/myActive")

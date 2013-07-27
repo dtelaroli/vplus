@@ -29,10 +29,11 @@ public class StatusFilter implements Serializable {
 
 	public void enableFilter() {
 		getFilter();
-		setParameter(Status.ACTIVE);
+		setStatus(Status.ACTIVE);
 	}
 
-	protected void setParameter(Status status) {
+	public void setStatus(Status status) {
+		getFilter();
 		filter.setParameter(STATUS_PARAM, status.ordinal());
 	}
 
@@ -59,16 +60,17 @@ public class StatusFilter implements Serializable {
 
 	public void setInactive() {
 		getFilter();
-		setParameter(Status.INACTIVE);
+		setStatus(Status.INACTIVE);
 	}
 
 	public void setActive() {
 		getFilter();
-		setParameter(Status.ACTIVE);		
+		setStatus(Status.ACTIVE);		
 	}
 
 	public void setRemoved() {
 		getFilter();
-		setParameter(Status.REMOVED);
+		setStatus(Status.REMOVED);
 	}
+
 }

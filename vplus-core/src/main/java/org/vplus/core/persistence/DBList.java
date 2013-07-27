@@ -18,10 +18,12 @@ import com.google.common.base.Strings;
 @Component
 public class DBList implements Dao {
 
+	protected static final int DEFAULT_LIMIT = 100;
 	private Class<? extends Model> clazz;
 	private EntityManager em;
 	private String order;
 	private Order direction;
+	private int limit;
 	
 	public DBList(EntityManager em) {
 		this.em = em;
@@ -41,7 +43,7 @@ public class DBList implements Dao {
 	    if(!Strings.isNullOrEmpty(order)) {
 			q.orderBy(makeOrder(b, root));
 		}
-		return em.createQuery(q).getResultList();
+		return em.createQuery(q).setMaxResults(limit).getResultList();
 	}
 
 	private javax.persistence.criteria.Order makeOrder(CriteriaBuilder b,
@@ -61,6 +63,19 @@ public class DBList implements Dao {
 	public DBList withDirection(Order order) {
 		direction = order;
 		return this;
+	}
+
+	public DBList withLimit(Integer limit) {
+		this.limit = prepareLimit(limit);
+		return this;
+	}
+
+	private int prepareLimit(Integer limit) {
+		return limit == null ? DEFAULT_LIMIT : limit;
+	}
+
+	public Integer limit() {
+		return limit;
 	}
 
 }

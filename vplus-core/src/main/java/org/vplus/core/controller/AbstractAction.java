@@ -21,6 +21,7 @@ public abstract class AbstractAction implements Action {
 	private Model model;
 	protected String order;
 	protected Order direction;
+	protected Integer limit;
 	
 	public AbstractAction(ActionFacade actionFacade) {
 		this.actionFacade = actionFacade;
@@ -114,6 +115,15 @@ public abstract class AbstractAction implements Action {
 	public AbstractAction withDirection(Order direction){
 		this.direction = direction;
 		return this;
+	}
+
+	public AbstractAction withLimit(Integer limit) {
+		this.limit = limit;
+		return this;
+	}
+	
+	public Integer limit() {
+		return limit;
 	}
 
 }

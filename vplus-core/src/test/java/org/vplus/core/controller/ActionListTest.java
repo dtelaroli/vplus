@@ -104,4 +104,10 @@ public class ActionListTest {
 		verify(dblist).withOrder(anyString());
 	}
 	
+	@Test
+	public void shouldSetLimit() throws CrudException {
+		controller.withLimit(1);
+		assertThat(controller.limit(), equalTo(1));
+	}
+	
 }

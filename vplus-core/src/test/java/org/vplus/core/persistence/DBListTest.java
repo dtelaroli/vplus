@@ -65,4 +65,10 @@ public class DBListTest {
 		assertThat(list.size(), equalTo(3));
 		assertThat(list.get(0).getId(), equalTo(3L));
 	}
+	
+	@Test
+	public void shouldSetDefaultLimitIfLimitIsNull() {
+		listDAO.withLimit(null);
+		assertThat(listDAO.limit(), equalTo(DBList.DEFAULT_LIMIT));
+	}
 }

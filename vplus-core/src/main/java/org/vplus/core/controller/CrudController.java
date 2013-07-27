@@ -13,7 +13,17 @@ public interface CrudController {
 
 	void list() throws CrudException;
 	
-	CrudController list(String order);
+	CrudController asc() throws CrudException;
+
+	boolean isAsc();
+
+	CrudController desc() throws CrudException;
+
+	CrudController withDirection(Order order) throws CrudException;
+	
+	CrudController withOrder(String order);
+
+	String order();
 
 	Result result();
 
@@ -25,14 +35,8 @@ public interface CrudController {
 
 	void delete(Model model) throws CrudException;
 
-	void asc() throws CrudException;
+	CrudController withLimit(Integer limit);
 
-	boolean isAsc();
-
-	void desc() throws CrudException;
-
-	CrudController withDirection(Order order);
-
-	String order();
+	Integer limit();
 
 }
