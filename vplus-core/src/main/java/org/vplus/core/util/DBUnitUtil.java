@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
 
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
@@ -51,7 +50,7 @@ public class DBUnitUtil {
 		validateDataSet();
 		try {
 			DatabaseOperation.CLEAN_INSERT.execute(connection(), createDataset());
-		} catch (DatabaseUnitException | SQLException | IOException e) {
+		} catch (Exception e) {
 			throw new DatabaseUnitException(e);
 		}
 		return this;
@@ -75,7 +74,7 @@ public class DBUnitUtil {
 		validateDataSet();
 		try {
 			DatabaseOperation.DELETE_ALL.execute(connection(), createDataset());
-		} catch (DatabaseUnitException | SQLException | IOException e) {
+		} catch (Exception e) {
 			throw new DatabaseUnitException(e);
 		}
 	}
