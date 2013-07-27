@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import java.util.List;
 
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.persistence.Persistence;
 import org.vplus.core.util.TypeUtil;
@@ -19,6 +19,8 @@ public abstract class AbstractAction implements Action {
 	private ActionFacade actionFacade;
 	private Class<? extends Model> clazz;
 	private Model model;
+	protected String order;
+	protected Order direction;
 	
 	public AbstractAction(ActionFacade actionFacade) {
 		this.actionFacade = actionFacade;
@@ -45,7 +47,7 @@ public abstract class AbstractAction implements Action {
 		return actionFacade.validator();
 	}
 
-	public void render() throws VPlusException {
+	public void render() throws CrudException {
 		final Object operation = operation();
 		validateOperation(operation);
 		
@@ -102,6 +104,16 @@ public abstract class AbstractAction implements Action {
 		return model;
 	}
 
-	protected abstract Object operation() throws VPlusException;
-	
+	protected abstract Object operation() throws CrudException;
+
+	public AbstractAction withOrder(String order){
+		this.order = order;
+		return this;
+	}
+
+	public AbstractAction withDirection(Order direction){
+		this.direction = direction;
+		return this;
+	}
+
 }

@@ -5,8 +5,10 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
 
@@ -16,7 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.persistence.DBList;
 import org.vplus.core.util.TestUtil;
@@ -30,11 +32,12 @@ public class ActionListTest {
 	private MockSerializationResult result;
 	private TestUtil test;
 	@Mock private EntityManager em;
+	private DBList dblist;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		DBList dblist = spy(new DBList(em));
+		dblist = spy(new DBList(em));
 		
 		test = TestUtil.create();
 		result = test.getResultMock();
@@ -58,7 +61,7 @@ public class ActionListTest {
 	}
 	
 	@Test
-	public void shouldReturnList() throws VPlusException {
+	public void shouldReturnList() throws CrudException {
 		Object object = controller.of(MyEntity.class).operation();
 		assertThat(object, notNullValue());
 	}
@@ -92,4 +95,13 @@ public class ActionListTest {
 		String[] includes = controller.getIncludes(Arrays.asList("String"));
 		assertThat(includes.length, equalTo(0));
 	}
+	
+	@Test
+	public void shouldSetOrder() throws CrudException {
+		String string = "order";
+		controller = (ActionList) controller.withOrder(string);
+		controller.render();
+		verify(dblist).withOrder(anyString());
+	}
+	
 }

@@ -3,19 +3,25 @@ package org.vplus.core.persistence;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.controller.Order;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 
 import br.com.caelum.vraptor.ioc.Component;
+
+import com.google.common.base.Strings;
 
 @Component
 public class DBList implements Dao {
 
 	private Class<? extends Model> clazz;
 	private EntityManager em;
+	private String order;
+	private Order direction;
 	
 	public DBList(EntityManager em) {
 		this.em = em;
@@ -27,11 +33,34 @@ public class DBList implements Dao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Model> find() throws VPlusException {
-		CriteriaQuery<Model> criteria = (CriteriaQuery<Model>) em.getCriteriaBuilder().createQuery(clazz);
-	    Root<Model> entityRoot = (Root<Model>) criteria.from(clazz);
-	    criteria.select(entityRoot);
-		return em.createQuery(criteria).getResultList();
+	public List<Model> find() throws CrudException {
+		CriteriaBuilder b = em.getCriteriaBuilder();
+		CriteriaQuery<Model> q = (CriteriaQuery<Model>) b.createQuery(clazz);
+	    Root<Model> root = (Root<Model>) q.from(clazz);
+	    q.select(root);
+	    if(!Strings.isNullOrEmpty(order)) {
+			q.orderBy(makeOrder(b, root));
+		}
+		return em.createQuery(q).getResultList();
+	}
+
+	private javax.persistence.criteria.Order makeOrder(CriteriaBuilder b,
+			Root<Model> root) throws CrudException {
+		return direction.makeOrder(b, root, order());
+	}
+
+	public DBList withOrder(String order) {
+		this.order = order;
+		return this;
+	}
+
+	public String order() {
+		return order;
+	}
+	
+	public DBList withDirection(Order order) {
+		direction = order;
+		return this;
 	}
 
 }

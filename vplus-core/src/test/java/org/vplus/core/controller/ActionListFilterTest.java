@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.persistence.DBList;
@@ -56,7 +56,7 @@ public class ActionListFilterTest {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void shouldReturn1ItemWithFilterEnabled() throws VPlusException {
+	public void shouldReturn1ItemWithFilterEnabled() throws CrudException {
 		filter.enableFilter();
 		List<Model> operation = (List<Model>) actionList.of(MyEntity.class).operation();
 		assertThat(operation.size(), equalTo(1));
@@ -64,7 +64,7 @@ public class ActionListFilterTest {
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void shouldReturn3ItemsWithFilterDisabled() throws VPlusException {
+	public void shouldReturn3ItemsWithFilterDisabled() throws CrudException {
 		filter.disableFilter();
 		List<Model> operation = (List<Model>) actionList.of(MyEntity.class).operation();
 		assertThat(operation.size(), equalTo(3));

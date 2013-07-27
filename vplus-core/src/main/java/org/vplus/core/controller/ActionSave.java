@@ -2,7 +2,7 @@ package org.vplus.core.controller;
 
 import static org.vplus.core.persistence.Persistences.save;
 
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -14,7 +14,7 @@ public class ActionSave extends AbstractAction {
 	}
 
 	@Override
-	protected Object operation() throws VPlusException {
+	protected Object operation() throws CrudException {
 		validateModel();
 		return persistence().use(save()).persist(model());
 	}

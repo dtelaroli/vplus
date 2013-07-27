@@ -4,7 +4,7 @@ import static org.vplus.core.persistence.Persistences.list;
 
 import java.util.List;
 
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -17,8 +17,8 @@ public class ActionList extends AbstractAction {
 	}
 
 	@Override
-	public List<Model> operation() throws VPlusException {
-		return persistence().use(list()).of(type()).find();
+	public List<Model> operation() throws CrudException {
+		return persistence().use(list()).of(type()).withOrder(order).withDirection(direction).find();
 	}
 
 }

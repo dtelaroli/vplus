@@ -1,7 +1,7 @@
 package org.vplus.web;
 
 import org.vplus.core.controller.CrudController;
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.persistence.StatusFilter;
 
@@ -25,48 +25,53 @@ public class MyController {
 	}
 
 	@Get("/my")
-	public void all() throws VPlusException {
+	public void all() throws CrudException {
 		controller.list();
 	}
 	
+	@Get("/myOrder")
+	public void order() throws CrudException {
+		controller.list("name").desc();
+	}
+	
 	@Get("/myActive")
-	public void active() throws VPlusException {
+	public void active() throws CrudException {
 		filter.setActive();
 		controller.list();
 	}
 	
 	@Get("/myInactive")
-	public void inactive() throws VPlusException {
+	public void inactive() throws CrudException {
 		filter.setInactive();
 		controller.list();
 	}
 	
 	@Get("/myRemoved")
-	public void removed() throws VPlusException {
+	public void removed() throws CrudException {
 		filter.setRemoved();
 		controller.list();
 	}
 
 	@Get("/my/{model.id}")
-	public void get(MyEntity model) throws VPlusException {
+	public void get(MyEntity model) throws CrudException {
 		controller.load(model);
 	}
 	
 	@Post("/my")
 	@Consumes(value = "application/json")
-	public void add(MyEntity model) throws VPlusException {
+	public void add(MyEntity model) throws CrudException {
 		edit(model);
 	}
 	
 	@Put("/my/{model.id}")
 	@Consumes(value = "application/json")
-	public void edit(MyEntity model) throws VPlusException {
+	public void edit(MyEntity model) throws CrudException {
 		controller.save(model);
 	}
 	
 	@Delete("/my/{model.id}")
 	@Consumes(value = "application/json")
-	public void save(MyEntity model) throws VPlusException {
+	public void save(MyEntity model) throws CrudException {
 		controller.delete(model);
 	}	
 	

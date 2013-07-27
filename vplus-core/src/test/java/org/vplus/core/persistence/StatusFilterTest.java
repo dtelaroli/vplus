@@ -15,7 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.generics.Status;
@@ -72,14 +72,14 @@ public class StatusFilterTest {
 	}
 	
 	@Test
-	public void shouldReturn3ItemsIfFilterDisabled() throws VPlusException {
+	public void shouldReturn3ItemsIfFilterDisabled() throws CrudException {
 		filter.disableFilter();
 		List<Model> list = dbList.of(MyEntity.class).find();
 		assertThat(list.size(), equalTo(3));
 	}
 	
 	@Test
-	public void shouldReturn1ItemIfFilterEnabled() throws VPlusException {
+	public void shouldReturn1ItemIfFilterEnabled() throws CrudException {
 		filter.enableFilter();
 		List<Model> list = dbList.of(MyEntity.class).find();
 		assertThat(list.size(), equalTo(1));

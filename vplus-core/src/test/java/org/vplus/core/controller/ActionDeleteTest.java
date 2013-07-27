@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.mock.ActionFacadeMock;
@@ -27,7 +27,7 @@ public class ActionDeleteTest {
 	private Model model;
 	
 	@Before
-	public void setUp() throws VPlusException, IOException {
+	public void setUp() throws CrudException, IOException {
 		MockitoAnnotations.initMocks(this);
 		
 		DBDelete dbDelete = spy(new DBDelete(em));
@@ -38,7 +38,7 @@ public class ActionDeleteTest {
 	}
 	
 	@Test
-	public void shouldDeleteModel() throws VPlusException {
+	public void shouldDeleteModel() throws CrudException {
 		Object object = action.withModel(model).operation();
 		assertThat(object, notNullValue());
 	}

@@ -6,14 +6,14 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-public class VPlusExceptionTest {
+public class CrudExceptionTest {
 
 	private static final String TEST = "test";
-	VPlusException ex;
+	CrudException ex;
 	
 	@Before
 	public void setUp() throws Exception {
-		ex = new VPlusException(TEST);
+		ex = new CrudException(TEST);
 	}
 
 	@Test

@@ -1,6 +1,6 @@
 package org.vplus.core.controller;
 
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 
 import br.com.caelum.vraptor.Result;
@@ -11,16 +11,28 @@ public interface CrudController {
 
 	Class<? extends Model> type();
 
-	void list() throws VPlusException;
+	void list() throws CrudException;
+	
+	CrudController list(String order);
 
 	Result result();
 
-	void actionExecute() throws VPlusException;
+	void actionExecute() throws CrudException;
 
-	void load(Model model) throws VPlusException;
+	void load(Model model) throws CrudException;
 
-	void save(Model model) throws VPlusException;
+	void save(Model model) throws CrudException;
 
-	void delete(Model model) throws VPlusException;
+	void delete(Model model) throws CrudException;
+
+	void asc() throws CrudException;
+
+	boolean isAsc();
+
+	void desc() throws CrudException;
+
+	CrudController withDirection(Order order);
+
+	String order();
 
 }

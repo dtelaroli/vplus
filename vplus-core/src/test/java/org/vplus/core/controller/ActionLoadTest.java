@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.mock.ActionFacadeMock;
 import org.vplus.core.persistence.DBLoad;
@@ -32,7 +32,7 @@ public class ActionLoadTest {
 	}
 
 	@Test
-	public void shouldReturnEntity() throws VPlusException {
+	public void shouldReturnEntity() throws CrudException {
 		Object object = action.of(MyEntity.class).operation();
 		assertThat(object, notNullValue());
 	}

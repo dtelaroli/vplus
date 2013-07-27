@@ -2,7 +2,7 @@ package org.vplus.core.persistence;
 
 import javax.persistence.EntityManager;
 
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -17,7 +17,7 @@ public class DBLoad implements Dao {
 		this.em = em;
 	}
 
-	public Model find(Model model) throws VPlusException {
+	public Model find(Model model) throws CrudException {
 		return em.find(clazz, model.getId());
 	}
 

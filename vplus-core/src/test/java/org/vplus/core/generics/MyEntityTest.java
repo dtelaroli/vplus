@@ -50,11 +50,13 @@ public class MyEntityTest {
 	
 	@Test
 	public void shouldReturnCreated() {
+		my.beforeInsert();
 		assertThat(my.getCreated(), notNullValue());
 	}
 	
 	@Test
 	public void shouldReturnModified() {
+		my.beforeUpdate();
 		assertThat(my.getModified(), notNullValue());
 	}
 	

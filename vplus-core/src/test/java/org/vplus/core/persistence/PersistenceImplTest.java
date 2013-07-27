@@ -18,7 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.util.TestUtil;
@@ -62,18 +62,18 @@ public class PersistenceImplTest {
 	}
 	
 	@Test
-	public void shouldReturnListWith3Items() throws VPlusException {
+	public void shouldReturnListWith3Items() throws CrudException {
 		when(container.instanceFor(DBList.class)).thenReturn(new DBList(test.entityManager()));
 		List<Model> find = persistence.use(list()).of(MyEntity.class).find();
 		assertThat(find.size(), equalTo(3));
 	}
 	
 	@Test
-	public void shouldReturnListWithItem1() throws VPlusException {
+	public void shouldReturnListWithItem1() throws CrudException {
 		when(container.instanceFor(DBLoad.class)).thenReturn(new DBLoad(test.entityManager()));
 		Model model = persistence.use(load()).of(MyEntity.class).find(new MyEntity(1L));
 		assertThat(model.getId(), equalTo(1L));
-		assertThat(model.getLabel(), equalTo("Entity 1"));
+		assertThat(model.getLabel(), equalTo("João"));
 	}
 	
 	@Test

@@ -9,7 +9,8 @@ import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.controller.Order;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.util.TestUtil;
@@ -32,8 +33,36 @@ public class DBListTest {
 	}
 	
 	@Test
-	public void shouldReturn3ItemsFromDBUnit() throws VPlusException {
+	public void shouldReturn3ItemsFromDBUnit() throws CrudException {
 		List<Model> list = listDAO.of(MyEntity.class).find();
 		assertThat(list.size(), equalTo(3));
+		assertThat(list.get(0).getId(), equalTo(1L));
+	}
+	
+	@Test
+	public void shouldSetOrder() {
+		String order = "order";
+		listDAO = listDAO.withOrder(order);
+		assertThat(listDAO.order(), equalTo(order));
+	}
+	
+	@Test
+	public void shouldReturn3ItemsOrderedAsc() throws CrudException {
+		List<Model> list = listDAO.of(MyEntity.class).withOrder("name").withDirection(Order.ASC).find();
+		assertThat(list.size(), equalTo(3));
+		assertThat(list.get(0).getId(), equalTo(2L));
+		list = listDAO.of(MyEntity.class).withOrder("name").find();
+		assertThat(list.size(), equalTo(3));
+		assertThat(list.get(0).getId(), equalTo(2L));
+	}
+	
+	@Test
+	public void shouldReturn3ItemsOrderedDesc() throws CrudException {
+		List<Model> list = listDAO.of(MyEntity.class).withOrder("name").withDirection(Order.DESC).find();
+		assertThat(list.size(), equalTo(3));
+		assertThat(list.get(0).getId(), equalTo(3L));
+		list = listDAO.of(MyEntity.class).withOrder("name").find();
+		assertThat(list.size(), equalTo(3));
+		assertThat(list.get(0).getId(), equalTo(3L));
 	}
 }

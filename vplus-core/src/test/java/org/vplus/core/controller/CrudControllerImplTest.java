@@ -1,5 +1,6 @@
 package org.vplus.core.controller;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -15,7 +16,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.controller.CrudControllerImpl.ActionNull;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.mock.ActionFacadeMock;
@@ -65,7 +67,7 @@ public class CrudControllerImplTest {
 	}
 
 	@Test
-	public void shouldReturnResult() throws VPlusException {
+	public void shouldReturnResult() throws CrudException {
 		doNothing().when(crud).actionExecute();
 		crud.list();
 		assertThat(crud.result(), notNullValue());
@@ -73,24 +75,24 @@ public class CrudControllerImplTest {
 
 	@Test
 	public void shouldReturnNullIfActionNotExecutedResult()
-			throws VPlusException {
+			throws CrudException {
 		assertThat(crud.result(), nullValue());
 	}
 
 	@Test
-	public void shouldExecuteList() throws VPlusException {
-		doReturn(Arrays.asList(new MyEntity())).when(actionList).operation();
+	public void shouldExecuteList() throws CrudException {
+		mockOperation();
 		crud.of(MyEntity.class).list();
 		verifyExecute(actionList);
 	}
 
-	private void verifyExecute(AbstractAction action) throws VPlusException {
+	private void verifyExecute(AbstractAction action) throws CrudException {
 		verify(action).of(MyEntity.class);
 		verify(action).render();
 	}
 
 	@Test
-	public void shouldExecuteLoad() throws VPlusException {
+	public void shouldExecuteLoad() throws CrudException {
 		doReturn(new MyEntity()).when(actionLoad).operation();
 		crud.of(MyEntity.class).load(new MyEntity());
 		verify(actionLoad).withModel(any(Model.class));
@@ -98,7 +100,7 @@ public class CrudControllerImplTest {
 	}
 
 	@Test
-	public void shouldExecuteSave() throws VPlusException {
+	public void shouldExecuteSave() throws CrudException {
 		doReturn(new MyEntity()).when(actionSave).operation();
 		crud.of(MyEntity.class).save(new MyEntity());
 		verify(actionSave).withModel(any(Model.class));
@@ -106,11 +108,56 @@ public class CrudControllerImplTest {
 	}
 
 	@Test
-	public void shouldExecuteDelete() throws VPlusException {
+	public void shouldExecuteDelete() throws CrudException {
 		doReturn(new MyEntity()).when(actionDelete).operation();
 		crud.of(MyEntity.class).delete(new MyEntity());
 		verify(actionDelete).withModel(any(Model.class));
 		verifyExecute(actionDelete);
 	}
+	
+	@Test
+	public void shouldSetOrder() {
+		crud.list("order");
+		assertThat(crud.order(), equalTo("order"));
+	}
+	
+	@Test
+	public void shouldSetAscOrder() throws CrudException {
+		mockOperation();
+		crud.asc();
+		assertThat(crud.isAsc(), equalTo(true));
+	}
 
+	@Test
+	public void shouldExecuteActionNull() throws CrudException {
+		ActionNull actionNull = new CrudControllerImpl.ActionNull(null);
+		assertThat(actionNull.operation(), nullValue());
+		assertThat(actionNull.withOrder(null), nullValue());
+		assertThat(actionNull.withDirection(null), nullValue());
+		assertThat(actionNull.result(), nullValue());
+	}
+
+	private void mockOperation() throws CrudException {
+		doReturn(Arrays.asList(new MyEntity())).when(actionList).operation();
+	}
+	
+	@Test
+	public void shouldSetDescOrder() throws CrudException {
+		mockOperation();
+		crud.desc();
+		assertThat(crud.isAsc(), equalTo(false));
+	}
+	
+	@Test
+	public void shouldSetAscDirection() {
+		crud = crud.list("order").withDirection(Order.ASC);
+		assertThat(crud.isAsc(), equalTo(true));
+	}
+	
+	@Test
+	public void shouldSetDescDirection() {
+		crud = crud.withDirection(Order.DESC);
+		assertThat(crud.isAsc(), equalTo(false));
+	}
+	
 }

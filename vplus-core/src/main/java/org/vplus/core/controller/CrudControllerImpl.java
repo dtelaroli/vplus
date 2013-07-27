@@ -1,6 +1,6 @@
 package org.vplus.core.controller;
 
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 
 import br.com.caelum.vraptor.Result;
@@ -12,10 +12,35 @@ public class CrudControllerImpl implements CrudController {
 	private Class<? extends Model> clazz;
 	private Controller controller;
 	private AbstractAction action;
+	private Order direction;
+	private String order;
 
 	public CrudControllerImpl(Controller controller) {
 		this.controller = controller;
 		this.action = ActionNull.create();
+		this.direction = Order.NULL;
+	}
+	
+	protected static class ActionNull extends AbstractAction {
+		public ActionNull(ActionFacade actionFacade) {
+			super(actionFacade);
+		}
+		
+		public static AbstractAction create() {
+			return new ActionNull(null);
+		}
+		
+		@Override
+		protected Object operation() throws CrudException {	return null; }
+		
+		@Override
+		public Result result() { return null; }
+		
+		@Override
+		public AbstractAction withOrder(String order) {	return null; }
+		
+		@Override
+		public AbstractAction withDirection(Order direction) { return null; }
 	}
 	
 	@Override
@@ -30,57 +55,77 @@ public class CrudControllerImpl implements CrudController {
 	}
 
 	@Override
-	public void list() throws VPlusException {
+	public void list() throws CrudException {
+		actionList();
+		actionExecute();
+	}
+
+	private void actionList() {
 		action = controller.use(Controllers.list());
+	}
+
+	@Override
+	public CrudController list(String order) {
+		this.order = order;
+		actionList();
+		return this;
+	}
+
+	@Override
+	public void asc() throws CrudException {
+		this.direction = Order.ASC;
+		actionList();
 		actionExecute();
 	}
 
 	@Override
-	public void load(Model model) throws VPlusException {
+	public boolean isAsc() {
+		return direction.isAsc();
+	}
+
+	@Override
+	public void desc() throws CrudException {
+		this.direction = Order.DESC;
+		actionList();
+		actionExecute();
+	}
+	
+	@Override
+	public CrudController withDirection(Order order) {
+		this.direction = order;
+		return this;
+	}
+	
+	@Override
+	public String order() {
+		return order;
+	}
+	
+	@Override
+	public void load(Model model) throws CrudException {
 		action = controller.use(Controllers.load()).withModel(model);
 		actionExecute();		
 	}
 	
 	@Override
-	public void save(Model model) throws VPlusException {
+	public void save(Model model) throws CrudException {
 		action = controller.use(Controllers.save()).withModel(model);
 		actionExecute();
 	}
 	
 	@Override
-	public void delete(Model model) throws VPlusException {
+	public void delete(Model model) throws CrudException {
 		action = controller.use(Controllers.delete()).withModel(model);
 		actionExecute();
 	}
 	
-	public void actionExecute() throws VPlusException {
-		action.of(type()).render();
+	public void actionExecute() throws CrudException {
+		action.withDirection(direction).withOrder(order).of(type()).render();
 	}
 
 	@Override
 	public Result result() {
 		return action.result();
-	}
-	
-	static class ActionNull extends AbstractAction {
-
-		public ActionNull(ActionFacade actionFacade) {
-			super(actionFacade);
-		}
-
-		public static AbstractAction create() {
-			return new ActionNull(null);
-		}
-
-		@Override
-		protected Object operation() throws VPlusException {
-			return null;
-		}
-		
-		@Override
-		public Result result() {
-			return null;
-		}
 	}
 
 }

@@ -7,7 +7,7 @@ import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.util.TestUtil;
 
@@ -30,10 +30,10 @@ public class DBLoadTest {
 	}
 	
 	@Test
-	public void shouldReturnFirstEntity() throws VPlusException {
+	public void shouldReturnFirstEntity() throws CrudException {
 		MyEntity my = (MyEntity) loadDAO.of(MyEntity.class).find(new MyEntity(1L));
 		assertThat(my.getId(), equalTo(1L));
-		assertThat(my.getLabel(), equalTo("Entity 1"));
+		assertThat(my.getLabel(), equalTo("João"));
 	}
 	
 }

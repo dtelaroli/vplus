@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.vplus.core.exception.VPlusException;
+import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.mock.ActionFacadeMock;
@@ -27,7 +27,7 @@ public class ActionSaveTest {
 	private Model model;
 	
 	@Before
-	public void setUp() throws VPlusException {
+	public void setUp() throws CrudException {
 		MockitoAnnotations.initMocks(this);
 		
 		DBSave dbSave = spy(new DBSave(em));
@@ -37,13 +37,13 @@ public class ActionSaveTest {
 	}
 	
 	@Test
-	public void shouldSaveModel() throws VPlusException {
+	public void shouldSaveModel() throws CrudException {
 		Object object = action.withModel(model).operation();
 		assertThat(object, notNullValue());
 	}
 	
 	@Test(expected = ValidationException.class)
-	public void shouldDispatchValidationExceptionIfInvalid() throws VPlusException {
+	public void shouldDispatchValidationExceptionIfInvalid() throws CrudException {
 		action.withModel(new MyEntity()).operation();
 	}
 
