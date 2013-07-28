@@ -19,7 +19,9 @@ public class ActionList extends AbstractAction {
 	@Override
 	public List<Model> operation() throws CrudException {
 		return persistence().use(list()).of(type())
-				.withLimit(limit).withOrder(order).withDirection(direction)
+				.withLimit(limit)
+				.withOrder(order)
+				.withDirection(direction)
 				.find();
 	}
 

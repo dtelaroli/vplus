@@ -33,7 +33,6 @@
 	<context-param>
 		<param-name>br.com.caelum.vraptor.packages</param-name>
 		<param-value>
-			br.com.caelum.vraptor.deserialization.gson,
 			br.com.caelum.vraptor.util.jpa,
 			org.vplus.core
 		</param-value>

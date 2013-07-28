@@ -65,6 +65,9 @@ public class JPAUtil {
 		}
 		else {
 			LOG.debug("Close EntityManager");
+			if(em.getTransaction().isActive()) {
+				rollback();
+			}
 			em.close();
 		}
 	}

@@ -17,7 +17,7 @@ public class DBDeleteTest {
 		test = TestUtil.create();
 		test.from(MyEntity.class).init();
 		
-		delete = new DBDelete(test.entityManager());
+		delete = new DBDelete(test.entityManager()).of(MyEntity.class);
 	}
 	
 	@After
