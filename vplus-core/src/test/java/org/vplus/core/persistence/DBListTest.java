@@ -71,4 +71,10 @@ public class DBListTest {
 		listDAO.withLimit(null);
 		assertThat(listDAO.limit(), equalTo(DBList.DEFAULT_LIMIT));
 	}
+	
+	@Test
+	public void shouldSetLimit() {
+		listDAO.withLimit(1);
+		assertThat(listDAO.limit(), equalTo(1));
+	}
 }

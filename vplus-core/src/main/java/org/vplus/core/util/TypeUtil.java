@@ -21,7 +21,7 @@ public class TypeUtil {
 		if(other == null) {
 			return false;
 		}
-		else if(clazz.equals(other) || clazz.isAssignableFrom(other)) {
+		else if(clazz.isAssignableFrom(other)) {
 			return true;
 		}
 		return compare(other.getSuperclass());
@@ -34,10 +34,9 @@ public class TypeUtil {
 		return compare(list.get(0).getClass());
 	}
 
-	@SuppressWarnings("rawtypes")
 	public boolean isListFrom(Object object) {
 		try {
-			List list = (List)object;
+			List<?> list = (List<?>)object;
 			return compare(list);
 		}
 		catch(Exception e) {

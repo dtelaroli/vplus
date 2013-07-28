@@ -5,6 +5,7 @@
 
 	<persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>org.vplus.core.generics.MyEntity</class>
 	</persistence-unit>
 
 </persistence>

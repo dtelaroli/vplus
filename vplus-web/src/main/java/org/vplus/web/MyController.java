@@ -1,17 +1,16 @@
 package org.vplus.web;
 
-import org.vplus.core.controller.AbstractCrud;
 import org.vplus.core.controller.CrudController;
-import org.vplus.core.deserialization.ConsumesType;
-import org.vplus.core.generics.MyEntity;
+import org.vplus.core.controller.Scaffold;
 
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
+import br.com.caelum.vraptor.deserialization.gson.ConsumesTypes;
 
 @Resource
 @Path("/my")
-@ConsumesType(MyEntity.class)
-public class MyController extends AbstractCrud<MyEntity> {
+@ConsumesTypes(MyEntity.class)
+public class MyController extends Scaffold<MyEntity> {
 
 	public MyController(CrudController controller) {
 		super(controller);

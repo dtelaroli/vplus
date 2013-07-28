@@ -94,7 +94,7 @@ public class PersistenceImplTest {
 		when(container.instanceFor(DBDelete.class)).thenReturn(new DBDelete(test.entityManager()));
 		MyEntity model = new MyEntity(1L);
 		
-		persistence.use(delete()).delete(model);
+		persistence.use(delete()).of(MyEntity.class).delete(model);
 		test.commit();
 	}
 

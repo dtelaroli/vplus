@@ -1,6 +1,5 @@
 package org.vplus.core.controller;
 
-import org.vplus.core.deserialization.ConsumesType;
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 
@@ -9,23 +8,33 @@ import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
+import br.com.caelum.vraptor.deserialization.gson.ConsumesTypes;
 
-public abstract class AbstractCrud<T extends Model> {
+public abstract class Scaffold<T extends Model> {
 
 	private CrudController controller;
 
-	public AbstractCrud(CrudController controller) {
-		ConsumesType consumesTypes = getClass().getAnnotation(ConsumesType.class);
-		this.controller = controller.of(consumesTypes.value());
+	@SuppressWarnings("unchecked")
+	public Scaffold(CrudController controller) {
+		ConsumesTypes consumesTypes = getAnnotation();
+		this.controller = controller.of((Class<? extends Model>) consumesTypes.value()[0]);
+	}
+
+	private ConsumesTypes getAnnotation() {
+		ConsumesTypes annotation = getClass().getAnnotation(ConsumesTypes.class);
+		if(annotation == null) {
+			throw new IllegalStateException("Scaffold Controller should be annoted with @ConsumesTypes");
+		}
+		return annotation;
 	}
 	
-	@Get("/all")
+	@Get("/")
 	public void all() throws CrudException {
 		controller.list();
 	}
 	
-	@Get({"/order/{order}/dir/{direction}/limit/{limit}"})
-	public void order(String order, Order direction, Integer limit) throws CrudException {
+	@Get("/order/{order}/dir/{direction}/limit/{limit}")
+	public void all(String order, Order direction, Integer limit) throws CrudException {
 		controller.withOrder(order).withDirection(direction).withLimit(limit).list();
 	}
 	

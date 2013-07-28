@@ -59,4 +59,10 @@ public abstract class Model implements Serializable {
 		hash = 17 * hash + (this.getId() != null ? this.getId().hashCode() : 0);
 		return hash;
 	}
+
+	@Override
+	public String toString() {
+		return "Model [id=" + id + "]";
+	}
+	
 }

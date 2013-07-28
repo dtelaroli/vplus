@@ -1,6 +1,6 @@
 package org.vplus.core.util;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -55,16 +55,16 @@ public class JPAUtilTest {
 	@Test
 	public void shouldStartATransaction() {
 		jpa.beginTransaction();
-		assertThat(jpa.entityManager().getTransaction().isActive(), is(true));
+		assertThat(jpa.entityManager().getTransaction().isActive(), equalTo(true));
 	}
 	
 	@Test
 	public void shouldCommitATransaction() {
 		jpa.beginTransaction();
-		assertThat(jpa.entityManager().getTransaction().isActive(), is(true));
+		assertThat(jpa.entityManager().getTransaction().isActive(), equalTo(true));
 		
 		jpa.commit();
-		assertThat(jpa.entityManager().getTransaction().isActive(), is(false));
+		assertThat(jpa.entityManager().getTransaction().isActive(), equalTo(false));
 	}
 	
 	@Test(expected = IllegalStateException.class)
@@ -75,10 +75,10 @@ public class JPAUtilTest {
 	@Test
 	public void shouldRollbackATransaction() {
 		jpa.beginTransaction();
-		assertThat(jpa.entityManager().getTransaction().isActive(), is(true));
+		assertThat(jpa.entityManager().getTransaction().isActive(), equalTo(true));
 		
 		jpa.rollback();
-		assertThat(jpa.entityManager().getTransaction().isActive(), is(false));
+		assertThat(jpa.entityManager().getTransaction().isActive(), equalTo(false));
 	}
 	
 	@Test(expected = IllegalStateException.class)

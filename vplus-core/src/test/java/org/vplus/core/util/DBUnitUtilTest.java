@@ -1,7 +1,6 @@
 package org.vplus.core.util;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.spy;
@@ -20,7 +19,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vplus.core.generics.MyEntity;
-import org.vplus.core.util.DBUnitUtil;
 
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;
@@ -52,7 +50,7 @@ public class DBUnitUtilTest {
 	@Test
 	public void shouldCreateConnection() throws DatabaseUnitException, SQLException {
 		IDatabaseConnection conn = dbunit.connection();
-		assertThat(conn.getConnection().isClosed(), is(false));		
+		assertThat(conn.getConnection().isClosed(), equalTo(false));		
 	}
 	
 	@Test

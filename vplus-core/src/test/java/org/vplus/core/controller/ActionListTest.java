@@ -2,7 +2,6 @@ package org.vplus.core.controller;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyString;
@@ -50,7 +49,7 @@ public class ActionListTest {
 	@Test
 	public void shouldSetType() {
 		controller = (ActionList) controller.of(MyEntity.class);
-		assertThat(controller.type().isAssignableFrom(MyEntity.class), is(true));
+		assertThat(controller.type().isAssignableFrom(MyEntity.class), equalTo(true));
 	}
 	
 	@Test

@@ -15,10 +15,10 @@ import org.mockito.MockitoAnnotations;
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
+import org.vplus.core.generics.StatusFilter;
 import org.vplus.core.persistence.DBList;
 import org.vplus.core.persistence.Persistence;
 import org.vplus.core.persistence.PersistenceImpl;
-import org.vplus.core.persistence.StatusFilter;
 import org.vplus.core.util.TestUtil;
 import org.vplus.core.util.TypeUtil;
 
@@ -57,7 +57,7 @@ public class ActionListFilterTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void shouldReturn1ItemWithFilterEnabled() throws CrudException {
-		filter.enableFilter();
+		filter.active();
 		List<Model> operation = (List<Model>) actionList.of(MyEntity.class).operation();
 		assertThat(operation.size(), equalTo(1));
 	}

@@ -1,17 +1,19 @@
 package org.vplus.core.generics;
 
+import java.util.Calendar;
+
 import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 
 @MappedSuperclass
 @FilterDef(name = "statusFilter", parameters = { @ParamDef(name = "status", type = "integer") })
@@ -20,48 +22,63 @@ public abstract class ModelPlus extends Model {
 
 	private static final long serialVersionUID = 5183252859183741057L;
 
-	public ModelPlus() {
-		status = Status.ACTIVE;
-	}
-
 	@Column(updatable = false)
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	private DateTime created;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar created;
 
 	@Column
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	private DateTime modified;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar modified;
 
 	@NotNull
 	@Column(length = 1)
 	@Enumerated
 	private Status status;
+	
+	public ModelPlus() {
+	}
 
-	public Status getStatus() {
+	public Status status() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void withStatus(Status status) {
 		this.status = status;
 	}
 
-	public DateTime getCreated() {
+	public Calendar createdAt() {
 		return created;
 	}
 
-	public DateTime getModified() {
+	public Calendar modifiedAt() {
 		return modified;
 	}
 	
 	@PrePersist
 	public void beforeInsert() {
-		created = new DateTime();
-		modified = new DateTime();
+		created = Calendar.getInstance();
+		modified = Calendar.getInstance();
 	}
 	
 	@PreUpdate
 	public void beforeUpdate() {
-		modified = new DateTime();
+		modified = Calendar.getInstance();
 	}
 
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+
+	@Override
+	public String toString() {
+		return "ModelPlus [id=" + id + ", created=" + created + ", modified="
+				+ modified + ", status=" + status + "]";
+	}
+	
 }

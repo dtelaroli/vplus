@@ -1,7 +1,6 @@
 package org.vplus.core.generics;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -29,7 +28,7 @@ public class MyEntityTest {
 		my.setId(1L);
 		MyEntity other = new MyEntity();
 		other.setId(1L);
-		assertThat(my.equals(other), is(true));
+		assertThat(my.equals(other), equalTo(true));
 		assertThat(my, equalTo(other));
 		assertThat(my, equalTo(my));
 		assertThat(my, not(equalTo(null)));
@@ -51,30 +50,30 @@ public class MyEntityTest {
 	@Test
 	public void shouldReturnCreated() {
 		my.beforeInsert();
-		assertThat(my.getCreated(), notNullValue());
+		assertThat(my.createdAt(), notNullValue());
 	}
 	
 	@Test
 	public void shouldReturnModified() {
 		my.beforeUpdate();
-		assertThat(my.getModified(), notNullValue());
+		assertThat(my.modifiedAt(), notNullValue());
 	}
 	
 	@Test
 	public void shouldReturnActive() {
-		assertThat(my.getStatus(), equalTo(Status.ACTIVE));
+		assertThat(my.status(), equalTo(Status.ACTIVE));
 	}
 	
 	@Test
 	public void shouldSetInactive() {
-		my.setStatus(Status.INACTIVE);
-		assertThat(my.getStatus(), equalTo(Status.INACTIVE));
+		my.withStatus(Status.INACTIVE);
+		assertThat(my.status(), equalTo(Status.INACTIVE));
 	}
 	
 	@Test
 	public void shouldSetRemoved() {
-		my.setStatus(Status.REMOVED);
-		assertThat(my.getStatus(), equalTo(Status.REMOVED));
+		my.withStatus(Status.REMOVED);
+		assertThat(my.status(), equalTo(Status.REMOVED));
 	}
 	
 	@Test

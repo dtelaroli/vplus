@@ -1,7 +1,6 @@
-package org.vplus.core.persistence;
+package org.vplus.core.generics;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -17,8 +16,9 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
-import org.vplus.core.generics.MyEntity;
 import org.vplus.core.generics.Status;
+import org.vplus.core.generics.StatusFilter;
+import org.vplus.core.persistence.DBList;
 import org.vplus.core.util.TestUtil;
 
 public class StatusFilterTest {
@@ -49,7 +49,7 @@ public class StatusFilterTest {
 	
 	@Test
 	public void shouldEnableFilter() {
-		filter.enableFilter();
+		filter.active();
 		assertThat(filter.filter(), notNullValue());
 	}
 	
@@ -61,14 +61,14 @@ public class StatusFilterTest {
 	
 	@Test
 	public void shouldReturnTrueIfFilterEnabled() {
-		filter.enableFilter();
-		assertThat(filter.isActive(), is(true));
+		filter.active();
+		assertThat(filter.isActiveFilter(), equalTo(true));
 	}
 	
 	@Test
 	public void shouldReturnFalseIfFilterEnabled() {
 		filter.disableFilter();
-		assertThat(filter.isActive(), is(false));
+		assertThat(filter.isActiveFilter(), equalTo(false));
 	}
 	
 	@Test
@@ -80,30 +80,30 @@ public class StatusFilterTest {
 	
 	@Test
 	public void shouldReturn1ItemIfFilterEnabled() throws CrudException {
-		filter.enableFilter();
+		filter.active();
 		List<Model> list = dbList.of(MyEntity.class).find();
 		assertThat(list.size(), equalTo(1));
 	}
 	
 	@Test
 	public void shouldSetFilterParameterToInactive() {
-		filter.setInactive();
+		filter.inactive();
 		verify(filter).setStatus(Status.INACTIVE);
-		assertThat(filter.isActive(), is(true));
+		assertThat(filter.isActiveFilter(), equalTo(true));
 	}
 	
 	@Test
 	public void shouldSetFilterParameterToActive() {
-		filter.setActive();
+		filter.active();
 		verify(filter).setStatus(Status.ACTIVE);
-		assertThat(filter.isActive(), is(true));
+		assertThat(filter.isActiveFilter(), equalTo(true));
 	}
 	
 	@Test
 	public void shouldSetFilterParameterToRemoved() {
-		filter.setRemoved();
+		filter.removed();
 		verify(filter).setStatus(Status.REMOVED);
-		assertThat(filter.isActive(), is(true));
+		assertThat(filter.isActiveFilter(), equalTo(true));
 	}
 
 }

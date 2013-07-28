@@ -85,12 +85,10 @@ public class DBUnitUtil {
 	}
 
 	protected String defaultDatasetPath() {
-		if(env != null) {
-			String path = env.get(VPLUS_DBUNIT_DATASET_PACKAGE);
-			if(!Strings.isNullOrEmpty(path)) {
-				LOG.debug("Using dataset path {}", path);
-				return path;
-			}
+		String path = env.get(VPLUS_DBUNIT_DATASET_PACKAGE);
+		if(!Strings.isNullOrEmpty(path)) {
+			LOG.debug("Using dataset path {}", path);
+			return path;
 		}
 		LOG.info("Using default dataset path {}", DEFAULT_DATASET_PATH);
 		return DEFAULT_DATASET_PATH;

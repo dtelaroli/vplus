@@ -1,4 +1,4 @@
-package org.vplus.core.persistence;
+package org.vplus.core.generics;
 
 import java.io.Serializable;
 
@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import org.hibernate.Filter;
 import org.hibernate.Session;
 import org.hibernate.internal.SessionImpl;
-import org.vplus.core.generics.Status;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.SessionScoped;
@@ -27,18 +26,30 @@ public class StatusFilter implements Serializable {
 		this.em = em;
 	}
 
-	public void enableFilter() {
-		getFilter();
-		setStatus(Status.ACTIVE);
+	public void disableFilter() {
+		hibernateSession().disableFilter(STATUS_FILTER);
+		filter = null;
 	}
 
-	public void setStatus(Status status) {
-		getFilter();
-		filter.setParameter(STATUS_PARAM, status.ordinal());
+	public boolean isActiveFilter() {
+		return filter != null;
 	}
 
-	private void getFilter() {
+	public void inactive() {
+		setStatus(Status.INACTIVE);
+	}
+
+	public void active() {
+		setStatus(Status.ACTIVE);		
+	}
+
+	public void removed() {
+		setStatus(Status.REMOVED);
+	}
+	
+	protected void setStatus(Status status) {
 		filter = hibernateSession().enableFilter(STATUS_FILTER);
+		filter.setParameter(STATUS_PARAM, status.ordinal());
 	}
 
 	protected Session hibernateSession() {
@@ -47,30 +58,6 @@ public class StatusFilter implements Serializable {
 	
 	protected Filter filter() {
 		return filter;
-	}
-
-	public void disableFilter() {
-		hibernateSession().disableFilter(STATUS_FILTER);
-		filter = null;
-	}
-
-	public boolean isActive() {
-		return filter != null;
-	}
-
-	public void setInactive() {
-		getFilter();
-		setStatus(Status.INACTIVE);
-	}
-
-	public void setActive() {
-		getFilter();
-		setStatus(Status.ACTIVE);		
-	}
-
-	public void setRemoved() {
-		getFilter();
-		setStatus(Status.REMOVED);
 	}
 
 }
