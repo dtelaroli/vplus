@@ -32,7 +32,7 @@ public class DBSaveTest {
 	}
 	
 	@Test
-	public void shouldFirstEntity() {
+	public void shouldFirstEntity() throws Exception {
 		test.beginTransaction();
 		Model my = new MyEntity("New Item");
 		assertThat(my.getId(), nullValue());

@@ -69,7 +69,7 @@ public class PersistenceImplTest {
 	}
 	
 	@Test
-	public void shouldReturnListWithItem1() throws CrudException {
+	public void shouldReturnListWithItem1() throws Exception {
 		when(container.instanceFor(DBLoad.class)).thenReturn(new DBLoad(test.entityManager()));
 		Model model = persistence.use(load()).of(MyEntity.class).find(new MyEntity(1L));
 		assertThat(model.getId(), equalTo(1L));

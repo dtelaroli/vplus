@@ -9,7 +9,6 @@ import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vplus.core.controller.Order;
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
@@ -48,7 +47,7 @@ public class DBListTest {
 	
 	@Test
 	public void shouldReturn3ItemsOrderedAsc() throws CrudException {
-		List<Model> list = listDAO.of(MyEntity.class).withOrder("name").withDirection(Order.ASC).find();
+		List<Model> list = listDAO.of(MyEntity.class).withOrder("name").withDirection(Direction.ASC).find();
 		assertThat(list.size(), equalTo(3));
 		assertThat(list.get(0).getId(), equalTo(2L));
 		list = listDAO.of(MyEntity.class).withOrder("name").find();
@@ -58,7 +57,7 @@ public class DBListTest {
 	
 	@Test
 	public void shouldReturn3ItemsOrderedDesc() throws CrudException {
-		List<Model> list = listDAO.of(MyEntity.class).withOrder("name").withDirection(Order.DESC).find();
+		List<Model> list = listDAO.of(MyEntity.class).withOrder("name").withDirection(Direction.DESC).find();
 		assertThat(list.size(), equalTo(3));
 		assertThat(list.get(0).getId(), equalTo(3L));
 		list = listDAO.of(MyEntity.class).withOrder("name").find();

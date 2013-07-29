@@ -5,17 +5,18 @@
    <object class="com.horstmann.violet.ClassNode" id="ClassNode0">
     <void property="attributes">
      <void property="text">
-      <string>- Container container</string>
+      <string>-Container container</string>
      </void>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+ &lt;T extends Dao&gt; T use(Class&lt;T&gt; type)</string>
+      <string>+ControllerImpl(Container container)
++&lt;T extends Action&gt; T use(Class&lt;T&gt; clazz)</string>
      </void>
     </void>
     <void property="name">
      <void property="text">
-      <string>PersistenceImpl</string>
+      <string>ControllerImpl</string>
      </void>
     </void>
    </object>
@@ -24,19 +25,19 @@
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double0"/>
-      <double>379.0</double>
+      <double>59.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double0"/>
-      <double>35.0</double>
+      <double>33.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>379.0</double>
-     <double>35.0</double>
+     <double>59.0</double>
+     <double>33.0</double>
     </void>
    </object>
   </void>
@@ -44,13 +45,13 @@
    <object class="com.horstmann.violet.InterfaceNode" id="InterfaceNode0">
     <void property="methods">
      <void property="text">
-      <string>+ &lt;T extends Dao&gt; T use(Class&lt;T&gt; dao)</string>
+      <string>&lt;T extends Action&gt; T use(Class&lt;T&gt; clazz)</string>
      </void>
     </void>
     <void property="name">
      <void property="text">
       <string>«interface»
-Persistence</string>
+Controller</string>
      </void>
     </void>
    </object>
@@ -59,19 +60,19 @@ Persistence</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double1"/>
-      <double>50.0</double>
+      <double>56.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double1"/>
-      <double>38.0</double>
+      <double>142.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>50.0</double>
-     <double>38.0</double>
+     <double>56.0</double>
+     <double>142.0</double>
     </void>
    </object>
   </void>
@@ -80,7 +81,7 @@ Persistence</string>
     <void property="name">
      <void property="text">
       <string>«interface»
-Dao</string>
+Action</string>
      </void>
     </void>
    </object>
@@ -89,48 +90,36 @@ Dao</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double2"/>
-      <double>358.0</double>
+      <double>278.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double2"/>
-      <double>274.0</double>
+      <double>571.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>358.0</double>
-     <double>274.0</double>
+     <double>278.0</double>
+     <double>571.0</double>
     </void>
    </object>
   </void>
   <void method="addNode">
-   <object class="com.horstmann.violet.ClassNode" id="ClassNode1">
-    <void property="attributes">
-     <void property="text">
-      <string>-Class&lt;? extends Model&gt; clazz
--EntityManager em
--String order
--Order direction
--int limit</string>
-     </void>
-    </void>
+   <object class="com.horstmann.violet.InterfaceNode" id="InterfaceNode2">
     <void property="methods">
      <void property="text">
-      <string>+DBList(EntityManager em)
-+DBList of(Class&lt;? extends Model&gt; clazz)
-+List&lt;Model&gt; find()
-+DBList withOrder(String order)
-+String order()
-+DBList withDirection(Order order)
-+DBList withLimit(Integer limit)
-+Integer limit()</string>
+      <string>Persistence persistence()
+Result result()
+Validator validator()
+TypeUtil typeUtil()</string>
      </void>
     </void>
     <void property="name">
      <void property="text">
-      <string>DBList</string>
+      <string>«interface»
+ActionFacade</string>
      </void>
     </void>
    </object>
@@ -139,40 +128,48 @@ Dao</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double3"/>
-      <double>47.0</double>
+      <double>269.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double3"/>
-      <double>146.0</double>
+      <double>867.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>47.0</double>
-     <double>146.0</double>
+     <double>269.0</double>
+     <double>867.0</double>
     </void>
    </object>
   </void>
   <void method="addNode">
-   <object class="com.horstmann.violet.ClassNode" id="ClassNode2">
-    <void property="attributes">
-     <void property="text">
-      <string>-EntityManager em
--Class&lt;? extends Model&gt; clazz</string>
-     </void>
-    </void>
+   <object class="com.horstmann.violet.InterfaceNode" id="InterfaceNode3">
     <void property="methods">
      <void property="text">
-      <string>+DBLoad(EntityManager em)
-+Model find(Model model)
-+DBLoad of(Class&lt;? extends Model&gt; clazz)</string>
+      <string>CrudController of(Class&lt;? extends Model&gt; clazz)
+Class&lt;? extends Model&gt; type()
+boolean isAsc()
+CrudController asc()
+CrudController desc()
+CrudController withDirection(Direction order)
+CrudController withOrder(String order)
+String order()
+Result result()
+CrudController withLimit(Integer limit)
+Integer limit()
+void actionExecute()
+void list()
+void load(Model model)
+void save(Model model)
+void delete(Model model)</string>
      </void>
     </void>
     <void property="name">
      <void property="text">
-      <string>DBLoad</string>
+      <string>«interface»
+CrudController</string>
      </void>
     </void>
    </object>
@@ -181,38 +178,37 @@ Dao</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double4"/>
-      <double>355.0</double>
+      <double>44.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double4"/>
-      <double>415.0</double>
+      <double>241.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>355.0</double>
-     <double>415.0</double>
+     <double>44.0</double>
+     <double>241.0</double>
     </void>
    </object>
   </void>
   <void method="addNode">
-   <object class="com.horstmann.violet.ClassNode" id="ClassNode3">
-    <void property="attributes">
-     <void property="text">
-      <string>-EntityManager em</string>
-     </void>
-    </void>
+   <object class="com.horstmann.violet.InterfaceNode">
     <void property="methods">
      <void property="text">
-      <string>+DBSave(EntityManager em)
-+Model persist(Model model)</string>
+      <string>void all()
+void get(T model)
+void add(T model)
+void edit(T model)
+void remove(T model)</string>
      </void>
     </void>
     <void property="name">
      <void property="text">
-      <string>DBSave</string>
+      <string>«interface»
+CrudSignature&lt;T&gt;</string>
      </void>
     </void>
    </object>
@@ -221,40 +217,58 @@ Dao</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double5"/>
-      <double>381.0</double>
+      <double>51.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double5"/>
-      <double>140.0</double>
+      <double>863.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>381.0</double>
-     <double>140.0</double>
+     <double>51.0</double>
+     <double>863.0</double>
     </void>
    </object>
   </void>
   <void method="addNode">
-   <object class="com.horstmann.violet.ClassNode" id="ClassNode4">
+   <object class="com.horstmann.violet.ClassNode" id="ClassNode1">
     <void property="attributes">
      <void property="text">
-      <string>- EntityManager em
-- Class&lt;? extends Model&gt; type</string>
+      <string>-ActionFacade actionFacade
+-Class&lt;? extends Model&gt; clazz
+-Model model
+-String order
+-Direction direction
+-Integer limit</string>
      </void>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+DBDelete(EntityManager em)
-+void delete(Model model)
-+DBDelete of(Class&lt;? extends Model&gt; type)</string>
+      <string>+AbstractAction(ActionFacade actionFacade)
++AbstractAction of(Class&lt;? extends Model&gt; clazz)
++Class&lt;? extends Model&gt; type()
++Persistence persistence()
++Result result()
++Validator validator()
++void render()
+#String[] includes(Object operation)
+#void validateModel()
++AbstractAction withModel(Model model)
+#Model model()
+#abstract Object operation()
++AbstractAction withOrder(String order)
++AbstractAction withDirection(Direction direction)
++AbstractAction withLimit(Integer limit)
++Integer limit()</string>
      </void>
     </void>
     <void property="name">
      <void property="text">
-      <string>DBDelete</string>
+      <string>«abstract»
+AbstractAction</string>
      </void>
     </void>
    </object>
@@ -263,35 +277,49 @@ Dao</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double6"/>
-      <double>519.0</double>
+      <double>454.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double6"/>
-      <double>261.0</double>
+      <double>433.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>519.0</double>
-     <double>261.0</double>
+     <double>454.0</double>
+     <double>433.0</double>
     </void>
    </object>
   </void>
   <void method="addNode">
-   <object class="com.horstmann.violet.ClassNode">
+   <object class="com.horstmann.violet.ClassNode" id="ClassNode2">
+    <void property="attributes">
+     <void property="text">
+      <string>Persistence persistence
+Result result
+Validator validator
+TypeUtil typeUtil</string>
+     </void>
+    </void>
     <void property="methods">
      <void property="text">
-      <string>+static Class&lt;DBList&gt; list()
-+static Class&lt;DBLoad&gt; load()
-+static Class&lt;DBSave&gt; save()
-+static Class&lt;DBDelete&gt; delete()</string>
+      <string>ActionFacadeImpl(
+ Persistence persistence, 
+ Result result, 
+ Validator validator, 
+ TypeUtil typeUtil
+)
+Persistence persistence()
+Result result()
+Validator validator()
+TypeUtil typeUtil()</string>
      </void>
     </void>
     <void property="name">
      <void property="text">
-      <string>Persistences</string>
+      <string>ActionFacadeImpl</string>
      </void>
     </void>
    </object>
@@ -300,21 +328,207 @@ Dao</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double7"/>
-      <double>63.0</double>
+      <double>607.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double7"/>
-      <double>417.0</double>
+      <double>829.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>63.0</double>
-     <double>417.0</double>
+     <double>607.0</double>
+     <double>829.0</double>
     </void>
    </object>
+  </void>
+  <void method="addNode">
+   <object class="com.horstmann.violet.ClassNode" id="ClassNode3">
+    <void property="attributes">
+     <void property="text">
+      <string>-Class&lt;? extends Model&gt; clazz
+-Controller controller
+-AbstractAction action
+-Direction direction
+-String order
+-Integer limit</string>
+     </void>
+    </void>
+    <void property="methods">
+     <void property="text">
+      <string>CrudControllerImpl(Controller controller)
+CrudController of(Class&lt;? extends Model&gt; clazz)
+Class&lt;? extends Model&gt; type()
+boolean isAsc()
+CrudController asc()
+CrudController desc()
+CrudController withDirection(Direction order)
+CrudController withOrder(String order)
+String order()
+Result result()
+CrudController withLimit(Integer limit)
+Integer limit()
+void actionExecute()
+void list()
+void load(Model model)
+void save(Model model)
+void delete(Model model)</string>
+     </void>
+    </void>
+    <void property="name">
+     <void property="text">
+      <string>CrudControllerImpl</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double" id="Point2D$Double8">
+    <void class="java.awt.geom.Point2D$Double" method="getField">
+     <string>x</string>
+     <void method="set">
+      <object idref="Point2D$Double8"/>
+      <double>473.0</double>
+     </void>
+    </void>
+    <void class="java.awt.geom.Point2D$Double" method="getField">
+     <string>y</string>
+     <void method="set">
+      <object idref="Point2D$Double8"/>
+      <double>17.0</double>
+     </void>
+    </void>
+    <void method="setLocation">
+     <double>473.0</double>
+     <double>17.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object class="com.horstmann.violet.ClassNode" id="ClassNode4">
+    <void property="attributes">
+     <void property="text">
+      <string>-CrudController controller</string>
+     </void>
+    </void>
+    <void property="methods">
+     <void property="text">
+      <string>+Scaffold(CrudController controller)
++void all()
++void all(String order, Direction direction, Integer limit)
++void get(T model)
++void add(T model)
++void edit(T model)
++void remove(T model)</string>
+     </void>
+    </void>
+    <void property="name">
+     <void property="text">
+      <string>Scaffold&lt;T extends Model&gt;</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double" id="Point2D$Double9">
+    <void class="java.awt.geom.Point2D$Double" method="getField">
+     <string>x</string>
+     <void method="set">
+      <object idref="Point2D$Double9"/>
+      <double>40.0</double>
+     </void>
+    </void>
+    <void class="java.awt.geom.Point2D$Double" method="getField">
+     <string>y</string>
+     <void method="set">
+      <object idref="Point2D$Double9"/>
+      <double>656.0</double>
+     </void>
+    </void>
+    <void method="setLocation">
+     <double>40.0</double>
+     <double>656.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="ClassNode3"/>
+   <object idref="InterfaceNode0"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="bentStyle">
+     <object class="com.horstmann.violet.BentStyle" field="VHV"/>
+    </void>
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="ClassNode3"/>
+   <object idref="InterfaceNode3"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="bentStyle">
+     <object class="com.horstmann.violet.BentStyle" field="VHV"/>
+    </void>
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="ClassNode0"/>
+   <object idref="InterfaceNode0"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="ClassNode3"/>
+   <object idref="ClassNode1"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="bentStyle">
+     <object class="com.horstmann.violet.BentStyle" field="VHV"/>
+    </void>
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="ClassNode2"/>
+   <object idref="InterfaceNode2"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="ClassNode1"/>
+   <object idref="InterfaceNode2"/>
   </void>
   <void method="connect">
    <object class="com.horstmann.violet.ClassRelationshipEdge">
@@ -333,63 +547,15 @@ Dao</string>
   </void>
   <void method="connect">
    <object class="com.horstmann.violet.ClassRelationshipEdge">
-    <void property="bentStyle">
-     <object class="com.horstmann.violet.BentStyle" field="VHV"/>
-    </void>
     <void property="endArrowHead">
-     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/>
-    </void>
-    <void property="lineStyle">
-     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
-    </void>
-   </object>
-   <object idref="ClassNode3"/>
-   <object idref="InterfaceNode1"/>
-  </void>
-  <void method="connect">
-   <object class="com.horstmann.violet.ClassRelationshipEdge">
-    <void property="bentStyle">
-     <object class="com.horstmann.violet.BentStyle" field="VHV"/>
-    </void>
-    <void property="endArrowHead">
-     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/>
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
     </void>
     <void property="lineStyle">
      <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
     </void>
    </object>
    <object idref="ClassNode4"/>
-   <object idref="InterfaceNode1"/>
-  </void>
-  <void method="connect">
-   <object class="com.horstmann.violet.ClassRelationshipEdge">
-    <void property="bentStyle">
-     <object class="com.horstmann.violet.BentStyle" field="VHV"/>
-    </void>
-    <void property="endArrowHead">
-     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/>
-    </void>
-    <void property="lineStyle">
-     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
-    </void>
-   </object>
-   <object idref="ClassNode2"/>
-   <object idref="InterfaceNode1"/>
-  </void>
-  <void method="connect">
-   <object class="com.horstmann.violet.ClassRelationshipEdge">
-    <void property="bentStyle">
-     <object class="com.horstmann.violet.BentStyle" field="VHV"/>
-    </void>
-    <void property="endArrowHead">
-     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/>
-    </void>
-    <void property="lineStyle">
-     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
-    </void>
-   </object>
-   <object idref="ClassNode0"/>
-   <object idref="InterfaceNode0"/>
+   <object idref="InterfaceNode3"/>
   </void>
  </object>
 </java>

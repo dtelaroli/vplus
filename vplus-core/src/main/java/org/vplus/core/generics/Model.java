@@ -1,6 +1,7 @@
 package org.vplus.core.generics;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,18 +22,26 @@ public abstract class Model implements Serializable {
 		this.id = id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public Long getId() {
 		return id;
 	}
 	
-	public abstract String getLabel();
+	public String getLabel() throws Exception {
+		//TODO teste
+		Field field = getClass().getDeclaredField(orderField());
+		return (String) field.get(new String());
+	}
 	
-	public String[] getIncludes() {
-		return new String[] { "created", "modified" };
+	public String[] includes() {
+		return new String[]{};
+	}
+	
+	public String[] excludes() {
+		return new String[]{};
+	}
+	
+	public String orderField() {
+		return null;
 	}
 	
 	@Override

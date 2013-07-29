@@ -7,7 +7,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.vplus.core.controller.Order;
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 
@@ -22,7 +21,7 @@ public class DBList implements Dao {
 	private Class<? extends Model> clazz;
 	private EntityManager em;
 	private String order;
-	private Order direction;
+	private Direction direction;
 	private int limit;
 	
 	public DBList(EntityManager em) {
@@ -60,7 +59,7 @@ public class DBList implements Dao {
 		return order;
 	}
 	
-	public DBList withDirection(Order order) {
+	public DBList withDirection(Direction order) {
 		direction = order;
 		return this;
 	}

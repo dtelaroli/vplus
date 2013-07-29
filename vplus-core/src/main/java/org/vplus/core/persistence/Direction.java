@@ -1,12 +1,14 @@
-package org.vplus.core.controller;
+package org.vplus.core.persistence;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 
-public enum Order {
+public enum Direction {
 
 	ASC {
 		@Override
@@ -15,10 +17,9 @@ public enum Order {
 		}
 
 		@Override
-		public javax.persistence.criteria.Order makeOrder(CriteriaBuilder b,
+		public Order makeOrder(CriteriaBuilder b,
 				Root<Model> root, String order) throws CrudException {
-			super.makeOrder(b, root, order);
-			return b.asc(root.get(order));
+			return b.asc(getPath(root, order));
 		}
 	},
 	DESC {
@@ -28,11 +29,11 @@ public enum Order {
 		}
 
 		@Override
-		public javax.persistence.criteria.Order makeOrder(CriteriaBuilder b,
+		public Order makeOrder(CriteriaBuilder b,
 				Root<Model> root, String order) throws CrudException {
-			super.makeOrder(b, root, order);
-			return b.desc(root.get(order));
+			return b.desc(getPath(root, order));
 		}
+
 	},
 	NULL {
 		@Override
@@ -41,21 +42,27 @@ public enum Order {
 		}
 
 		@Override
-		public javax.persistence.criteria.Order makeOrder(CriteriaBuilder b,
+		public Order makeOrder(CriteriaBuilder b,
 				Root<Model> root, String order) throws CrudException {
-			super.makeOrder(b, root, order);
+			validate(order);
 			throw new CrudException("Direction is null");
 		}
 	};
 
 	public abstract boolean isAsc();
 
-	public javax.persistence.criteria.Order makeOrder(CriteriaBuilder b,
-			Root<Model> root, String order) throws CrudException {
+	public abstract Order makeOrder(CriteriaBuilder b,
+			Root<Model> root, String order) throws CrudException;
+	
+	protected void validate(String order) throws CrudException {
 		if(order == null) {
 			throw new CrudException("Order is null");
 		}
-		return null;
+	}
+	
+	protected Path<Object> getPath(Root<Model> root, String order) throws CrudException {
+		validate(order);
+		return root.get(order);
 	}
 
 }

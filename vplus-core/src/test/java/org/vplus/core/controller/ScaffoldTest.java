@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
+import org.vplus.core.persistence.Direction;
 
 import br.com.caelum.vraptor.deserialization.gson.ConsumesTypes;
 
@@ -34,7 +35,7 @@ public class ScaffoldTest {
 		when(crud.of(MyEntity.class)).thenReturn(crud);
 		when(crud.withOrder(anyString())).thenReturn(crud);
 		when(crud.withLimit(anyInt())).thenReturn(crud);
-		when(crud.withDirection(any(Order.class))).thenReturn(crud);
+		when(crud.withDirection(any(Direction.class))).thenReturn(crud);
 		scaffold = new MyScaffold(crud);
 	}
 
@@ -51,9 +52,9 @@ public class ScaffoldTest {
 	
 	@Test
 	public void shouldInvokeListOrderMethod() throws CrudException {
-		scaffold.all("order", Order.ASC, 1);
+		scaffold.all("order", Direction.ASC, 1);
 		verify(crud).withOrder("order");
-		verify(crud).withDirection(Order.ASC);
+		verify(crud).withDirection(Direction.ASC);
 		verify(crud).withLimit(1);
 	}
 	

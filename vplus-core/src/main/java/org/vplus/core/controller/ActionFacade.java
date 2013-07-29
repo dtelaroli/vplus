@@ -8,12 +8,12 @@ import br.com.caelum.vraptor.Validator;
 
 public interface ActionFacade {
 
-	public abstract Persistence persistence();
+	Persistence persistence();
 
-	public abstract Result result();
+	Result result();
 
-	public abstract Validator validator();
+	Validator validator();
 
-	public abstract TypeUtil typeUtil();
+	TypeUtil typeUtil();
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
+import org.vplus.core.persistence.Direction;
 import org.vplus.core.persistence.Persistence;
 import org.vplus.core.util.TypeUtil;
 
@@ -20,7 +21,7 @@ public abstract class AbstractAction implements Action {
 	private Class<? extends Model> clazz;
 	private Model model;
 	protected String order;
-	protected Order direction;
+	protected Direction direction;
 	protected Integer limit;
 	
 	public AbstractAction(ActionFacade actionFacade) {
@@ -53,17 +54,17 @@ public abstract class AbstractAction implements Action {
 		validateOperation(operation);
 		
 		result().use(representation()).from(operation)
-		.include(getIncludes(operation)).serialize();
+		.include(includes(operation)).serialize();
 	}
 
-	protected String[] getIncludes(Object operation) {
+	protected String[] includes(Object operation) {
 		TypeUtil typeUtil = actionFacade.typeUtil().of(Model.class);
 		if(typeUtil.compare(operation.getClass())) {
 			return castToModel(operation);
 		}
 		else if(typeUtil.isListFrom(operation)) {
 			List<Model> list = castToList(operation);
-			return list.get(0).getIncludes();
+			return list.get(0).includes();
 		}
 		return new String[]{};
 	}
@@ -74,7 +75,7 @@ public abstract class AbstractAction implements Action {
 	}
 
 	private String[] castToModel(Object operation) {
-		return ((Model)operation).getIncludes();
+		return ((Model)operation).includes();
 	}
 
 	private void validateOperation(final Object operation) {
@@ -101,18 +102,18 @@ public abstract class AbstractAction implements Action {
 		return this;
 	}
 
-	public Model model() {
+	protected Model model() {
 		return model;
 	}
 
 	protected abstract Object operation() throws CrudException;
 
-	public AbstractAction withOrder(String order){
+	public AbstractAction withOrder(String order) {
 		this.order = order;
 		return this;
 	}
 
-	public AbstractAction withDirection(Order direction){
+	public AbstractAction withDirection(Direction direction) {
 		this.direction = direction;
 		return this;
 	}

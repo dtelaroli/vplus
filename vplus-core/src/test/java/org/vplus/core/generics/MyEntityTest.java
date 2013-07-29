@@ -25,9 +25,8 @@ public class MyEntityTest {
 	
 	@Test
 	public void shouldCompareTwoEntity() {
-		my.setId(1L);
-		MyEntity other = new MyEntity();
-		other.setId(1L);
+		my = new MyEntity(1L);
+		MyEntity other = new MyEntity(1L);
 		assertThat(my.equals(other), equalTo(true));
 		assertThat(my, equalTo(other));
 		assertThat(my, equalTo(my));
@@ -36,14 +35,14 @@ public class MyEntityTest {
 	
 	@Test
 	public void shouldCompareTwoEntityHashCode() {
-		my.setId(1L);
+		my = new MyEntity(1L);
 		MyEntity other = new MyEntity(1L);
 		assertThat(my.hashCode(), equalTo(other.hashCode()));
 	}
 	
 	@Test
 	public void shouldReturnId() {
-		my.setId(1L);
+		my = new MyEntity(1L);
 		assertThat(my.getId(), equalTo(1L));
 	}
 	
@@ -78,7 +77,7 @@ public class MyEntityTest {
 	
 	@Test
 	public void shouldReturnIncludes() {
-		assertThat(my.getIncludes().length, equalTo(2));
+		assertThat(my.includes().length, equalTo(2));
 	}
 
 }

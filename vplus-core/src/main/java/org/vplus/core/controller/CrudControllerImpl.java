@@ -2,6 +2,7 @@ package org.vplus.core.controller;
 
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
+import org.vplus.core.persistence.Direction;
 
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.ioc.Component;
@@ -12,14 +13,14 @@ public class CrudControllerImpl implements CrudController {
 	private Class<? extends Model> clazz;
 	private Controller controller;
 	private AbstractAction action;
-	private Order direction;
+	private Direction direction;
 	private String order;
 	private Integer limit;
 
 	public CrudControllerImpl(Controller controller) {
 		this.controller = controller;
 		this.action = ActionNull.create();
-		this.direction = Order.NULL;
+		this.direction = Direction.NULL;
 	}
 	
 	protected static class ActionNull extends AbstractAction {
@@ -41,7 +42,7 @@ public class CrudControllerImpl implements CrudController {
 		public AbstractAction withOrder(String order) {	return null; }
 		
 		@Override
-		public AbstractAction withDirection(Order direction) { return null; }
+		public AbstractAction withDirection(Direction direction) { return null; }
 	}
 	
 	@Override
@@ -56,14 +57,8 @@ public class CrudControllerImpl implements CrudController {
 	}
 
 	@Override
-	public void list() throws CrudException {
-		action = controller.use(Controllers.list());
-		actionExecute();
-	}
-
-	@Override
 	public CrudController asc() throws CrudException {
-		this.direction = Order.ASC;
+		this.direction = Direction.ASC;
 		return this;
 	}
 
@@ -74,12 +69,12 @@ public class CrudControllerImpl implements CrudController {
 
 	@Override
 	public CrudController desc() throws CrudException {
-		this.direction = Order.DESC;
+		this.direction = Direction.DESC;
 		return this;
 	}
 	
 	@Override
-	public CrudController withDirection(Order direction) throws CrudException {
+	public CrudController withDirection(Direction direction) throws CrudException {
 		this.direction = direction;
 		return this;
 	}
@@ -93,24 +88,6 @@ public class CrudControllerImpl implements CrudController {
 	@Override
 	public String order() {
 		return order;
-	}
-	
-	@Override
-	public void load(Model model) throws CrudException {
-		action = controller.use(Controllers.load()).withModel(model);
-		actionExecute();		
-	}
-	
-	@Override
-	public void save(Model model) throws CrudException {
-		action = controller.use(Controllers.save()).withModel(model);
-		actionExecute();
-	}
-	
-	@Override
-	public void delete(Model model) throws CrudException {
-		action = controller.use(Controllers.delete()).withModel(model);
-		actionExecute();
 	}
 	
 	public void actionExecute() throws CrudException {
@@ -131,6 +108,31 @@ public class CrudControllerImpl implements CrudController {
 	@Override
 	public Integer limit() {
 		return limit;
+	}
+	
+
+	@Override
+	public void list() throws CrudException {
+		action = controller.use(Controllers.list());
+		actionExecute();
+	}
+	
+	@Override
+	public void load(Model model) throws CrudException {
+		action = controller.use(Controllers.load()).withModel(model);
+		actionExecute();		
+	}
+	
+	@Override
+	public void save(Model model) throws CrudException {
+		action = controller.use(Controllers.save()).withModel(model);
+		actionExecute();
+	}
+	
+	@Override
+	public void delete(Model model) throws CrudException {
+		action = controller.use(Controllers.delete()).withModel(model);
+		actionExecute();
 	}
 
 }

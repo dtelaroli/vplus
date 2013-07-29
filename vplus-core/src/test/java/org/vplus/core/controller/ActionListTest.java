@@ -73,25 +73,25 @@ public class ActionListTest {
 	
 	@Test
 	public void shouldReturn2ItemsFromGetIncludes() {
-		String[] includes = controller.getIncludes(new MyEntity());
+		String[] includes = controller.includes(new MyEntity());
 		assertThat(includes.length, equalTo(2));
 	}
 	
 	@Test
 	public void shouldReturn0ItemsIfOtherType() {
-		String[] includes = controller.getIncludes("String");
+		String[] includes = controller.includes("String");
 		assertThat(includes.length, equalTo(0));
 	}
 	
 	@Test
 	public void shouldReturn2ItemsIfListOfModel() {
-		String[] includes = controller.getIncludes(Arrays.asList(new MyEntity()));
+		String[] includes = controller.includes(Arrays.asList(new MyEntity()));
 		assertThat(includes.length, equalTo(2));
 	}
 	
 	@Test
 	public void shouldReturn0ItemsIfListOther() {
-		String[] includes = controller.getIncludes(Arrays.asList("String"));
+		String[] includes = controller.includes(Arrays.asList("String"));
 		assertThat(includes.length, equalTo(0));
 	}
 	
