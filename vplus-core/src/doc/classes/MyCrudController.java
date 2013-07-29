@@ -1,8 +1,5 @@
 package org.vplus.web;
 
-import static org.vplus.core.controller.Controllers.list;
-
-import org.vplus.core.controller.Controller;
 import org.vplus.core.controller.CrudController;
 import org.vplus.core.controller.CrudSignature;
 import org.vplus.core.controller.Scaffold;
@@ -20,24 +17,44 @@ import br.com.caelum.vraptor.deserialization.gson.ConsumesTypes;
 
 @Resource
 @Path("/my")
-public class MyController {
+public class MyController implements CrudSignature<MyEntity> {
 
-	private Controller controller;
+	private CrudController controller;
 
-	public MyController(Controller controller) {
-		this.controller = controller;
+	public MyController(CrudController controller) {
+		this.controller = controller.of(MyEntity.class);
 	}
 	
 	@Override
 	@Get("/")
 	public void all() throws CrudException {
-		controller.use(list()).of(MyEntity.class).render();
+		controller.list();
 	}
 	
 	@Override
 	@Get("/{model.id}")
 	public void get(MyEntity model) throws CrudException {
-		controller.use(MyLoad.class).render();
+		controller.load(model);
 	}
 	
+	@Override
+	@Post("/")
+	@Consumes(value = "application/json")
+	public void add(MyEntity model) throws CrudException {
+		edit(model);
+	}
+
+	@Override
+	@Put("/{model.id}")
+	@Consumes(value = "application/json")
+	public void edit(MyEntity model) throws CrudException {
+		controller.save(model);
+	}
+	
+	@Override
+	@Delete("/{model.id}")
+	@Consumes(value = "application/json")
+	public void remove(MyEntity model) throws CrudException {
+		controller.delete(model);
+	}
 }
