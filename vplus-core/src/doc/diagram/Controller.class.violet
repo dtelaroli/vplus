@@ -310,10 +310,10 @@ AbstractAction</string>
    <object class="com.horstmann.violet.ClassNode">
     <void property="methods">
      <void property="text">
-      <string>static Class&lt;ActionList&gt; list()
-static Class&lt;ActionDelete&gt; delete()
-static Class&lt;ActionLoad&gt; load()
-static Class&lt;ActionSave&gt; save()</string>
+      <string>+static Class&lt;ActionList&gt; list()
++static Class&lt;ActionDelete&gt; delete()
++static Class&lt;ActionLoad&gt; load()
++static Class&lt;ActionSave&gt; save()</string>
      </void>
     </void>
     <void property="name">
