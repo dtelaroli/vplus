@@ -39,11 +39,11 @@ public class ActionListTest {
 		dblist = spy(new DBList(em));
 		
 		test = TestUtil.create();
-		result = test.getResultMock();
+		result = test.resultMock();
 		
 		doReturn(Arrays.asList(new MyEntity())).when(dblist).find();
 		
-		controller = spy(new ActionList(test.getActionFacadeMock().withPersistence(dblist)));
+		controller = spy(new ActionList(test.actionFacadeMock().withPersistence(dblist)));
 	}
 
 	@Test

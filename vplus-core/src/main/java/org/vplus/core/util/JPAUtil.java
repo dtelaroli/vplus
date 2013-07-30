@@ -38,10 +38,7 @@ public class JPAUtil {
 	}
 
 	public EntityManager entityManager() {
-		if(Strings.isNullOrEmpty(unit)) {
-			String message = "Unit name not defined. Execute withUnit(String)";
-			throw new PersistenceException(message);
-		}
+		validateUnitName();
 		if(em == null) {
 			LOG.debug("Open EntityManager");
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory(unit);
@@ -50,12 +47,19 @@ public class JPAUtil {
 		return em;
 	}
 
-	public Connection connection() {
+	private void validateUnitName() {
+		if(Strings.isNullOrEmpty(unit)) {
+			String message = "Unit name not defined. Execute withUnit(String)";
+			throw new PersistenceException(message);
+		}
+	}
+
+	protected Connection connection() {
 		LOG.debug("Opening Connection");
 		return getSessionImpl().connection();
 	}
 	
-	private SessionImpl getSessionImpl() {
+	protected SessionImpl getSessionImpl() {
 		return (SessionImpl) entityManager().getDelegate();
 	}
 

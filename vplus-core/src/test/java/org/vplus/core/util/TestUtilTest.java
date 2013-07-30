@@ -17,12 +17,12 @@ public class TestUtilTest {
 
 	@Test
 	public void shouldInitialize() {
-		assertThat(util.getEnv(), notNullValue());
-		assertThat(util.getJpaUtil(), notNullValue());
-		assertThat(util.getDbUnitUtil(), notNullValue());
-		assertThat(util.getActionFacadeMock(), notNullValue());
-		assertThat(util.getResultMock(), notNullValue());
-		assertThat(util.getTypeUtil(), notNullValue());
+		assertThat(util.environment(), notNullValue());
+		assertThat(util.jpaUtil(), notNullValue());
+		assertThat(util.dbUnitUtil(), notNullValue());
+		assertThat(util.actionFacadeMock(), notNullValue());
+		assertThat(util.resultMock(), notNullValue());
+		assertThat(util.typeUtil(), notNullValue());
 	}
 
 }

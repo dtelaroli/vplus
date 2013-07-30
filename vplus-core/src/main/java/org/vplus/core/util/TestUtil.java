@@ -50,27 +50,27 @@ public class TestUtil {
 		dbUnitUtil.cleanAndClose();
 	}
 	
-	public JPAUtil getJpaUtil() {
+	public JPAUtil jpaUtil() {
 		return jpaUtil;
 	}
 	
-	public DBUnitUtil getDbUnitUtil() {
+	public DBUnitUtil dbUnitUtil() {
 		return dbUnitUtil;
 	}
 	
-	public Environment getEnv() {
+	public Environment environment() {
 		return env;
 	}
 
-	public ActionFacadeMock getActionFacadeMock() {
+	public ActionFacadeMock actionFacadeMock() {
 		return actionFacadeMock;
 	}
 
-	public MockSerializationResult getResultMock() {
+	public MockSerializationResult resultMock() {
 		return actionFacadeMock.result();
 	}
 	
-	public TypeUtil getTypeUtil() {
+	public TypeUtil typeUtil() {
 		return actionFacadeMock.typeUtil();
 	}
 }

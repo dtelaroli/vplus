@@ -49,7 +49,7 @@ public class DBUnitUtil {
 	public DBUnitUtil init() throws DatabaseUnitException {
 		validateDataSet();
 		try {
-			DatabaseOperation.CLEAN_INSERT.execute(connection(), createDataset());
+			DatabaseOperation.CLEAN_INSERT.execute(connection(), initDataset());
 		} catch (Exception e) {
 			throw new DatabaseUnitException(e);
 		}
@@ -73,7 +73,7 @@ public class DBUnitUtil {
 	public void clean() throws DatabaseUnitException {
 		validateDataSet();
 		try {
-			DatabaseOperation.DELETE_ALL.execute(connection(), createDataset());
+			DatabaseOperation.DELETE_ALL.execute(connection(), initDataset());
 		} catch (Exception e) {
 			throw new DatabaseUnitException(e);
 		}
@@ -106,7 +106,7 @@ public class DBUnitUtil {
 		);
 	}
 
-	protected IDataSet createDataset() throws DataSetException, IOException {
+	protected IDataSet initDataset() throws DataSetException, IOException {
 		InputStream datasetXML = datasetXML();
 		FlatXmlDataSet flatXmlDataSet = new FlatXmlDataSetBuilder().build(datasetXML);
 		datasetXML.close();

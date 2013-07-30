@@ -74,7 +74,7 @@ public class DBUnitUtilTest {
 	
 	@Test
 	public void shouldCreateFlatDataset() throws DataSetException, IOException {
-		IDataSet ds = dbunit.from(MyEntity.class).createDataset();
+		IDataSet ds = dbunit.from(MyEntity.class).initDataset();
 		assertThat(ds, notNullValue());
 	}
 	
