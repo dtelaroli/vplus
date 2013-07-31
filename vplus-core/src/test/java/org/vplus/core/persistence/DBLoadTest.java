@@ -16,6 +16,7 @@ public class DBLoadTest {
 	DBLoad loadDAO;
 	private TestUtil test;
 	
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		test = TestUtil.create();
@@ -33,7 +34,7 @@ public class DBLoadTest {
 	public void shouldReturnFirstEntity() throws CrudException {
 		MyEntity my = (MyEntity) loadDAO.of(MyEntity.class).find(new MyEntity(1L));
 		assertThat(my.getId(), equalTo(1L));
-		assertThat(my.getLabel(), equalTo("João"));
+		assertThat(my.name(), equalTo("João"));
 	}
 	
 }

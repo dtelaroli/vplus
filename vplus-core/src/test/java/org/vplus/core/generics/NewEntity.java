@@ -9,26 +9,18 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author denilson
  */
 @Entity
-public class MyEntity extends ModelPlus {
+public class NewEntity extends Model {
 	
 	private static final long serialVersionUID = 3180713002283133563L;
 
 	@NotEmpty
 	protected String name;
 	
-	public MyEntity() {
+	public NewEntity() {
 		super();
 	}
 	
-	public MyEntity(Long id) {
-		this(id, null);
-	}
-	
-	public MyEntity(String name) {
-		this(null, name);
-	}
-	
-	public MyEntity(Long id, String name) {
+	public NewEntity(Long id, String name) {
 		super();
 		super.id = id;
 		this.name = name;
@@ -38,13 +30,4 @@ public class MyEntity extends ModelPlus {
 		return name;
 	}
 
-	@Override
-	public String[] includes() {
-		return new String[]{"id", "name"};
-	}
-	
-	@Override
-	public String[] excludes() {
-		return new String[]{"name"};
-	}
 }

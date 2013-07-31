@@ -1,5 +1,6 @@
 package org.vplus.core.generics;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
@@ -17,12 +18,6 @@ public class MyEntityTest {
 		my = new MyEntity();
 	}
 
-	@Test
-	public void shouldRetornNameOnLabel() {
-		my.name = "Teste";
-		assertThat(my.getLabel(), equalTo("Teste"));
-	}
-	
 	@Test
 	public void shouldCompareTwoEntity() {
 		my = new MyEntity(1L);
@@ -79,5 +74,29 @@ public class MyEntityTest {
 	public void shouldReturnIncludes() {
 		assertThat(my.includes().length, equalTo(2));
 	}
-
+	
+	@Test
+	public void shouldReturnExcludes() {
+		assertThat(my.excludes().length, equalTo(1));
+	}
+	
+	@Test
+	public void shouldReturnToString() {
+		my = new MyEntity(1L, "test");
+		assertThat(my.toString(), containsString("ACTIVE"));
+		assertThat(my.toString(), containsString("1"));
+	}
+	
+	@Test
+	public void shouldReturnOrderField() {
+		assertThat(my.orderField(), equalTo("id"));
+	}
+	
+	@Test
+	public void shouldReturnIdValueByLabelAndName() throws Exception {
+		my = new MyEntity(1L, "test");
+		assertThat(my.getLabel(), equalTo("1"));
+		assertThat(my.name(), equalTo("test"));
+	}
+	
 }

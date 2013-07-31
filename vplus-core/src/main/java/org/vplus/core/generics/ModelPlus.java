@@ -36,14 +36,17 @@ public abstract class ModelPlus extends Model {
 	private Status status;
 	
 	public ModelPlus() {
+		super();
+		status = Status.ACTIVE;
 	}
 
 	public Status status() {
 		return status;
 	}
 
-	public void withStatus(Status status) {
+	public ModelPlus withStatus(Status status) {
 		this.status = status;
+		return this;
 	}
 
 	public Calendar createdAt() {

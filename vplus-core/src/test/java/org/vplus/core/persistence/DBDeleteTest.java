@@ -12,6 +12,7 @@ public class DBDeleteTest {
 	DBDelete delete;
 	private TestUtil test;
 	
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		test = TestUtil.create();

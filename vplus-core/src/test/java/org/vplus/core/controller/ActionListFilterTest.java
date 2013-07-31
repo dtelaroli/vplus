@@ -38,6 +38,7 @@ public class ActionListFilterTest {
 	private ActionList actionList;
 	@Mock TypeUtil typeUtil;
 	
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);

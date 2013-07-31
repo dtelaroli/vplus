@@ -27,6 +27,7 @@ public class StatusFilterTest {
 	private TestUtil test;
 	private DBList dbList;
 	
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);

@@ -9,7 +9,6 @@ import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.util.TestUtil;
 
@@ -18,6 +17,7 @@ public class DBSaveTest {
 	DBSave save;
 	private TestUtil test;
 	
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		test = TestUtil.create();
@@ -34,14 +34,14 @@ public class DBSaveTest {
 	@Test
 	public void shouldFirstEntity() throws Exception {
 		test.beginTransaction();
-		Model my = new MyEntity("New Item");
+		MyEntity my = new MyEntity("New Item");
 		assertThat(my.getId(), nullValue());
 		
-		my = save.persist(my);
+		my = (MyEntity) save.persist(my);
 		test.commit();
 		
 		assertThat(my.getId(), notNullValue());
-		assertThat(my.getLabel(), equalTo("New Item"));
+		assertThat(my.name(), equalTo("New Item"));
 	}
 	
 }

@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
+import org.vplus.core.generics.NewEntity;
 import org.vplus.core.util.TestUtil;
 
 public class DBListTest {
@@ -19,10 +20,11 @@ public class DBListTest {
 	DBList listDAO;
 	private TestUtil test;
 	
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		test = TestUtil.create();
-		test.from(MyEntity.class).init();
+		test.from(MyEntity.class, NewEntity.class).init();
 		listDAO = new DBList(test.entityManager());
 	}
 	
@@ -32,8 +34,15 @@ public class DBListTest {
 	}
 	
 	@Test
-	public void shouldReturn3ItemsFromDBUnit() throws CrudException {
+	public void shouldReturn3ItemsFromDBUnitInMyEntity() throws CrudException {
 		List<Model> list = listDAO.of(MyEntity.class).find();
+		assertThat(list.size(), equalTo(3));
+		assertThat(list.get(0).getId(), equalTo(1L));
+	}
+	
+	@Test
+	public void shouldReturn3ItemsFromDBUnitInNewEntity() throws CrudException {
+		List<Model> list = listDAO.of(NewEntity.class).find();
 		assertThat(list.size(), equalTo(3));
 		assertThat(list.get(0).getId(), equalTo(1L));
 	}

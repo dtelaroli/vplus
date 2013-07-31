@@ -42,7 +42,7 @@ public class TestUtil {
 		jpaUtil.commit();
 	}
 
-	public DBUnitUtil from(Class<? extends Model> clazz) {
+	public DBUnitUtil from(Class<? extends Model>... clazz) {
 		return dbUnitUtil.from(clazz);
 	}
 

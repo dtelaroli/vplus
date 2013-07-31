@@ -61,7 +61,7 @@
      <void property="text">
       <string>+ModelPlus()
 +Status status()
-+withStatus(Status status)
++ModelPlus withStatus(Status status)
 +Calendar createdAt()
 +Calendar modifiedAt()
 +void beforeInsert()
@@ -79,19 +79,19 @@
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double1"/>
-      <double>67.0</double>
+      <double>38.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double1"/>
-      <double>321.0</double>
+      <double>320.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>67.0</double>
-     <double>321.0</double>
+     <double>38.0</double>
+     <double>320.0</double>
     </void>
    </object>
   </void>
@@ -115,19 +115,19 @@ boolean isRemoved()</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double2"/>
-      <double>320.0</double>
+      <double>368.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double2"/>
-      <double>387.0</double>
+      <double>366.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>320.0</double>
-     <double>387.0</double>
+     <double>368.0</double>
+     <double>366.0</double>
     </void>
    </object>
   </void>

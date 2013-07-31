@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
@@ -29,36 +31,47 @@ public class DBUnitUtil {
 	protected static final String DEFAULT_DATASET_PATH = "src/test/java/datasets";
 	private final JPAUtil jpa;
 	private final Environment env;
-	private String dataset;
+	private List<String> datasetNames;
+	private List<IDataSet> datasets;
 
 	public DBUnitUtil(JPAUtil jpa, Environment env) {
 		this.jpa = jpa;
 		this.env = env;
+		this.datasetNames = new ArrayList<String>();
+		this.datasets = new ArrayList<IDataSet>();
 	}
 
-	public DBUnitUtil from(Class<? extends Model> clazz) {
-		dataset = clazz.getSimpleName();
-		LOG.debug("Setting dataset {}", dataset);
+	public DBUnitUtil from(Class<? extends Model>... classes) {
+		for (Class<? extends Model> c : classes) {
+			String name = c.getSimpleName();
+			datasetNames.add(name);
+			LOG.debug("Setting dataset {}", name);
+		}
 		return this;
 	}
 
-	protected String datasetName() {
-		return dataset;
+	protected List<String> datasetNames() {
+		return datasetNames;
 	}
 
-	public DBUnitUtil init() throws DatabaseUnitException {
+	public DBUnitUtil init() throws Exception {
 		validateDataSet();
+		initDatasets();
 		try {
-			DatabaseOperation.CLEAN_INSERT.execute(connection(), initDataset());
+			for (IDataSet dataset : datasets) {
+				DatabaseOperation.CLEAN_INSERT.execute(connection(), dataset);
+			}
 		} catch (Exception e) {
 			throw new DatabaseUnitException(e);
 		}
 		return this;
 	}
 
-	private void validateDataSet() {
-		if(Strings.isNullOrEmpty(dataset)) {
-			LOG.error("Dataset name is undefined. You should execute from(YourObject.class)", new DatabaseUnitException());
+	private void validateDataSet() throws DatabaseUnitException {
+		if(datasetNames.isEmpty()) {
+			DatabaseUnitException exception = new DatabaseUnitException();
+			LOG.error("Dataset names is undefined. You should execute from(YourObject.class)", exception);
+			throw exception;
 		}
 	}
 
@@ -73,7 +86,9 @@ public class DBUnitUtil {
 	public void clean() throws DatabaseUnitException {
 		validateDataSet();
 		try {
-			DatabaseOperation.DELETE_ALL.execute(connection(), initDataset());
+			for (IDataSet dataSet : datasets) {
+				DatabaseOperation.DELETE_ALL.execute(connection(), dataSet);
+			}
 		} catch (Exception e) {
 			throw new DatabaseUnitException(e);
 		}
@@ -94,23 +109,33 @@ public class DBUnitUtil {
 		return DEFAULT_DATASET_PATH;
 	}
 
-	protected InputStream datasetXML() throws FileNotFoundException {
-		String dataSetName = getDataSetName();
-		LOG.debug("Dataset file name: {}", dataSetName);
-		return new FileInputStream(dataSetName);
+	protected List<InputStream> datasetXMLs() throws FileNotFoundException {
+		List<InputStream> list = new ArrayList<InputStream>();
+		for (String name : datasetNames) {
+			String dataSetName = getDataSetName(name);
+			LOG.debug("Dataset file name: {}", dataSetName);
+			list.add(new FileInputStream(dataSetName));
+		}
+		return list;
 	}
 
-	private String getDataSetName() {
+	private String getDataSetName(String name) {
 		return String.format(
-				"%s/%s.xml", defaultDatasetPath(), dataset
+				"%s/%s.xml", defaultDatasetPath(), name
 		);
 	}
 
-	protected IDataSet initDataset() throws DataSetException, IOException {
-		InputStream datasetXML = datasetXML();
-		FlatXmlDataSet flatXmlDataSet = new FlatXmlDataSetBuilder().build(datasetXML);
-		datasetXML.close();
-		return flatXmlDataSet;
+	protected void initDatasets() throws DataSetException, IOException {
+		datasets = new ArrayList<IDataSet>();
+		for(InputStream is : datasetXMLs()) {
+			FlatXmlDataSet flatXmlDataSet = new FlatXmlDataSetBuilder().build(is);
+			is.close();
+			datasets.add(flatXmlDataSet);
+		}
+	}
+	
+	protected List<IDataSet> datasets() {
+		return datasets;
 	}
 
 }

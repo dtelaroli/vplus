@@ -33,6 +33,7 @@ public class PersistenceImplTest {
 	@Mock Container container;
 	private TestUtil test;
 	
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
@@ -73,7 +74,7 @@ public class PersistenceImplTest {
 		when(container.instanceFor(DBLoad.class)).thenReturn(new DBLoad(test.entityManager()));
 		Model model = persistence.use(load()).of(MyEntity.class).find(new MyEntity(1L));
 		assertThat(model.getId(), equalTo(1L));
-		assertThat(model.getLabel(), equalTo("João"));
+		assertThat(model.getLabel(), equalTo("1"));
 	}
 	
 	@Test

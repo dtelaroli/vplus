@@ -1,7 +1,6 @@
 package org.vplus.core.generics;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,8 +13,11 @@ public abstract class Model implements Serializable {
 	
 	@Id @GeneratedValue
 	protected Long id;
+
+	protected String orderField;
 	
 	public Model() {
+		this.orderField = "id";
 	}
 
 	public Model(Long id) {
@@ -26,10 +28,8 @@ public abstract class Model implements Serializable {
 		return id;
 	}
 	
-	public String getLabel() throws Exception {
-		//TODO teste
-		Field field = getClass().getDeclaredField(orderField());
-		return (String) field.get(new String());
+	public String getLabel() {
+		return String.valueOf(id);
 	}
 	
 	public String[] includes() {
@@ -41,7 +41,12 @@ public abstract class Model implements Serializable {
 	}
 	
 	public String orderField() {
-		return null;
+		return orderField;
+	}
+	
+	public Model withOrderField(String orderField) {
+		this.orderField = orderField;
+		return this;
 	}
 	
 	@Override
