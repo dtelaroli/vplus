@@ -1,5 +1,7 @@
 package org.vplus.core.controller;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
@@ -15,14 +17,11 @@ import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.persistence.Direction;
 
-import br.com.caelum.vraptor.deserialization.gson.ConsumesTypes;
-
 public class ScaffoldTest {
 
 	Scaffold<MyEntity> scaffold;
 	@Mock CrudController crud;
 	
-	@ConsumesTypes(MyEntity.class)
 	static class MyScaffold extends Scaffold<MyEntity>{
 		public MyScaffold(CrudController controller) {
 			super(controller);
@@ -39,9 +38,10 @@ public class ScaffoldTest {
 		scaffold = new MyScaffold(crud);
 	}
 
-	@Test(expected = IllegalStateException.class)
-	public void shouldDispatchErrorIfNoHaveAnnotation() {
-		new Scaffold<Model>(crud) {};
+	@Test
+	public void shouldGetTypeFromGeneric() {
+		Scaffold<Model> sc = new Scaffold<Model>(crud) {};
+		assertThat(sc.getType().isAssignableFrom(Model.class), equalTo(true));
 	}
 	
 	@Test

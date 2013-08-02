@@ -36,25 +36,4 @@
 		</pluginManagement>
 	</build>
 	
-	<dependencies>
-		<dependency>
-			<groupId>br.com.caelum</groupId>
-			<artifactId>vraptor</artifactId>
-			<version>3.5.2-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
-	
-	<repositories>
-		<repository>
-			<id>sonatype-oss-snapshot</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
 </project>

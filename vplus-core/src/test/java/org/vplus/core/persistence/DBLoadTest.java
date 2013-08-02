@@ -32,7 +32,7 @@ public class DBLoadTest {
 	
 	@Test
 	public void shouldReturnFirstEntity() throws CrudException {
-		MyEntity my = (MyEntity) loadDAO.of(MyEntity.class).find(new MyEntity(1L));
+		MyEntity my = (MyEntity) loadDAO.find(new MyEntity(1L));
 		assertThat(my.getId(), equalTo(1L));
 		assertThat(my.name(), equalTo("João"));
 	}

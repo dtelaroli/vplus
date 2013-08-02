@@ -10,7 +10,6 @@ import br.com.caelum.vraptor.ioc.Component;
 public class DBDelete implements Dao {
 
 	private EntityManager em;
-	private Class<? extends Model> type;
 
 	public DBDelete(EntityManager em) {
 		this.em = em;
@@ -24,11 +23,7 @@ public class DBDelete implements Dao {
 		if(model == null) {
 			throw new IllegalArgumentException("Model is null");
 		}
-		return em.find(type, model.getId());
+		return em.find(model.getClass(), model.getId());
 	}
 
-	public DBDelete of(Class<? extends Model> type) {
-		this.type = type;
-		return this;
-	}
 }

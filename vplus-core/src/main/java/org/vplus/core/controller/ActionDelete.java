@@ -22,7 +22,7 @@ public class ActionDelete extends AbstractAction {
 
 	@Override
 	protected Object operation() throws CrudException {
-		persistence().use(delete()).of(type()).delete(model());
+		persistence().use(delete()).delete(model());
 		return new Message("success");
 	}
 

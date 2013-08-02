@@ -15,7 +15,7 @@ public class ActionLoad extends AbstractAction {
 
 	@Override
 	public Object operation() throws CrudException {
-		return persistence().use(load()).of(type()).find(model());
+		return persistence().use(load()).find(model());
 	}
 
 }

@@ -72,7 +72,7 @@ public class PersistenceImplTest {
 	@Test
 	public void shouldReturnListWithItem1() throws Exception {
 		when(container.instanceFor(DBLoad.class)).thenReturn(new DBLoad(test.entityManager()));
-		Model model = persistence.use(load()).of(MyEntity.class).find(new MyEntity(1L));
+		Model model = persistence.use(load()).find(new MyEntity(1L));
 		assertThat(model.getId(), equalTo(1L));
 		assertThat(model.getLabel(), equalTo("1"));
 	}
@@ -95,7 +95,7 @@ public class PersistenceImplTest {
 		when(container.instanceFor(DBDelete.class)).thenReturn(new DBDelete(test.entityManager()));
 		MyEntity model = new MyEntity(1L);
 		
-		persistence.use(delete()).of(MyEntity.class).delete(model);
+		persistence.use(delete()).delete(model);
 		test.commit();
 	}
 
