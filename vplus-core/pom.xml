@@ -135,11 +135,6 @@
 		<finalName>vplus-core-${project.version}</finalName>
 		<plugins>
 			<plugin>
-				<groupId>org.eluder.coveralls</groupId>
-				<artifactId>coveralls-maven-plugin</artifactId>
-				<version>2.0.0</version>
-			</plugin>
-			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
 				<version>2.5.1</version>
@@ -150,6 +145,11 @@
 					</formats>
 				</configuration>
 			</plugin>
+			<plugin>
+					<groupId>org.eluder.coveralls</groupId>
+					<artifactId>coveralls-maven-plugin</artifactId>
+					<version>2.0.0</version>
+				</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.3</version>
