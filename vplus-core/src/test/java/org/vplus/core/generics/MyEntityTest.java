@@ -1,6 +1,7 @@
 package org.vplus.core.generics;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.emptyArray;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
@@ -97,6 +98,33 @@ public class MyEntityTest {
 		my = new MyEntity(1L, "test");
 		assertThat(my.getLabel(), equalTo("1"));
 		assertThat(my.name(), equalTo("test"));
+	}
+	
+	@Test
+	public void shouldSetId() {
+		my = new MyEntity(1L);
+		assertThat(my.id, equalTo(1L));
+	}
+	
+	@Test
+	public void shouldSetOrderField() {
+		my = new MyEntity();
+		my.withOrderField("order");
+		assertThat(my.orderField(), equalTo("order"));
+	}
+	
+	@Test
+	public void shouldTestNewModel() {
+		NewEntity newEntity = new NewEntity(1L, "n");
+		assertThat(newEntity.toString(), equalTo("Model [id=1]"));
+		assertThat(newEntity.name(), equalTo("n"));
+	}
+	
+	@Test
+	public void shouldReturnEmptyArrayInIncludeAndExclude() {
+		NewEntity newEntity = new NewEntity(1L, "n");
+		assertThat(newEntity.includes(), emptyArray());
+		assertThat(newEntity.excludes(), emptyArray());
 	}
 	
 }

@@ -40,6 +40,11 @@ public abstract class ModelPlus extends Model {
 		status = Status.ACTIVE;
 	}
 
+	public ModelPlus(Long id) {
+		super(id);
+		status = Status.ACTIVE;
+	}
+
 	public Status status() {
 		return status;
 	}

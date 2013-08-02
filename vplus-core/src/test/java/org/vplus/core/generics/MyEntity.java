@@ -21,16 +21,15 @@ public class MyEntity extends ModelPlus {
 	}
 	
 	public MyEntity(Long id) {
-		this(id, null);
+		super(id);
 	}
 	
 	public MyEntity(String name) {
-		this(null, name);
+		this.name = name;
 	}
 	
 	public MyEntity(Long id, String name) {
-		super();
-		super.id = id;
+		super(id);
 		this.name = name;
 	}
 	
