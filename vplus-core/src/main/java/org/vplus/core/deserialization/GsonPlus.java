@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,9 +22,11 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.caelum.vraptor.view.ResultException;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 import com.google.common.io.CharStreams;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -40,10 +44,13 @@ public class GsonPlus implements Deserializer {
 
 	private final ParameterNameProvider paramNameProvider;
 
+	private final Collection<JsonDeserializer> adapters;
+
 	private final HttpServletRequest request;
 
-	public GsonPlus(ParameterNameProvider paramNameProvider, HttpServletRequest request) {
+	public GsonPlus(ParameterNameProvider paramNameProvider, List<JsonDeserializer> adapters, HttpServletRequest request) {
 		this.paramNameProvider = paramNameProvider;
+		this.adapters = adapters;
 		this.request = request;
 	}
 
@@ -87,16 +94,12 @@ public class GsonPlus implements Deserializer {
 	}
 
 	protected Class<?>[] getTypes(ResourceMethod method) {
+		Class<?>[] parameterTypes = method.getMethod().getParameterTypes();
 		Type superclass = method.getResource().getType().getGenericSuperclass();
 		if(superclass instanceof ParameterizedType) {
-			Type[] genericsTypes = getGenericsTypes(superclass);
-			Class<?>[] classes = new Class<?>[genericsTypes.length];
-			for (int i = 0; i < genericsTypes.length; i++) {
-				classes[i] = (Class<?>) genericsTypes[i];
-			}
-			return classes;
+			parameterTypes[0] = (Class<?>) getFirstGenericType(superclass);
 		}
-		return method.getMethod().getParameterTypes();
+		return parameterTypes;
 	}
 	
 	private boolean isWithoutRoot(Class<?>[] types, JsonElement node) {
@@ -105,9 +108,25 @@ public class GsonPlus implements Deserializer {
 
 	protected Gson getGson() {
 		GsonBuilder builder = new GsonBuilder();
+
+		for (JsonDeserializer<?> adapter : adapters) {
+			builder.registerTypeHierarchyAdapter(getAdapterType(adapter), adapter);
+		}
+
 		return builder.create();
 	}
 
+	private Class<?> getAdapterType(JsonDeserializer<?> adapter) {
+		Type[] genericInterfaces = adapter.getClass().getGenericInterfaces();
+		Type actualType = getFirstGenericType(genericInterfaces[0]);
+
+		return (Class<?>) actualType;
+	}
+	
+	private Type getFirstGenericType(Type type) {
+		return getGenericsTypes(type)[0];
+	}
+	
 	private Type[] getGenericsTypes(Type type) {
 		ParameterizedType paramType = (ParameterizedType) type;
 		return paramType.getActualTypeArguments();

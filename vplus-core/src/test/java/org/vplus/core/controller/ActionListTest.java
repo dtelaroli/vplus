@@ -56,7 +56,7 @@ public class ActionListTest {
 	public void shouldRenderJson() throws Exception {
 		doReturn(Arrays.asList(new MyEntity(1L, "Teste"))).when(controller).operation();
 		controller.withModel(new MyEntity()).render();
-		assertThat(result.serializedResult(), containsString("<id>1</id>"));
+		assertThat(result.serializedResult(), containsString("[{\"id\": 1"));
 	}
 	
 	@Test
@@ -73,25 +73,25 @@ public class ActionListTest {
 	
 	@Test
 	public void shouldReturn2ItemsFromGetIncludes() {
-		String[] includes = controller.includes(new MyEntity());
+		String[] includes = controller.getModel(new MyEntity()).includes();
 		assertThat(includes.length, equalTo(2));
 	}
 	
 	@Test
 	public void shouldReturn0ItemsIfOtherType() {
-		String[] includes = controller.includes("String");
+		String[] includes = controller.getModel("String").includes();
 		assertThat(includes.length, equalTo(0));
 	}
 	
 	@Test
 	public void shouldReturn2ItemsIfListOfModel() {
-		String[] includes = controller.includes(Arrays.asList(new MyEntity()));
+		String[] includes = controller.getModel(Arrays.asList(new MyEntity())).includes();
 		assertThat(includes.length, equalTo(2));
 	}
 	
 	@Test
 	public void shouldReturn0ItemsIfListOther() {
-		String[] includes = controller.includes(Arrays.asList("String"));
+		String[] includes = controller.getModel(Arrays.asList("String")).includes();
 		assertThat(includes.length, equalTo(0));
 	}
 	

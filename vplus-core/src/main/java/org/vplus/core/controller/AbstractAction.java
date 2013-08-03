@@ -1,5 +1,6 @@
 package org.vplus.core.controller;
 
+import static br.com.caelum.vraptor.view.Results.json;
 import static br.com.caelum.vraptor.view.Results.representation;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -53,29 +54,31 @@ public abstract class AbstractAction implements Action {
 		final Object operation = operation();
 		validateOperation(operation);
 		
-		result().use(representation()).from(operation)
-		.include(includes(operation)).serialize();
+		Model m = getModel(operation);
+		result().use(json()).withoutRoot().from(operation)
+		.include(m.includes()).exclude(m.excludes()).serialize();
 	}
 
-	protected String[] includes(Object operation) {
+	protected Model getModel(Object operation) {
 		TypeUtil typeUtil = actionFacade.typeUtil().of(Model.class);
 		if(typeUtil.compare(operation.getClass())) {
 			return castToModel(operation);
 		}
 		else if(typeUtil.isListFrom(operation)) {
-			List<Model> list = castToList(operation);
-			return list.get(0).includes();
+			return castToList(operation);
 		}
-		return new String[]{};
+		return new Model() {
+			private static final long serialVersionUID = -8447095386623014215L;
+		};
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<Model> castToList(Object operation) {
-		return (List<Model>)operation;
+	private Model castToList(Object operation) {
+		return ((List<Model>)operation).get(0);
 	}
 
-	private String[] castToModel(Object operation) {
-		return ((Model)operation).includes();
+	private Model castToModel(Object operation) {
+		return (Model)operation;
 	}
 
 	private void validateOperation(final Object operation) {

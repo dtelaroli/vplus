@@ -26,7 +26,7 @@ public abstract class Scaffold<T extends Model> {
 		return (Class<? extends Model>) new Mirror().on(getClass()).reflect().parentGenericType().atPosition(0);
 	}
 
-	@Get("/")
+	@Get("")
 	public void all() throws CrudException {
 		controller.of(getType()).list();
 	}
@@ -41,7 +41,7 @@ public abstract class Scaffold<T extends Model> {
 		controller.load(model);
 	}
 	
-	@Post("/")
+	@Post("")
 	@Consumes(value = "application/json")
 	public void add(T model) throws CrudException {
 		edit(model);
