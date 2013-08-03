@@ -12,11 +12,8 @@
 	<packaging>war</packaging>
 	<name>vplus-web Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	<build>
-		<finalName>vplus-web</finalName>
-	</build>
-	<dependencies>
 	
+	<dependencies>
 		<dependency>
 			<groupId>org.vplus</groupId>
 			<artifactId>vplus-core</artifactId>
@@ -34,6 +31,19 @@
 			<artifactId>hsqldb</artifactId>
 			<version>2.2.9</version>
 		</dependency>
-            
 	</dependencies>
+	
+	<build>
+		<finalName>vplus-web</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>

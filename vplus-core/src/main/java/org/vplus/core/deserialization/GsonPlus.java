@@ -22,7 +22,6 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.caelum.vraptor.view.ResultException;
 
 import com.google.common.base.Objects;
-import com.google.common.base.Strings;
 import com.google.common.io.CharStreams;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,6 +37,7 @@ import com.google.gson.JsonParser;
  */
 
 @Deserializes({ "application/json", "json" })
+@SuppressWarnings("rawtypes")
 public class GsonPlus implements Deserializer {
 
 	private static final Logger logger = LoggerFactory.getLogger(GsonDeserialization.class);
