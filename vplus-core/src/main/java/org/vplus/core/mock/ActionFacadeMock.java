@@ -1,7 +1,6 @@
 package org.vplus.core.mock;
 
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
 
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -9,24 +8,22 @@ import org.vplus.core.controller.ActionFacade;
 import org.vplus.core.generics.StatusFilter;
 import org.vplus.core.persistence.Dao;
 import org.vplus.core.persistence.Persistence;
-import org.vplus.core.persistence.PersistenceImpl;
 import org.vplus.core.util.TypeUtil;
 
 import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.ioc.Container;
 import br.com.caelum.vraptor.util.test.JSR303MockValidator;
 import br.com.caelum.vraptor.util.test.MockSerializationResult;
 
 public class ActionFacadeMock implements ActionFacade {
 
-	private Persistence persistence;
+	@Mock private Persistence persistence;
 	private MockSerializationResult mockSerializationResult;
 	private JSR303MockValidator jsr303MockValidator;
 	private TypeUtil typeUtil;
-    private StatusFilter filter;
+    @Mock private StatusFilter filter;
 
 	public ActionFacadeMock() {
-		persistence = new PersistenceMock();
+		MockitoAnnotations.initMocks(this);
 		mockSerializationResult = new MockSerializationResult();
 		typeUtil = new TypeUtil();
 		jsr303MockValidator = new JSR303MockValidator();

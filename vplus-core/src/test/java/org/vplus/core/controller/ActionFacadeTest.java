@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.vplus.core.generics.StatusFilter;
 import org.vplus.core.persistence.Persistence;
 import org.vplus.core.util.TypeUtil;
 
@@ -20,11 +21,12 @@ public class ActionFacadeTest {
 	@Mock private Result result;
 	@Mock private Validator validator;
 	@Mock TypeUtil typeUtil;
+	@Mock StatusFilter filter;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		facade = new ActionFacadeImpl(persistence, result, validator, typeUtil);
+		facade = new ActionFacadeImpl(persistence, result, validator, typeUtil, filter);
 	}
 
 	@Test

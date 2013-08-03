@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -29,8 +28,7 @@ public class CrudControllerImplTest {
 
 	CrudController crud;
 	Controller controller;
-	@Mock
-	Container container;
+	@Mock Container container;
 	private AbstractAction actionList;
 	private AbstractAction actionLoad;
 	private AbstractAction actionSave;
@@ -40,16 +38,17 @@ public class CrudControllerImplTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		controller = spy(new ControllerImpl(container));
-		actionList = spy(new ActionList(new ActionFacadeMock()));
+		ActionFacadeMock actionFacade = new ActionFacadeMock();
+		actionList = spy(new ActionList(actionFacade));
 		doReturn(actionList).when(controller).use(type(actionList));
 
-		actionLoad = spy(new ActionLoad(new ActionFacadeMock()));
+		actionLoad = spy(new ActionLoad(actionFacade));
 		doReturn(actionLoad).when(controller).use(type(actionLoad));
 
-		actionSave = spy(new ActionSave(new ActionFacadeMock()));
+		actionSave = spy(new ActionSave(actionFacade));
 		doReturn(actionSave).when(controller).use(type(actionSave));
 
-		actionDelete = spy(new ActionDelete(new ActionFacadeMock()));
+		actionDelete = spy(new ActionDelete(actionFacade));
 		doReturn(actionDelete).when(controller).use(type(actionDelete));
 
 		crud = spy(new CrudControllerImpl(controller));
@@ -69,9 +68,9 @@ public class CrudControllerImplTest {
 
 	@Test
 	public void shouldReturnResult() throws CrudException {
-		doNothing().when(crud).actionExecute();
+		doReturn(Arrays.asList(new MyEntity())).when(actionList).operation();
 		crud.list();
-		assertThat(crud.result(), notNullValue());
+		assertThat(crud.result().used(), equalTo(true));
 	}
 
 	@Test

@@ -54,7 +54,6 @@ public abstract class Scaffold<T extends Model> {
 	}
 	
 	@Delete("/{model.id}")
-	@Consumes(value = "application/json")
 	public void remove(T model) throws CrudException {
 		controller.delete(model);
 	}

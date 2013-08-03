@@ -15,18 +15,24 @@
 		angular.module('VPlus').controller('MyCtrl',
 				[ '$scope', 'Rest', function($scope, Rest) {
 	
-					var tmpl = '<button data-ng-click="save(row.rowIndex)">Save</button>';
+					var btnSave = '<button data-ng-click="save(row.rowIndex)">Save</button>';
+					var btnDel = '<button data-ng-click="remove(row.rowIndex)">Remove</button>';
+					var sel = '<select data-ng-model="list[row.rowIndex].status"><option value="ACTIVE">Active</option><option value="INACTIVE">Inactive</option><option value="REMOVED">Removed</option></select>';
+					
 					$scope.model = {};
 					$scope.list = Rest.query();
 					$scope.gridOptions = {
 						data : 'list',
 						multiSelect: false,
+						showFooter: true,
+						showFilter: true,
+						filterOptions: { filterText: '', useExternalFilter: false },
 						columnDefs: [
 							{field:'name', displayName:'Name', enableCellEdit:true}, 
 							{field:"created.time", displayName:'Created', cellFilter:'date:"short"'},
 							{field:"modified.time", displayName:'Modified', cellFilter:'date:"short"'},
-							{field:'status', displayName:'Status', enableCellEdit:true},
-							{field:'save', displayName:'Save', cellTemplate: tmpl }
+							{field:'status', displayName:'Status', enableCellEdit:true, editableCellTemplate: sel},
+							{field:'action', displayName:'Action', cellTemplate: btnSave + btnDel },
 						]
 					};
 					
@@ -34,12 +40,20 @@
 						$scope.list[i].$edit();
 						return false;
 					};
+					
+					$scope.remove = function(i) {
+						$scope.list[i].$remove({ id: $scope.list[i].id }, function() {
+							$scope.list.splice(i, 1);	
+						});
+						return false;
+					};
 	
 					$scope.submit = function() {
 						var item = new Rest();
 						item.name = $scope.model.name;
-						item.$add();
-						$scope.list.push(item);
+						item.$add({}, function() {
+							$scope.list.push(item);
+						});
 					};
 	
 				} ]);
@@ -55,30 +69,12 @@
 <body data-ng-app="VPlus">
 	<h2>Hello World!</h2>
 	<div data-ng-controller="MyCtrl">
-		<table>
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Created</th>
-					<th>Modified</th>
-					<th>Status</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr data-ng-repeat="item in list">
-					<td>{{item.name}}</td>
-					<td>{{item.created.time | date:'short'}}</td>
-					<td>{{item.modified.time | date:'short'}}</td>
-					<td>{{item.status.$}}</td>
-				</tr>
-			</tbody>
-		</table>
 		<div class="gridStyle" data-ng-grid="gridOptions"></div>
 
 		<div>
 			<form data-ng-submit="submit()">
-				<input data-ng-model="model.name" /> <input type="submit"
-					value="Save" />
+				<input data-ng-model="model.name" /> 
+				<input type="submit" value="Add" />
 			</form>
 		</div>
 	</div>

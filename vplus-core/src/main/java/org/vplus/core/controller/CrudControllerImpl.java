@@ -2,6 +2,7 @@ package org.vplus.core.controller;
 
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
+import org.vplus.core.generics.Status;
 import org.vplus.core.persistence.Direction;
 
 import br.com.caelum.vraptor.Result;
@@ -16,6 +17,7 @@ public class CrudControllerImpl implements CrudController {
 	private Direction direction;
 	private String order;
 	private Integer limit;
+	private Status status;
 
 	public CrudControllerImpl(Controller controller) {
 		this.controller = controller;
@@ -133,6 +135,17 @@ public class CrudControllerImpl implements CrudController {
 	public void delete(Model model) throws CrudException {
 		action = controller.use(Controllers.delete()).withModel(model);
 		actionExecute();
+	}
+
+	@Override
+	public CrudController withStatus(Status status) {
+		this.status = status;
+		return this;
+	}
+
+	@Override
+	public Status status() {
+		return status;
 	}
 
 }

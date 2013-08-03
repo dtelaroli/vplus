@@ -1,5 +1,6 @@
 package org.vplus.core.controller;
 
+import org.vplus.core.generics.StatusFilter;
 import org.vplus.core.persistence.Persistence;
 import org.vplus.core.util.TypeUtil;
 
@@ -15,5 +16,7 @@ public interface ActionFacade {
 	Validator validator();
 
 	TypeUtil typeUtil();
+
+	StatusFilter filter();
 
 }

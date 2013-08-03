@@ -9,4 +9,8 @@
 	<artifactId>vplus-front</artifactId>
 	<packaging>war</packaging>
 	
+	<build>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+	</build>
+	
 </project>

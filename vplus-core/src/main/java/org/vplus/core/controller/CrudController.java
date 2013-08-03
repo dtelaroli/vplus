@@ -2,6 +2,7 @@ package org.vplus.core.controller;
 
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
+import org.vplus.core.generics.Status;
 import org.vplus.core.persistence.Direction;
 
 import br.com.caelum.vraptor.Result;
@@ -30,8 +31,6 @@ public interface CrudController {
 
 	Integer limit();
 
-	void actionExecute() throws CrudException;
-
 	void list() throws CrudException;
 	
 	void load(Model model) throws CrudException;
@@ -39,6 +38,10 @@ public interface CrudController {
 	void save(Model model) throws CrudException;
 
 	void delete(Model model) throws CrudException;
+
+	CrudController withStatus(Status status);
+
+	Status status();
 
 
 }

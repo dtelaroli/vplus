@@ -46,7 +46,7 @@ public class ActionListFilterTest {
 		test.from(MyEntity.class).init();
 		persistence = new PersistenceImpl(container);
 		filter = new StatusFilter(test.entityManager());
-		actionList = new ActionList(new ActionFacadeImpl(persistence, result, validator, typeUtil));
+		actionList = new ActionList(new ActionFacadeImpl(persistence, result, validator, typeUtil, filter));
 		doReturn(new DBList(test.entityManager())).when(container).instanceFor(list());
 	}
 

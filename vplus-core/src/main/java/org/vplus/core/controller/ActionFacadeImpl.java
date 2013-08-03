@@ -1,5 +1,6 @@
 package org.vplus.core.controller;
 
+import org.vplus.core.generics.StatusFilter;
 import org.vplus.core.persistence.Persistence;
 import org.vplus.core.util.TypeUtil;
 
@@ -16,13 +17,15 @@ public class ActionFacadeImpl implements ActionFacade {
 	private Result result;
 	private Validator validator;
 	private TypeUtil typeUtil;
+	private StatusFilter filter;
 
 	public ActionFacadeImpl(Persistence persistence, Result result, Validator validator,
-			TypeUtil typeUtil) {
+			TypeUtil typeUtil, StatusFilter filter) {
 		this.persistence = persistence;
 		this.result = result;
 		this.validator = validator;
 		this.typeUtil = typeUtil;
+		this.filter = filter;
 	}
 
 	@Override
@@ -43,6 +46,11 @@ public class ActionFacadeImpl implements ActionFacade {
 	@Override
 	public TypeUtil typeUtil() {
 		return typeUtil;
+	}
+
+	@Override
+	public StatusFilter filter() {
+		return filter;
 	}
 	
 }
