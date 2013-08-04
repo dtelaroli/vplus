@@ -1,6 +1,7 @@
 package org.vplus.core.controller;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -37,7 +38,7 @@ public class ScaffoldTest {
 	@Test
 	public void shouldGetTypeFromGeneric() {
 		Scaffold<Model> sc = new Scaffold<Model>(crud) {};
-		assertThat(sc.getType().isAssignableFrom(Model.class), equalTo(true));
+		assertThat(sc.type().isAssignableFrom(Model.class), equalTo(true));
 	}
 	
 	@Test
@@ -89,4 +90,8 @@ public class ScaffoldTest {
 		verify(crud).withStatus(Status.Inactive);
 	}
 	
+	@Test
+	public void shouldExecuteUseMethod() throws CrudException {
+		assertThat(scaffold.controller(), notNullValue());
+	}
 }

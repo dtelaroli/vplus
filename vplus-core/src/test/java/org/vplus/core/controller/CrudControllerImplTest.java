@@ -10,6 +10,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
+import static org.vplus.core.controller.Controllers.list;
 
 import java.util.Arrays;
 
@@ -174,6 +175,14 @@ public class CrudControllerImplTest {
 		mockOperation();
 		crud.withStatus(Status.Active);
 		assertThat(crud.status(), equalTo(Status.Active));
+	}
+	
+	@Test
+	public void shouldExecuteUseMethod() throws CrudException {
+		mockOperation();
+		Class<ActionList> list = list();
+		crud.use(list);
+		verify(controller).use(list);
 	}
 	
 }

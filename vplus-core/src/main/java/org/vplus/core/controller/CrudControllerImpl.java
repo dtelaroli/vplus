@@ -148,4 +148,9 @@ public class CrudControllerImpl implements CrudController {
 		return status;
 	}
 
+	@Override
+	public <T extends Action> Action use(Class<T> action) {
+		return controller.use(action);
+	}
+
 }

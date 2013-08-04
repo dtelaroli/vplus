@@ -43,5 +43,7 @@ public interface CrudController {
 
 	Status status();
 
+	<T extends Action> Action use(Class<T> list);
+
 
 }

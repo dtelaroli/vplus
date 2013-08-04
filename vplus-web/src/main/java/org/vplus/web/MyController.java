@@ -15,5 +15,5 @@ public class MyController extends Scaffold<MyEntity> {
 		super(controller);
 		filter.disableFilter();
 	}
-
+	
 }

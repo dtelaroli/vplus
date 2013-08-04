@@ -84,7 +84,7 @@ public class MyEntityTest {
 	@Test
 	public void shouldReturnToString() {
 		my = new MyEntity(1L, "test");
-		assertThat(my.toString(), containsString("ACTIVE"));
+		assertThat(my.toString(), containsString("Active"));
 		assertThat(my.toString(), containsString("1"));
 	}
 	

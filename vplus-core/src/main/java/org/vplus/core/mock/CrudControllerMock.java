@@ -4,6 +4,7 @@ import static br.com.caelum.vraptor.view.Results.json;
 
 import java.util.Arrays;
 
+import org.vplus.core.controller.Action;
 import org.vplus.core.controller.ActionFacade;
 import org.vplus.core.controller.CrudController;
 import org.vplus.core.exception.CrudException;
@@ -107,6 +108,11 @@ public class CrudControllerMock implements CrudController {
 
 	@Override
 	public Status status() {
+		return null;
+	}
+
+	@Override
+	public <T extends Action> Action use(Class<T> action) {
 		return null;
 	}
 

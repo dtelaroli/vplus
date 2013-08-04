@@ -22,18 +22,18 @@ public abstract class Scaffold<T extends Model> {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Class<? extends Model> getType() {
-		return (Class<? extends Model>) new Mirror().on(getClass()).reflect().parentGenericType().atPosition(0);
+	protected Class<T> type() {
+		return (Class<T>) new Mirror().on(getClass()).reflect().parentGenericType().atPosition(0);
 	}
 
 	@Get("")
 	public void all() throws CrudException {
-		controller.of(getType()).list();
+		controller.of(type()).list();
 	}
 	
 	@Get("/status/{status}")
 	public void all(Status status) throws CrudException {
-		controller.of(getType()).withStatus(status).list();		
+		controller.of(type()).withStatus(status).list();		
 	}
 	
 	@Get("/order/{order}/dir/{direction}/limit/{limit}")
@@ -61,6 +61,10 @@ public abstract class Scaffold<T extends Model> {
 	@Delete("/{model.id}")
 	public void remove(T model) throws CrudException {
 		controller.delete(model);
+	}
+
+	protected CrudController controller() {
+		return controller;
 	}
 
 }
