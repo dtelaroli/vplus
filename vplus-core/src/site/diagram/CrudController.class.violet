@@ -90,19 +90,19 @@ Action</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double2"/>
-      <double>278.0</double>
+      <double>277.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double2"/>
-      <double>571.0</double>
+      <double>616.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>278.0</double>
-     <double>571.0</double>
+     <double>277.0</double>
+     <double>616.0</double>
     </void>
    </object>
   </void>
@@ -128,19 +128,19 @@ ActionFacade</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double3"/>
-      <double>269.0</double>
+      <double>633.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double3"/>
-      <double>867.0</double>
+      <double>983.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>269.0</double>
-     <double>867.0</double>
+     <double>633.0</double>
+     <double>983.0</double>
     </void>
    </object>
   </void>
@@ -163,7 +163,10 @@ void actionExecute()
 void list()
 void load(Model model)
 void save(Model model)
-void delete(Model model)</string>
+void delete(Model model)
+CrudController withStatus(Status status)
+Status status()
+&lt;T extends Action&gt; Action use(Class&lt;T&gt; action)</string>
      </void>
     </void>
     <void property="name">
@@ -185,12 +188,12 @@ CrudController</string>
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double4"/>
-      <double>241.0</double>
+      <double>251.0</double>
      </void>
     </void>
     <void method="setLocation">
      <double>44.0</double>
-     <double>241.0</double>
+     <double>251.0</double>
     </void>
    </object>
   </void>
@@ -217,19 +220,19 @@ CrudSignature&lt;T&gt;</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double5"/>
-      <double>51.0</double>
+      <double>55.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double5"/>
-      <double>863.0</double>
+      <double>912.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>51.0</double>
-     <double>863.0</double>
+     <double>55.0</double>
+     <double>912.0</double>
     </void>
    </object>
   </void>
@@ -262,7 +265,8 @@ CrudSignature&lt;T&gt;</string>
 +AbstractAction withOrder(String order)
 +AbstractAction withDirection(Direction direction)
 +AbstractAction withLimit(Integer limit)
-+Integer limit()</string>
++Integer limit()
++AbstractAction withStatus(Status status)</string>
      </void>
     </void>
     <void property="name">
@@ -277,19 +281,19 @@ AbstractAction</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double6"/>
-      <double>454.0</double>
+      <double>468.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double6"/>
-      <double>433.0</double>
+      <double>496.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>454.0</double>
-     <double>433.0</double>
+     <double>468.0</double>
+     <double>496.0</double>
     </void>
    </object>
   </void>
@@ -297,10 +301,11 @@ AbstractAction</string>
    <object class="com.horstmann.violet.ClassNode" id="ClassNode2">
     <void property="attributes">
      <void property="text">
-      <string>Persistence persistence
-Result result
-Validator validator
-TypeUtil typeUtil</string>
+      <string>-Persistence persistence
+-Result result
+-Validator validator
+-TypeUtil typeUtil
+-StatusFilter filter</string>
      </void>
     </void>
     <void property="methods">
@@ -314,7 +319,9 @@ TypeUtil typeUtil</string>
 Persistence persistence()
 Result result()
 Validator validator()
-TypeUtil typeUtil()</string>
+TypeUtil typeUtil()
+StatusFilter filter()
+void setFilter(Status status)</string>
      </void>
     </void>
     <void property="name">
@@ -328,19 +335,19 @@ TypeUtil typeUtil()</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double7"/>
-      <double>607.0</double>
+      <double>302.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double7"/>
-      <double>829.0</double>
+      <double>906.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>607.0</double>
-     <double>829.0</double>
+     <double>302.0</double>
+     <double>906.0</double>
     </void>
    </object>
   </void>
@@ -353,7 +360,8 @@ TypeUtil typeUtil()</string>
 -AbstractAction action
 -Direction direction
 -String order
--Integer limit</string>
+-Integer limit
+-Status status</string>
      </void>
     </void>
     <void property="methods">
@@ -374,7 +382,10 @@ TypeUtil typeUtil()</string>
 +void list()
 +void load(Model model)
 +void save(Model model)
-+void delete(Model model)</string>
++void delete(Model model)
++CrudController withStatus(Status status)
++Status status()
++&lt;T extends Action&gt; Action use(Class&lt;T&gt; action)</string>
      </void>
     </void>
     <void property="name">
@@ -419,7 +430,8 @@ TypeUtil typeUtil()</string>
 +void get(T model)
 +void add(T model)
 +void edit(T model)
-+void remove(T model)</string>
++void remove(T model)
+#CrudController controller()</string>
      </void>
     </void>
     <void property="name">
@@ -433,19 +445,19 @@ TypeUtil typeUtil()</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double9"/>
-      <double>40.0</double>
+      <double>36.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double9"/>
-      <double>656.0</double>
+      <double>705.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>40.0</double>
-     <double>656.0</double>
+     <double>36.0</double>
+     <double>705.0</double>
     </void>
    </object>
   </void>

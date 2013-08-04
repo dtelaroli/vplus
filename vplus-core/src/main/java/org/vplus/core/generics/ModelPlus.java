@@ -74,16 +74,6 @@ public abstract class ModelPlus extends Model {
 	}
 
 	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
-	}
-
-	@Override
 	public String toString() {
 		return "ModelPlus [id=" + id + ", created=" + created + ", modified="
 				+ modified + ", status=" + status + "]";

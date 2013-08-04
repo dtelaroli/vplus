@@ -65,7 +65,8 @@
 +Calendar createdAt()
 +Calendar modifiedAt()
 +void beforeInsert()
-+void beforeUpdate()</string>
++void beforeUpdate()
++String toString()</string>
      </void>
     </void>
     <void property="name">
@@ -147,7 +148,7 @@ Filter filter</string>
 +void inactive()
 +void active()
 +void removed()
-#void setStatus(Status status)
++void setStatus(Status status)
 #Session hibernateSession()
 #Session hibernateSession()
 #Filter filter()

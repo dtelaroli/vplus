@@ -161,7 +161,8 @@
       <string>-Container container
 -Persistence persistence
 -MockSerializationResult mockSerializationResult
--JSR303MockValidator jsr303MockValidator</string>
+-JSR303MockValidator jsr303MockValidator
+-StatusFilter filter</string>
      </void>
     </void>
     <void property="methods">
@@ -170,7 +171,8 @@
 +Persistence persistence()
 +ActionFacade withPersistence(Dao dao)
 +MockSerializationResult result()
-+Validator validator()</string>
++Validator validator()
++StatusFilter filter()</string>
      </void>
     </void>
     <void property="name">
