@@ -2,11 +2,8 @@ package org.vplus.core.controller;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +12,8 @@ import org.mockito.MockitoAnnotations;
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
+import org.vplus.core.generics.Status;
+import org.vplus.core.mock.CrudControllerMock;
 import org.vplus.core.persistence.Direction;
 
 public class ScaffoldTest {
@@ -31,10 +30,7 @@ public class ScaffoldTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		when(crud.of(MyEntity.class)).thenReturn(crud);
-		when(crud.withOrder(anyString())).thenReturn(crud);
-		when(crud.withLimit(anyInt())).thenReturn(crud);
-		when(crud.withDirection(any(Direction.class))).thenReturn(crud);
+		crud = spy(new CrudControllerMock());
 		scaffold = new MyScaffold(crud);
 	}
 
@@ -84,6 +80,13 @@ public class ScaffoldTest {
 		MyEntity model = new MyEntity();
 		scaffold.remove(model);
 		verify(crud).delete(model);
+	}
+	
+	@Test
+	public void shouldInvokeListWithFilter() throws CrudException {
+		scaffold.all(Status.INACTIVE);
+		verify(crud).list();
+		verify(crud).withStatus(Status.INACTIVE);
 	}
 	
 }

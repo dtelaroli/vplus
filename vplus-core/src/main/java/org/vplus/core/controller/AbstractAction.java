@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
+import org.vplus.core.generics.Status;
 import org.vplus.core.persistence.Direction;
 import org.vplus.core.persistence.Persistence;
 import org.vplus.core.util.TypeUtil;
@@ -130,4 +131,9 @@ public abstract class AbstractAction implements Action {
 		return limit;
 	}
 
+	public AbstractAction withStatus(Status status) {
+		actionFacade.setFilter(status);
+		return this;
+	}
+	
 }

@@ -8,7 +8,6 @@ import org.vplus.core.controller.ActionFacade;
 import org.vplus.core.controller.CrudController;
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
-import org.vplus.core.generics.MyEntity;
 import org.vplus.core.generics.Status;
 import org.vplus.core.persistence.Direction;
 
@@ -18,7 +17,7 @@ public class CrudControllerMock implements CrudController {
 
 	private Class<? extends Model> type;
 	private ActionFacade actionFacade;
-	
+
 	public CrudControllerMock() {
 		this.actionFacade = new ActionFacadeMock();
 	}
@@ -81,7 +80,9 @@ public class CrudControllerMock implements CrudController {
 
 	@Override
 	public void list() throws CrudException {
-		result().use(json()).from(Arrays.asList(new MyEntity(1L, "Test 1"))).serialize();
+		result().use(json()).from(Arrays.asList(new Model(1L) {
+			private static final long serialVersionUID = -6309663927636369622L;
+		})).serialize();
 	}
 
 	@Override

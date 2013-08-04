@@ -4,6 +4,7 @@ import net.vidageek.mirror.dsl.Mirror;
 
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
+import org.vplus.core.generics.Status;
 import org.vplus.core.persistence.Direction;
 
 import br.com.caelum.vraptor.Consumes;
@@ -16,7 +17,6 @@ public abstract class Scaffold<T extends Model> {
 
 	private CrudController controller;
 
-	
 	public Scaffold(CrudController controller) {
 		this.controller = controller;
 	}
@@ -29,6 +29,11 @@ public abstract class Scaffold<T extends Model> {
 	@Get("")
 	public void all() throws CrudException {
 		controller.of(getType()).list();
+	}
+	
+	@Get("/status/{status}")
+	public void all(Status status) throws CrudException {
+		controller.of(getType()).withStatus(status).list();		
 	}
 	
 	@Get("/order/{order}/dir/{direction}/limit/{limit}")

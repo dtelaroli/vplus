@@ -27,5 +27,6 @@ public class StatusTest {
 		assertThat(Status.ACTIVE.isRemoved(), equalTo(false));
 		assertThat(Status.REMOVED.isRemoved(), equalTo(true));
 	}
+	
 
 }

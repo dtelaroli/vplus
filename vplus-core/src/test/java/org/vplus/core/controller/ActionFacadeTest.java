@@ -2,11 +2,13 @@ package org.vplus.core.controller;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.vplus.core.generics.Status;
 import org.vplus.core.generics.StatusFilter;
 import org.vplus.core.persistence.Persistence;
 import org.vplus.core.util.TypeUtil;
@@ -47,6 +49,14 @@ public class ActionFacadeTest {
 	@Test
 	public void shouldReturnTypeUtil() {
 		assertThat(facade.typeUtil(), equalTo(typeUtil));
+	}
+	
+	@Test
+	public void shouldSetStatus() {
+		Status inactive = Status.INACTIVE;
+		facade.setFilter(inactive);
+		assertThat(facade.filter().isActiveFilter(), equalTo(false));
+		verify(filter).setStatus(inactive);
 	}
 
 }

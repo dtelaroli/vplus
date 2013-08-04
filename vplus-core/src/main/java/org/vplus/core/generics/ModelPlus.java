@@ -65,7 +65,7 @@ public abstract class ModelPlus extends Model {
 	@PrePersist
 	public void beforeInsert() {
 		created = Calendar.getInstance();
-		modified = Calendar.getInstance();
+		beforeUpdate();
 	}
 	
 	@PreUpdate

@@ -9,10 +9,8 @@ import org.hibernate.Session;
 import org.hibernate.internal.SessionImpl;
 
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.ioc.SessionScoped;
 
 @Component
-@SessionScoped
 public class StatusFilter implements Serializable {
 	
 	private static final long serialVersionUID = 3988997348937148149L;
@@ -47,7 +45,7 @@ public class StatusFilter implements Serializable {
 		setStatus(Status.REMOVED);
 	}
 	
-	protected void setStatus(Status status) {
+	public void setStatus(Status status) {
 		filter = hibernateSession().enableFilter(STATUS_FILTER);
 		filter.setParameter(STATUS_PARAM, status.ordinal());
 	}

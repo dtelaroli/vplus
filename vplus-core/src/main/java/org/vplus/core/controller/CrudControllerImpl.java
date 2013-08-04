@@ -93,7 +93,7 @@ public class CrudControllerImpl implements CrudController {
 	}
 	
 	public void actionExecute() throws CrudException {
-		action.withDirection(direction).withOrder(order).withLimit(limit).of(type()).render();
+		action.withDirection(direction).withOrder(order).withLimit(limit).withStatus(status()).of(type()).render();
 	}
 
 	@Override
@@ -145,6 +145,9 @@ public class CrudControllerImpl implements CrudController {
 
 	@Override
 	public Status status() {
+		if(status == null) {
+			return Status.ACTIVE;
+		}
 		return status;
 	}
 

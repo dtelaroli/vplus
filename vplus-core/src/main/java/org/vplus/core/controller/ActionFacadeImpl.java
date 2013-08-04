@@ -1,5 +1,6 @@
 package org.vplus.core.controller;
 
+import org.vplus.core.generics.Status;
 import org.vplus.core.generics.StatusFilter;
 import org.vplus.core.persistence.Persistence;
 import org.vplus.core.util.TypeUtil;
@@ -51,6 +52,11 @@ public class ActionFacadeImpl implements ActionFacade {
 	@Override
 	public StatusFilter filter() {
 		return filter;
+	}
+
+	@Override
+	public void setFilter(Status status) {
+		filter.setStatus(status);
 	}
 	
 }

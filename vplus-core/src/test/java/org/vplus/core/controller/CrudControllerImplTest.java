@@ -5,6 +5,8 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -19,6 +21,7 @@ import org.vplus.core.controller.CrudControllerImpl.ActionNull;
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.generics.Model;
 import org.vplus.core.generics.MyEntity;
+import org.vplus.core.generics.Status;
 import org.vplus.core.mock.ActionFacadeMock;
 import org.vplus.core.persistence.Direction;
 
@@ -84,7 +87,10 @@ public class CrudControllerImplTest {
 		mockOperation();
 		crud.of(MyEntity.class).list();
 		verifyExecute(actionList);
-	}
+		verify(actionList).withStatus(any(Status.class));
+		verify(actionList).withLimit(anyInt());
+		verify(actionList).withDirection(any(Direction.class));
+		verify(actionList).withOrder(anyString());	}
 
 	private void verifyExecute(AbstractAction action) throws CrudException {
 		verify(action).of(MyEntity.class);
@@ -161,6 +167,20 @@ public class CrudControllerImplTest {
 		mockOperation();
 		crud.withLimit(1);
 		assertThat(crud.limit(), equalTo(1));
+	}
+	
+	@Test
+	public void shouldSetStatus() throws CrudException {
+		mockOperation();
+		crud.withStatus(Status.ACTIVE);
+		assertThat(crud.status(), equalTo(Status.ACTIVE));
+	}
+	
+	@Test
+	public void shouldSetStatusActiveIfNull() throws CrudException {
+		mockOperation();
+		crud.withStatus(null);
+		assertThat(crud.status(), equalTo(Status.ACTIVE));
 	}
 	
 }

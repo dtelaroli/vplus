@@ -5,6 +5,7 @@ import static org.mockito.Mockito.doReturn;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.controller.ActionFacade;
+import org.vplus.core.generics.Status;
 import org.vplus.core.generics.StatusFilter;
 import org.vplus.core.persistence.Dao;
 import org.vplus.core.persistence.Persistence;
@@ -59,5 +60,10 @@ public class ActionFacadeMock implements ActionFacade {
 	@Override
 	public StatusFilter filter() {
 		return filter;
+	}
+
+	@Override
+	public void setFilter(Status status) {
+		
 	}
 }

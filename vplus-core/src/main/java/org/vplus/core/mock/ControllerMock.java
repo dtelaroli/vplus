@@ -1,7 +1,10 @@
 package org.vplus.core.mock;
 
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.vplus.core.controller.Action;
 import org.vplus.core.controller.ActionDelete;
+import org.vplus.core.controller.ActionFacade;
 import org.vplus.core.controller.ActionList;
 import org.vplus.core.controller.ActionLoad;
 import org.vplus.core.controller.ActionSave;
@@ -10,9 +13,10 @@ import org.vplus.core.exception.CrudException;
 
 public class ControllerMock implements Controller {
 
-	private ActionFacadeMock actionFacade;
+	@Mock private ActionFacade actionFacade;
 
 	public ControllerMock() {
+		MockitoAnnotations.initMocks(this);
 	}
 	
 	@Override
@@ -28,7 +32,6 @@ public class ControllerMock implements Controller {
 	@SuppressWarnings({ "unchecked" })
 	private <T extends Action> T instanceAction(Class<T> action) throws CrudException {
 		if(action.isAssignableFrom(ActionList.class)) {
-			actionFacade = new ActionFacadeMock();
 			return (T) new ActionList(actionFacade);
 		}
 		
