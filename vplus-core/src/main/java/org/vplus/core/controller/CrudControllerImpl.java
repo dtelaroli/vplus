@@ -145,9 +145,6 @@ public class CrudControllerImpl implements CrudController {
 
 	@Override
 	public Status status() {
-		if(status == null) {
-			return Status.ACTIVE;
-		}
 		return status;
 	}
 

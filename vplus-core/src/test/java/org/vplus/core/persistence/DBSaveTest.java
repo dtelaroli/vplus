@@ -55,7 +55,7 @@ public class DBSaveTest {
 		my = (MyEntity) save.persist(my);
 		assertThat(my.createdAt(), equalTo(my.modifiedAt()));
 		
-		my.withStatus(Status.REMOVED);
+		my.withStatus(Status.Removed);
 		
 		my = (MyEntity) save.persist(my);
 		assertThat(my.createdAt(), not(equalTo(my.modifiedAt())));

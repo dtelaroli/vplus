@@ -84,9 +84,9 @@ public class ScaffoldTest {
 	
 	@Test
 	public void shouldInvokeListWithFilter() throws CrudException {
-		scaffold.all(Status.INACTIVE);
+		scaffold.all(Status.Inactive);
 		verify(crud).list();
-		verify(crud).withStatus(Status.INACTIVE);
+		verify(crud).withStatus(Status.Inactive);
 	}
 	
 }

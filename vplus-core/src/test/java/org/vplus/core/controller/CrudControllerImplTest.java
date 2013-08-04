@@ -172,15 +172,8 @@ public class CrudControllerImplTest {
 	@Test
 	public void shouldSetStatus() throws CrudException {
 		mockOperation();
-		crud.withStatus(Status.ACTIVE);
-		assertThat(crud.status(), equalTo(Status.ACTIVE));
-	}
-	
-	@Test
-	public void shouldSetStatusActiveIfNull() throws CrudException {
-		mockOperation();
-		crud.withStatus(null);
-		assertThat(crud.status(), equalTo(Status.ACTIVE));
+		crud.withStatus(Status.Active);
+		assertThat(crud.status(), equalTo(Status.Active));
 	}
 	
 }

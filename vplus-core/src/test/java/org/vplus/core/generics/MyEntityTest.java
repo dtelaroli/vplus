@@ -56,19 +56,19 @@ public class MyEntityTest {
 	
 	@Test
 	public void shouldReturnActive() {
-		assertThat(my.status(), equalTo(Status.ACTIVE));
+		assertThat(my.status(), equalTo(Status.Active));
 	}
 	
 	@Test
 	public void shouldSetInactive() {
-		my.withStatus(Status.INACTIVE);
-		assertThat(my.status(), equalTo(Status.INACTIVE));
+		my.withStatus(Status.Inactive);
+		assertThat(my.status(), equalTo(Status.Inactive));
 	}
 	
 	@Test
 	public void shouldSetRemoved() {
-		my.withStatus(Status.REMOVED);
-		assertThat(my.status(), equalTo(Status.REMOVED));
+		my.withStatus(Status.Removed);
+		assertThat(my.status(), equalTo(Status.Removed));
 	}
 	
 	@Test

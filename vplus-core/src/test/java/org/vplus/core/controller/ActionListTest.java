@@ -125,7 +125,7 @@ public class ActionListTest {
 	
 	@Test
 	public void shouldSetStatusInFilter() {
-		controller.withStatus(Status.ACTIVE);
+		controller.withStatus(Status.Active);
 		verify(facade).setFilter(any(Status.class));
 	}
 	

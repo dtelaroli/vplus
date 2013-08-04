@@ -1,7 +1,6 @@
 package org.vplus.core.controller;
 
 import static br.com.caelum.vraptor.view.Results.json;
-import static br.com.caelum.vraptor.view.Results.representation;
 import static org.hamcrest.Matchers.notNullValue;
 
 import java.util.List;
@@ -74,26 +73,25 @@ public abstract class AbstractAction implements Action {
 	}
 
 	@SuppressWarnings("unchecked")
-	private Model castToList(Object operation) {
-		return ((List<Model>)operation).get(0);
+	private Model castToList(Object object) {
+		return ((List<Model>)object).get(0);
 	}
 
-	private Model castToModel(Object operation) {
-		return (Model)operation;
+	private Model castToModel(Object object) {
+		return (Model)object;
 	}
 
-	private void validateOperation(final Object operation) {
+	private void validateOperation(final Object object) {
 		validator().checking(new Validations() {
 			{
-				that(operation, notNullValue(), i18n("notNull"), "operation");
+				that(object, notNullValue(), i18n("notNull"), "object");
 			}
 		});
 		dispatchError();
 	}
 
 	private void dispatchError() {
-		validator().onErrorUse(representation())
-		.from(validator().getErrors(), "errors").serialize();
+		validator().onErrorSendBadRequest();
 	}
 
 	protected void validateModel() {

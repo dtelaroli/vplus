@@ -34,20 +34,22 @@ public class StatusFilter implements Serializable {
 	}
 
 	public void inactive() {
-		setStatus(Status.INACTIVE);
+		setStatus(Status.Inactive);
 	}
 
 	public void active() {
-		setStatus(Status.ACTIVE);		
+		setStatus(Status.Active);		
 	}
 
 	public void removed() {
-		setStatus(Status.REMOVED);
+		setStatus(Status.Removed);
 	}
 	
 	public void setStatus(Status status) {
-		filter = hibernateSession().enableFilter(STATUS_FILTER);
-		filter.setParameter(STATUS_PARAM, status.ordinal());
+		if(status != null) {
+			filter = hibernateSession().enableFilter(STATUS_FILTER);
+			filter.setParameter(STATUS_PARAM, status.ordinal());
+		}
 	}
 
 	protected Session hibernateSession() {

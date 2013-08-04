@@ -37,12 +37,12 @@ public abstract class ModelPlus extends Model {
 	
 	public ModelPlus() {
 		super();
-		status = Status.ACTIVE;
+		status = Status.Active;
 	}
 
 	public ModelPlus(Long id) {
 		super(id);
-		status = Status.ACTIVE;
+		status = Status.Active;
 	}
 
 	public Status status() {

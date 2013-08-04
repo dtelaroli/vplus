@@ -4,12 +4,14 @@
 <title>Index</title>
 
 <script type="text/javascript" src="/vplus-web/js/vendor/ng-grid//lib/jquery-1.9.1.js"></script>
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/vplus-web/js/vendor/angular/angular.min.js"></script>
 <script type="text/javascript" src="/vplus-web/js/vendor/angular/angular-resource.min.js"></script>
+<script type="text/javascript" src="/vplus-web/js/vendor/ui-utils.min.js"></script>
 <script type="text/javascript" src="/vplus-web/js/vendor/bootstrap-custom/ui-bootstrap-custom-0.4.0.min.js"></script>
 <script type="text/javascript" src="/vplus-web/js/vendor/bootstrap-custom/ui-bootstrap-custom-tpls-0.4.0.min.js"></script>
+<script src="//raw.github.com/angular-ui/bootstrap/master/src/dialog/dialog.js"></script>
 <script type="text/javascript" src="/vplus-web/js/vendor/ng-grid/ng-grid-2.0.7.min.js"></script>
 <link type="text/css" rel="stylesheet" href="/vplus-web/js/vendor/ng-grid/ng-grid.min.css" />
 
@@ -18,34 +20,34 @@
 <script type="text/javascript" src="/vplus-web/js/core/Rest.js"></script>
 <script type="text/javascript">
 	angular.module('VPlus.Config').constant('URL', '/vplus-web/my/:id');
-	angular.module('VPlus').controller('MyCtrl', [
-		'$scope',
-		'Rest',
-		function($scope, Rest) {
+	angular.module('VPlus').controller('MyCtrl', ['$scope', 'Rest', '$dialog',
+		function($scope, Rest, $dialog) {
 
-			var btnSave = '<div class="ngCellText"><button data-ng-click="save(row.rowIndex)" class="btn btn-primary btn-mini btn-margin">Save</button>';
-			var btnDel = '<button data-ng-click="remove(row.rowIndex)" class="btn btn-primary btn-mini btn-margin">Remove</button></div>';
-			var sel = '<select data-ng-model="list[row.rowIndex].status"><option value="ACTIVE">Active</option><option value="INACTIVE">Inactive</option><option value="REMOVED">Removed</option></select>';
-			var filter = '<div ng-click="col.sort()" ng-class="{ ngSorted: !noSortVisible }">'
-					+ '<span class="ngHeaderText">{{col.displayName}}</span>'
-					+ '<div class="ngSortButtonDown" ng-show="col.showSortButtonDown()"></div>'
-					+ '<div class="ngSortButtonUp" ng-show="col.showSortButtonUp()"></div>'
-					+ '</div>'
-					+ '<div ng-show="col.allowResize" class="ngHeaderGrip" ng-click="col.gripClick($event)" ng-mousedown="col.gripOnMouseDown($event)"></div>'
-					+ '';
+			var btnSave = '<div class="ngCellText"><button data-ng-click="save(row.rowIndex)" class="btn btn-mini"><i class="icon-edit"></i></button>';
+			var btnDel = '<button data-ng-click="confirm(row.rowIndex)" class="btn btn-mini"><i class="icon-remove"></i></button></div>';
+			var sel = '<select data-ng-model="list[row.rowIndex].status"><option value="Active">Active</option><option value="Inactive">Inactive</option><option value="Removed">Removed</option></select>';
 
-			$scope.$watch('radioModel', function(newValue, oldValue) {
-				$scope.list = Rest.find({ status: newValue });
-			});
-			$scope.radioModel = 'ACTIVE';
+			$scope.status = 'Active';
 			$scope.model = {};
+			$scope.$watch('status', function(value, old) {
+				$scope.$broadcast('reload');
+			});
+			
+			$scope.$on('reload', function() {
+				load();
+			});
+			
+			function load() {
+				Rest.find({ status: $scope.status }, function(response) {
+					$scope.list = response;
+				})
+			}
 			
 			$scope.gridOptions = {
 				data : 'list',
 				multiSelect : false,
 				showFooter : true,
-				showFilter : true,
-				headerCellTemplate: filter,
+				headerCellTemplate: '',
 				filterOptions : {
 					filterText : '',
 					useExternalFilter : false
@@ -73,13 +75,24 @@
 					cellTemplate : btnSave + btnDel
 				}, ]
 			};
-
+			
+			$scope.confirm = function(i){
+				var msgbox = $dialog.messageBox('Delete Item', 'Are you sure?', [{label:'Yes, I\'m sure', result: true},{label:'Nope', result: false}]);
+		        msgbox.open().then(function(result){
+		            if(result) {
+						remove(i);
+		            }
+		        });
+			};
+			
 			$scope.save = function(i) {
-				$scope.list[i].$edit();
+				$scope.list[i].$edit({}, function() {
+					$scope.$broadcast('reload');
+				});
 				return false;
 			};
 
-			$scope.remove = function(i) {
+			function remove(i) {
 				$scope.list[i].$remove({
 					id : $scope.list[i].id
 				}, function() {
@@ -117,22 +130,25 @@
 </head>
 <body data-ng-app="VPlus">
 	<div data-ng-controller="MyCtrl">
-		<h2 class="title">My Database</h2>
-		<div class="navbar navStyle">
-			<div class="btn-toolbar">
-				<div class="btn-group navbar-form pull-left">
-			        <button type="button" class="btn btn-primary" data-ng-model="radioModel" data-btn-radio="'ACTIVE'">Active</button>
-			        <button type="button" class="btn btn-primary" data-ng-model="radioModel" data-btn-radio="'INACTIVE'">Inactve</button>
-			        <button type="button" class="btn btn-primary" data-ng-model="radioModel" data-btn-radio="'REMOVED'">Removed</button>
-			    </div>
-			    <div class="btn-group">
-			    	<form data-ng-submit="submit()" class="navbar-form input-group">
-						<input type="text" data-ng-model="model.name" class="form-control"/>
-						<span class="input-group-btn">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<span class="brand">My Database</span>
+				<div class="container pull-right">
+					<div class="nav">
+						<button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Active'">Active</button>
+						<button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Inactive'">Inactve</button>
+						<button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Removed'">Removed</button>						
+				    </div>
+				    <div class="navbar-search">
+			    		<input type="text" data-ng-model="gridOptions.filterOptions.filterText" class="search-query" placeholder="Search by name"/>
+					</div>
+					<form data-ng-submit="submit()" class="navbar-search">
+			    		<div class="input-append">
+							<input type="text" data-ng-model="model.name" placeholder="Name" class="input-medium" required="required"/>
 							<button class="btn btn-primary" type="submit">Add!</button>
-						</span>
+						</div>
 					</form>
-			    </div>
+				</div>
 			</div>
 		</div>
 		<div class="grid" data-ng-grid="gridOptions"></div>

@@ -2,7 +2,7 @@ package org.vplus.core.generics;
 
 public enum Status {
 	
-	INACTIVE {
+	Inactive {
 		@Override
 		public boolean isActive() {
 			return false;
@@ -17,7 +17,7 @@ public enum Status {
 		}
 	}, 
 	
-	ACTIVE {
+	Active {
 		@Override
 		public boolean isActive() {
 			return true;
@@ -32,7 +32,7 @@ public enum Status {
 		}
 	}, 
 	
-	REMOVED {
+	Removed {
 		@Override
 		public boolean isActive() {
 			return false;

@@ -47,11 +47,11 @@ angular.module('VPlus.Config', []).config(['$httpProvider', function($httpProvid
 }]);
 
 angular.module('VPlus.Directives', []);
-angular.module('VPlus.Utils', []);
 angular.module('VPlus.Filters', []);
 angular.module('VPlus.Services', ['ngResource']);
+angular.module('VPlus.Utils', ['ngGrid', 'ui.bootstrap', 'ui.utils']);
 
-angular.module('VPlus', ['ngGrid', 'ui.bootstrap', 'VPlus.Config', 'VPlus.Directives', 'VPlus.Utils', 'VPlus.Filters', 'VPlus.Services'])
+angular.module('VPlus', ['VPlus.Config', 'VPlus.Directives', 'VPlus.Utils', 'VPlus.Filters', 'VPlus.Services'])
 .run(['$rootScope', 'fn', function($scope, fn) {
 	$scope.root = { 
 		remove: function(i, list) {

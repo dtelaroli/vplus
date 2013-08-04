@@ -9,23 +9,23 @@ public class StatusTest {
 
 	@Test
 	public void shouldReturnIfInInactive() {
-		assertThat(Status.INACTIVE.isInactive(), equalTo(true));
-		assertThat(Status.ACTIVE.isInactive(), equalTo(false));
-		assertThat(Status.REMOVED.isInactive(), equalTo(false));
+		assertThat(Status.Inactive.isInactive(), equalTo(true));
+		assertThat(Status.Active.isInactive(), equalTo(false));
+		assertThat(Status.Removed.isInactive(), equalTo(false));
 	}
 	
 	@Test
 	public void shouldReturnIfInActive() {
-		assertThat(Status.INACTIVE.isActive(), equalTo(false));
-		assertThat(Status.ACTIVE.isActive(), equalTo(true));
-		assertThat(Status.REMOVED.isActive(), equalTo(false));
+		assertThat(Status.Inactive.isActive(), equalTo(false));
+		assertThat(Status.Active.isActive(), equalTo(true));
+		assertThat(Status.Removed.isActive(), equalTo(false));
 	}
 	
 	@Test
 	public void shouldReturnIfInRemoved() {
-		assertThat(Status.INACTIVE.isRemoved(), equalTo(false));
-		assertThat(Status.ACTIVE.isRemoved(), equalTo(false));
-		assertThat(Status.REMOVED.isRemoved(), equalTo(true));
+		assertThat(Status.Inactive.isRemoved(), equalTo(false));
+		assertThat(Status.Active.isRemoved(), equalTo(false));
+		assertThat(Status.Removed.isRemoved(), equalTo(true));
 	}
 	
 
