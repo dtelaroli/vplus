@@ -1,8 +1,11 @@
 
+import static br.com.caelum.vraptor.view.Results.json;
+
 import org.vplus.core.generics.MyEntity;
 import org.vplus.core.generics.StatusFilter;
 import org.vplus.core.persistence.MyFind;
 import org.vplus.core.persistence.Persistence;
+import org.vplus.core.persistence.Persistences;
 
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -12,14 +15,18 @@ public class MyController {
 
 	private Persistence persistence;
 	private Result result;
-	private StatusFilter filter;
 
-	public MyController(StatusFilter filter) {
-		this.filter = filter;
+	public MyController(Persistence persistence, Result result, StatusFilter filter) {
+		this.persistence = persistence;
+		this.result = result;
+		filter.removed();
 	}
 	
 	public void all() {
 		filter.disableFilter();
+		List<MyModel> list = persistence.use(Persistences.list())
+				.of(MyModel.class).find();
+		result.use(json()).from(list).serialize();
 	}
 	
 	public void actives() {

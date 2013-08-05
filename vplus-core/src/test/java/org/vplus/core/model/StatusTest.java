@@ -1,9 +1,10 @@
-package org.vplus.core.generics;
+package org.vplus.core.model;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+import org.vplus.core.model.Status;
 
 public class StatusTest {
 

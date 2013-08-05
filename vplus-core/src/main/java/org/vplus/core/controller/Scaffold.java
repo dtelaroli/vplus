@@ -3,8 +3,8 @@ package org.vplus.core.controller;
 import net.vidageek.mirror.dsl.Mirror;
 
 import org.vplus.core.exception.CrudException;
-import org.vplus.core.generics.Model;
-import org.vplus.core.generics.Status;
+import org.vplus.core.model.Model;
+import org.vplus.core.model.Status;
 import org.vplus.core.persistence.Direction;
 
 import br.com.caelum.vraptor.Consumes;

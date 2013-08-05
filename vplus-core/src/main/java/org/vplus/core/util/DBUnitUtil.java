@@ -17,7 +17,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vplus.core.generics.Model;
+import org.vplus.core.model.Model;
 
 import br.com.caelum.vraptor.environment.Environment;
 

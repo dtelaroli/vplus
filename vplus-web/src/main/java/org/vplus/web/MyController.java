@@ -2,7 +2,7 @@ package org.vplus.web;
 
 import org.vplus.core.controller.CrudController;
 import org.vplus.core.controller.Scaffold;
-import org.vplus.core.generics.StatusFilter;
+import org.vplus.core.model.StatusFilter;
 
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;

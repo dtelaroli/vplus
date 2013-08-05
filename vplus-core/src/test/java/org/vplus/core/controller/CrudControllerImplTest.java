@@ -20,10 +20,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.controller.CrudControllerImpl.ActionNull;
 import org.vplus.core.exception.CrudException;
-import org.vplus.core.generics.Model;
-import org.vplus.core.generics.MyEntity;
-import org.vplus.core.generics.Status;
 import org.vplus.core.mock.ActionFacadeMock;
+import org.vplus.core.model.Model;
+import org.vplus.core.model.MyEntity;
+import org.vplus.core.model.Status;
 import org.vplus.core.persistence.Direction;
 
 import br.com.caelum.vraptor.ioc.Container;

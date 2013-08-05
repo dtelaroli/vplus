@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.vplus.core.generics.Status;
-import org.vplus.core.generics.StatusFilter;
+import org.vplus.core.model.Status;
+import org.vplus.core.model.StatusFilter;
 import org.vplus.core.persistence.Persistence;
 import org.vplus.core.util.TypeUtil;
 

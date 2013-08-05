@@ -5,10 +5,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 
 import org.vplus.core.exception.CrudException;
-import org.vplus.core.generics.Model;
+import org.vplus.core.model.Model;
 
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -45,7 +46,7 @@ public class DBList implements Dao {
 		return em.createQuery(q).setMaxResults(limit).getResultList();
 	}
 
-	private javax.persistence.criteria.Order makeOrder(CriteriaBuilder b,
+	private Order makeOrder(CriteriaBuilder b,
 			Root<Model> root) throws CrudException {
 		return direction.makeOrder(b, root, order());
 	}

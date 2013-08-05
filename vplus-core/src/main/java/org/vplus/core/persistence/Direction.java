@@ -6,7 +6,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 import org.vplus.core.exception.CrudException;
-import org.vplus.core.generics.Model;
+import org.vplus.core.model.Model;
 
 public enum Direction {
 

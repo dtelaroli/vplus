@@ -2,7 +2,7 @@ package org.vplus.core.persistence;
 
 import javax.persistence.EntityManager;
 
-import org.vplus.core.generics.Model;
+import org.vplus.core.model.Model;
 
 import br.com.caelum.vraptor.ioc.Component;
 

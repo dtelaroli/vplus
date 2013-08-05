@@ -6,8 +6,8 @@ import static org.hamcrest.Matchers.notNullValue;
 import java.util.List;
 
 import org.vplus.core.exception.CrudException;
-import org.vplus.core.generics.Model;
-import org.vplus.core.generics.Status;
+import org.vplus.core.model.Model;
+import org.vplus.core.model.Status;
 import org.vplus.core.persistence.Direction;
 import org.vplus.core.persistence.Persistence;
 import org.vplus.core.util.TypeUtil;

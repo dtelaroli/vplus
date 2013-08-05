@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vplus.core.exception.CrudException;
-import org.vplus.core.generics.MyEntity;
+import org.vplus.core.model.MyEntity;
 import org.vplus.core.util.TestUtil;
 
 public class DBLoadTest {

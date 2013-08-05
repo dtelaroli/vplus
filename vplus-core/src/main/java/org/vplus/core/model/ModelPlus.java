@@ -1,4 +1,4 @@
-package org.vplus.core.generics;
+package org.vplus.core.model;
 
 import java.util.Calendar;
 

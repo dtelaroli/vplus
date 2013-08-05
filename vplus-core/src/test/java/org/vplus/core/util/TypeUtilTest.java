@@ -9,9 +9,9 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.vplus.core.generics.Model;
-import org.vplus.core.generics.ModelPlus;
-import org.vplus.core.generics.MyEntity;
+import org.vplus.core.model.Model;
+import org.vplus.core.model.ModelPlus;
+import org.vplus.core.model.MyEntity;
 
 public class TypeUtilTest {
 

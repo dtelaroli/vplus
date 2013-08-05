@@ -1,7 +1,7 @@
 package org.vplus.core.controller;
 
 import org.vplus.core.exception.CrudException;
-import org.vplus.core.generics.Model;
+import org.vplus.core.model.Model;
 
 import br.com.caelum.vraptor.Consumes;
 import br.com.caelum.vraptor.Delete;

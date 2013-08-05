@@ -5,8 +5,8 @@ import java.io.IOException;
 import javax.persistence.EntityManager;
 
 import org.dbunit.DatabaseUnitException;
-import org.vplus.core.generics.Model;
 import org.vplus.core.mock.ActionFacadeMock;
+import org.vplus.core.model.Model;
 
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;

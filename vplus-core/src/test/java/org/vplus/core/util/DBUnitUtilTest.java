@@ -19,9 +19,9 @@ import org.dbunit.dataset.DataSetException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vplus.core.generics.Model;
-import org.vplus.core.generics.MyEntity;
-import org.vplus.core.generics.NewEntity;
+import org.vplus.core.model.Model;
+import org.vplus.core.model.MyEntity;
+import org.vplus.core.model.NewEntity;
 
 import br.com.caelum.vraptor.environment.DefaultEnvironment;
 import br.com.caelum.vraptor.environment.Environment;

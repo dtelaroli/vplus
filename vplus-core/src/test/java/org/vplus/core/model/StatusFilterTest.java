@@ -1,4 +1,4 @@
-package org.vplus.core.generics;
+package org.vplus.core.model;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
@@ -15,9 +15,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.exception.CrudException;
-import org.vplus.core.generics.Model;
-import org.vplus.core.generics.Status;
-import org.vplus.core.generics.StatusFilter;
+import org.vplus.core.model.Model;
+import org.vplus.core.model.Status;
+import org.vplus.core.model.StatusFilter;
 import org.vplus.core.persistence.DBList;
 import org.vplus.core.util.TestUtil;
 

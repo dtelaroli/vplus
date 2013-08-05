@@ -5,7 +5,7 @@ import static org.vplus.core.persistence.Persistences.list;
 import java.util.List;
 
 import org.vplus.core.exception.CrudException;
-import org.vplus.core.generics.Model;
+import org.vplus.core.model.Model;
 
 import br.com.caelum.vraptor.ioc.Component;
 

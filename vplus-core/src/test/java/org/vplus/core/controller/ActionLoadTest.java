@@ -13,8 +13,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.exception.CrudException;
-import org.vplus.core.generics.MyEntity;
 import org.vplus.core.mock.ActionFacadeMock;
+import org.vplus.core.model.MyEntity;
 import org.vplus.core.persistence.DBLoad;
 
 public class ActionLoadTest {

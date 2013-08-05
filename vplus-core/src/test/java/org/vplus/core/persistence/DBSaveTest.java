@@ -6,12 +6,14 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
+import java.util.Calendar;
+
 import org.dbunit.DatabaseUnitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vplus.core.generics.MyEntity;
-import org.vplus.core.generics.Status;
+import org.vplus.core.model.MyEntity;
+import org.vplus.core.model.Status;
 import org.vplus.core.util.TestUtil;
 
 public class DBSaveTest {
@@ -53,12 +55,14 @@ public class DBSaveTest {
 		assertThat(my.getId(), nullValue());
 		
 		my = (MyEntity) save.persist(my);
-		assertThat(my.createdAt(), equalTo(my.modifiedAt()));
+		assertThat(my.createdAt().get(Calendar.SECOND), equalTo(my.createdAt().get(Calendar.SECOND)));
 		
 		my.withStatus(Status.Removed);
 		
+		Thread.sleep(2000);
+		
 		my = (MyEntity) save.persist(my);
-		assertThat(my.createdAt(), not(equalTo(my.modifiedAt())));
+		assertThat(my.createdAt().get(Calendar.SECOND), not(equalTo(my.modifiedAt().get(Calendar.SECOND))));
 		
 		test.commit();
 		

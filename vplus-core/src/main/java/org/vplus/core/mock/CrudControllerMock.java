@@ -8,8 +8,8 @@ import org.vplus.core.controller.Action;
 import org.vplus.core.controller.ActionFacade;
 import org.vplus.core.controller.CrudController;
 import org.vplus.core.exception.CrudException;
-import org.vplus.core.generics.Model;
-import org.vplus.core.generics.Status;
+import org.vplus.core.model.Model;
+import org.vplus.core.model.Status;
 import org.vplus.core.persistence.Direction;
 
 import br.com.caelum.vraptor.Result;

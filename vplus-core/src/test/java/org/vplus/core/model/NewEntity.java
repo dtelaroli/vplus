@@ -1,8 +1,9 @@
-package org.vplus.core.generics;
+package org.vplus.core.model;
 
 import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.vplus.core.model.Model;
 
 /**
  * Class for to help in tests 
