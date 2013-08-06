@@ -9,7 +9,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class CrudControllerImpl implements CrudController {
+public class CrudImpl implements Crud {
 
 	private Class<? extends Model> clazz;
 	private Controller controller;
@@ -19,7 +19,7 @@ public class CrudControllerImpl implements CrudController {
 	private Integer limit;
 	private Status status;
 
-	public CrudControllerImpl(Controller controller) {
+	public CrudImpl(Controller controller) {
 		this.controller = controller;
 		this.action = ActionNull.create();
 		this.direction = Direction.NULL;
@@ -48,7 +48,7 @@ public class CrudControllerImpl implements CrudController {
 	}
 	
 	@Override
-	public CrudController of(Class<? extends Model> clazz) {
+	public Crud of(Class<? extends Model> clazz) {
 		this.clazz = clazz;
 		return this;
 	}
@@ -59,7 +59,7 @@ public class CrudControllerImpl implements CrudController {
 	}
 
 	@Override
-	public CrudController asc() throws CrudException {
+	public Crud asc() throws CrudException {
 		this.direction = Direction.ASC;
 		return this;
 	}
@@ -70,19 +70,19 @@ public class CrudControllerImpl implements CrudController {
 	}
 
 	@Override
-	public CrudController desc() throws CrudException {
+	public Crud desc() throws CrudException {
 		this.direction = Direction.DESC;
 		return this;
 	}
 	
 	@Override
-	public CrudController withDirection(Direction direction) throws CrudException {
+	public Crud withDirection(Direction direction) throws CrudException {
 		this.direction = direction;
 		return this;
 	}
 	
 	@Override
-	public CrudController withOrder(String order) {
+	public Crud withOrder(String order) {
 		this.order = order;
 		return this;
 	}
@@ -102,7 +102,7 @@ public class CrudControllerImpl implements CrudController {
 	}
 
 	@Override
-	public CrudController withLimit(Integer limit) {
+	public Crud withLimit(Integer limit) {
 		this.limit = limit;
 		return this;
 	}
@@ -138,7 +138,7 @@ public class CrudControllerImpl implements CrudController {
 	}
 
 	@Override
-	public CrudController withStatus(Status status) {
+	public Crud withStatus(Status status) {
 		this.status = status;
 		return this;
 	}

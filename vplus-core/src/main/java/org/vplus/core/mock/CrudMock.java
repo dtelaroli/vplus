@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import org.vplus.core.controller.Action;
 import org.vplus.core.controller.ActionFacade;
-import org.vplus.core.controller.CrudController;
+import org.vplus.core.controller.Crud;
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.model.Model;
 import org.vplus.core.model.Status;
@@ -14,17 +14,17 @@ import org.vplus.core.persistence.Direction;
 
 import br.com.caelum.vraptor.Result;
 
-public class CrudControllerMock implements CrudController {
+public class CrudMock implements Crud {
 
 	private Class<? extends Model> type;
 	private ActionFacade actionFacade;
 
-	public CrudControllerMock() {
+	public CrudMock() {
 		this.actionFacade = new ActionFacadeMock();
 	}
 
 	@Override
-	public CrudController of(Class<? extends Model> type) {
+	public Crud of(Class<? extends Model> type) {
 		this.type = type;
 		return this;
 	}
@@ -40,22 +40,22 @@ public class CrudControllerMock implements CrudController {
 	}
 
 	@Override
-	public CrudController asc() throws CrudException {
+	public Crud asc() throws CrudException {
 		return this;
 	}
 
 	@Override
-	public CrudController desc() throws CrudException {
+	public Crud desc() throws CrudException {
 		return this;
 	}
 
 	@Override
-	public CrudController withDirection(Direction order) throws CrudException {
+	public Crud withDirection(Direction order) throws CrudException {
 		return this;
 	}
 
 	@Override
-	public CrudController withOrder(String order) {
+	public Crud withOrder(String order) {
 		return this;
 	}
 
@@ -70,7 +70,7 @@ public class CrudControllerMock implements CrudController {
 	}
 
 	@Override
-	public CrudController withLimit(Integer limit) {
+	public Crud withLimit(Integer limit) {
 		return this;
 	}
 
@@ -102,7 +102,7 @@ public class CrudControllerMock implements CrudController {
 	}
 
 	@Override
-	public CrudController withStatus(Status status) {
+	public Crud withStatus(Status status) {
 		return this;
 	}
 

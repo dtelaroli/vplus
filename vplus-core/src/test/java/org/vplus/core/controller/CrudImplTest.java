@@ -18,7 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.vplus.core.controller.CrudControllerImpl.ActionNull;
+import org.vplus.core.controller.CrudImpl.ActionNull;
 import org.vplus.core.exception.CrudException;
 import org.vplus.core.mock.ActionFacadeMock;
 import org.vplus.core.model.Model;
@@ -28,9 +28,9 @@ import org.vplus.core.persistence.Direction;
 
 import br.com.caelum.vraptor.ioc.Container;
 
-public class CrudControllerImplTest {
+public class CrudImplTest {
 
-	CrudController crud;
+	Crud crud;
 	Controller controller;
 	@Mock Container container;
 	private AbstractAction actionList;
@@ -55,7 +55,7 @@ public class CrudControllerImplTest {
 		actionDelete = spy(new ActionDelete(actionFacade));
 		doReturn(actionDelete).when(controller).use(type(actionDelete));
 
-		crud = spy(new CrudControllerImpl(controller));
+		crud = spy(new CrudImpl(controller));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -124,7 +124,7 @@ public class CrudControllerImplTest {
 	
 	@Test
 	public void shouldExecuteActionNull() throws CrudException {
-		ActionNull actionNull = new CrudControllerImpl.ActionNull(null);
+		ActionNull actionNull = new CrudImpl.ActionNull(null);
 		assertThat(actionNull.operation(), nullValue());
 		assertThat(actionNull.withOrder(null), nullValue());
 		assertThat(actionNull.withDirection(null), nullValue());

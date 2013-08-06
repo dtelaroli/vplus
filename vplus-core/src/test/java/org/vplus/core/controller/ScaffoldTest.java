@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.exception.CrudException;
-import org.vplus.core.mock.CrudControllerMock;
+import org.vplus.core.mock.CrudMock;
 import org.vplus.core.model.Model;
 import org.vplus.core.model.MyEntity;
 import org.vplus.core.model.Status;
@@ -20,18 +20,18 @@ import org.vplus.core.persistence.Direction;
 public class ScaffoldTest {
 
 	Scaffold<MyEntity> scaffold;
-	@Mock CrudController crud;
+	@Mock Crud crud;
 	
 	static class MyScaffold extends Scaffold<MyEntity>{
-		public MyScaffold(CrudController controller) {
-			super(controller);
+		public MyScaffold(Crud crud) {
+			super(crud);
 		}
 	}
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		crud = spy(new CrudControllerMock());
+		crud = spy(new CrudMock());
 		scaffold = new MyScaffold(crud);
 	}
 
@@ -92,6 +92,6 @@ public class ScaffoldTest {
 	
 	@Test
 	public void shouldExecuteUseMethod() throws CrudException {
-		assertThat(scaffold.controller(), notNullValue());
+		assertThat(scaffold.crud(), notNullValue());
 	}
 }

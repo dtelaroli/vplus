@@ -15,10 +15,10 @@ import br.com.caelum.vraptor.Put;
 
 public abstract class Scaffold<T extends Model> {
 
-	private CrudController controller;
+	private Crud crud;
 
-	public Scaffold(CrudController controller) {
-		this.controller = controller;
+	public Scaffold(Crud controller) {
+		this.crud = controller;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -28,22 +28,22 @@ public abstract class Scaffold<T extends Model> {
 
 	@Get("")
 	public void all() throws CrudException {
-		controller.of(type()).list();
+		crud.of(type()).list();
 	}
 	
 	@Get("/status/{status}")
 	public void all(Status status) throws CrudException {
-		controller.of(type()).withStatus(status).list();		
+		crud.of(type()).withStatus(status).list();		
 	}
 	
 	@Get("/order/{order}/dir/{direction}/limit/{limit}")
 	public void all(String order, Direction direction, Integer limit) throws CrudException {
-		controller.withOrder(order).withDirection(direction).withLimit(limit).list();
+		crud.withOrder(order).withDirection(direction).withLimit(limit).list();
 	}
 	
 	@Get("/{model.id}")
 	public void get(T model) throws CrudException {
-		controller.load(model);
+		crud.load(model);
 	}
 	
 	@Post("")
@@ -55,16 +55,16 @@ public abstract class Scaffold<T extends Model> {
 	@Put("/{model.id}")
 	@Consumes(value = "application/json")
 	public void edit(T model) throws CrudException {
-		controller.save(model);
+		crud.save(model);
 	}
 	
 	@Delete("/{model.id}")
 	public void remove(T model) throws CrudException {
-		controller.delete(model);
+		crud.delete(model);
 	}
 
-	protected CrudController controller() {
-		return controller;
+	protected Crud crud() {
+		return crud;
 	}
 
 }
