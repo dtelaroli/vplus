@@ -1,21 +1,21 @@
-angular.module('VPlus.Config', []).config(['$httpProvider', function($httpProvider) {
+angular.module('VPlus.Config', []);
+
+
+angular.module('VPlus.Config').config(['$httpProvider', function($httpProvider) {
 	var interceptor = ['$rootScope','$q', function(scope, $q) {
 		
+		scope.alerts = [];
 		function success(response) {
 			return response;
 		}
 		
 		function error(response) {
-			var msg = '';
 			switch(response.status) {
 				case 403:
-					//window.location.reload();
-					break;
-					
 				case 401:
-					console.error('Você não tem permissão para acessar esta área');
+					scope.alerts.push({ type: 'error', msg: response.data });
 					setTimeout(function() {
-						//window.history.back();
+						window.location.reload();
 					}, 5000);
 					break;
 					
@@ -24,16 +24,15 @@ angular.module('VPlus.Config', []).config(['$httpProvider', function($httpProvid
 						for(var i in response.data.errors) {
 							var mes = response.data.errors[i].message;
 							var cat = response.data.errors[i].category;
-							msg += mes.replace('{field}', cat) + '<br/>';
+							var msg = mes.replace('{field}', cat) + '<br/>';
+							scope.alerts.push({ type: 'error', msg: msg });
 						}
 					}
 					else {
-						msg = response.data;
+						scope.alerts.push({ type: 'error', msg: response.data });
 					}
-//					console.error(msg);
 					break;
 			}
-			console.error(response.status, msg);
 			return $q.reject(response);
 		}
 		
@@ -41,13 +40,12 @@ angular.module('VPlus.Config', []).config(['$httpProvider', function($httpProvid
 			return promise.then(success, error);
 		};
 	}];
+	$httpProvider.responseInterceptors.push(interceptor);
 	$httpProvider.defaults.headers.common['Accept'] = 'application/json';
 	$httpProvider.defaults.headers.common['Content-Type'] = 'application/json';
-	$httpProvider.responseInterceptors.push(interceptor);
 }]);
 
 angular.module('VPlus.Services', ['ngResource']);
 angular.module('VPlus.Utils', ['ngGrid', 'ui.bootstrap']);
-angular.module('VPlus.Ctrls', ['VPlus.Config', 'VPlus.Utils', 'VPlus.Services']);
-
+angular.module('VPlus.Ctrls', ['VPlus.Config', 'VPlus.Services', 'VPlus.Utils']);
 angular.module('VPlus', ['VPlus.Ctrls']);

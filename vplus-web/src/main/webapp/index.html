@@ -6,6 +6,7 @@
 <script type="text/javascript" src="/vplus-web/vplus/vendor/ng-grid/lib/jquery-1.9.1.js"></script>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
 <script type="text/javascript" src="/vplus-web/vplus/vendor/angular/angular.min.js"></script>
 <script type="text/javascript" src="/vplus-web/vplus/vendor/angular/angular-resource.min.js"></script>
 <script type="text/javascript" src="/vplus-web/vplus/vendor/ui-utils.min.js"></script>
@@ -20,8 +21,8 @@
 <script type="text/javascript" src="/vplus-web/vplus/src/VPlusCtrls.js"></script>
 <script type="text/javascript">
 	angular.module('VPlus.Config').constant('URL', '/vplus-web/my/:id');
-	angular.module('VPlus').controller('MyCtrl', ['$scope', 'Rest', '$dialog',
-		function($scope, Rest, $dialog) {
+	angular.module('VPlus').controller('MyCtrl', ['$scope', '$dialog',
+		function($scope, $dialog) {
 
 			var btnSave = '<div class="ngCellText"><div class="input-prepend"><button data-ng-click="edit(row.rowIndex)" class="btn btn-mini"><i class="icon-edit"></i></button></div>';
 			var btnDel = '<div class="input-append"><button data-ng-click="remove(row.rowIndex)" class="btn btn-mini input-prepend"><i class="icon-remove"></i></button></div></div>';
@@ -32,16 +33,6 @@
 			$scope.$watch('status', function(value, old) {
 				$scope.$broadcast('reload');
 			});
-			
-			/*$scope.$on('reload', function() {
-				load();
-			});
-			
-			function load() {
-				Rest.find({ status: $scope.status }, function(response) {
-					$scope.list = response;
-				})
-			}*/
 			
 			$scope.gridOptions = {
 				data : 'list',
@@ -76,40 +67,9 @@
 				}, ]
 			};
 			
-			/*$scope.remove = function(i){
-				var msgbox = $dialog.messageBox('Delete Item', 'Are you sure?', [{label:'Yes, I\'m sure', result: true},{label:'Nope', result: false}]);
-		        msgbox.open().then(function(result){
-		            if(result) {
-						remove(i);
-		            }
-		        });
+			$scope.closeAlert = function(index) {
+			    $scope.alerts.splice(index, 1);
 			};
-			
-			$scope.save = function(i) {
-				$scope.list[i].$edit({}, function() {
-					$scope.$broadcast('reload');
-				});
-				return false;
-			};
-
-			function remove(i) {
-				$scope.list[i].$remove({
-					id : $scope.list[i].id
-				}, function() {
-					$scope.list.splice(i, 1);
-				});
-				return false;
-			};
-
-			$scope.submit = function() {
-				var item = new Rest();
-				item.name = $scope.model.name;
-				item.$add({}, function() {
-					$scope.list.push(item);
-					$scope.model.name = null;
-				});
-			};*/
-
 		} ]);
 </script>
 <style type="text/css">
@@ -151,6 +111,7 @@
 				</div>
 			</div>
 		</div>
+		<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 		<div class="grid" data-ng-grid="gridOptions"></div>
 	</div>
 </body>

@@ -4,7 +4,6 @@ angular.module('VPlus.Ctrls').run(['$rootScope', 'Rest', '$dialog', function($sc
 	var utils = {
 		createItem: function() {
 			var object = new Rest();
-			var copy = $scope.item.constructor();
 		    for (var attr in $scope.item) {
 		        if ($scope.item.hasOwnProperty(attr)) object[attr] = $scope.item[attr];
 		    }
