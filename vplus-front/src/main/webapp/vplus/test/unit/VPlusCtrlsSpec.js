@@ -59,12 +59,12 @@ describe('VPlus Crud Controller', function() {
 				.respond({name : 'Test1'});
 			expect(scope.list.length).toBe(0);
 			
-			scope.item.name = 'Test1';
+			scope.model.name = 'Test1';
 			scope.add();
 			$httpBackend.flush();
 			
 			expect(scope.list.length).toBe(3);
-			expect(scope.item).toEqualData({});
+			expect(scope.model).toEqualData({});
 		});
 		
 		it('should update existing item', function() {
@@ -79,7 +79,7 @@ describe('VPlus Crud Controller', function() {
 			$httpBackend.flush();
 
 			expect(scope.list.length).toBe(2);
-			expect(scope.item).toEqualData({});
+			expect(scope.model).toEqualData({});
 		});
 		
 		it('should remove item', function() {
@@ -94,7 +94,16 @@ describe('VPlus Crud Controller', function() {
 			$httpBackend.flush();
 
 			expect(scope.list.length).toBe(1);
-			expect(scope.item).toEqualData({});
+			expect(scope.model).toEqualData({});
+		});
+		
+		it('should remove message item', function() {
+			scope.alerts.push({ id: 1 });
+			expect(scope.alerts.length).toBe(1);
+			
+			scope.closeAlert(0);
+			
+			expect(scope.alerts.length).toBe(0);
 		});
 
 	});

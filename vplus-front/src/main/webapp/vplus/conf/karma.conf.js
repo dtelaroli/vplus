@@ -19,6 +19,7 @@ module.exports = function(config) {
 		         'vendor/ng-grid/ng-grid-2.0.7.min.js',
 		         'vendor/bootstrap-custom/ui-bootstrap-custom-0.4.0.min.js',
 		         'vendor/bootstrap-custom/ui-bootstrap-custom-tpls-0.4.0.min.js',
+		         'src/VPlusNamespace.js',
 		         'src/*.js',
 		         'test/**/*Spec.js' 
 		],

@@ -16,20 +16,20 @@
 <script type="text/javascript" src="/vplus-web/vplus/vendor/ng-grid/ng-grid-2.0.7.min.js"></script>
 <link type="text/css" rel="stylesheet" href="/vplus-web/vplus/vendor/ng-grid/ng-grid.min.css" />
 
+<script type="text/javascript" src="/vplus-web/vplus/src/VPlusNamespace.js"></script>
 <script type="text/javascript" src="/vplus-web/vplus/src/VPlusConf.js"></script>
 <script type="text/javascript" src="/vplus-web/vplus/src/VPlusServices.js"></script>
 <script type="text/javascript" src="/vplus-web/vplus/src/VPlusCtrls.js"></script>
 <script type="text/javascript">
 	angular.module('VPlus.Config').constant('URL', '/vplus-web/my/:id');
-	angular.module('VPlus').controller('MyCtrl', ['$scope', '$dialog',
+	angular.module('VPlus').controller('MyCtrl', ['$rootScope', '$dialog',
 		function($scope, $dialog) {
 
 			var btnSave = '<div class="ngCellText"><div class="input-prepend"><button data-ng-click="edit(row.rowIndex)" class="btn btn-mini"><i class="icon-edit"></i></button></div>';
 			var btnDel = '<div class="input-append"><button data-ng-click="remove(row.rowIndex)" class="btn btn-mini input-prepend"><i class="icon-remove"></i></button></div></div>';
 			var sel = '<select data-ng-model="list[row.rowIndex].status"><option value="Active">Active</option><option value="Inactive">Inactive</option><option value="Removed">Removed</option></select>';
-
-			$scope.status = 'Active';
 			$scope.model = {};
+			$scope.status = 'Active';
 			$scope.$watch('status', function(value, old) {
 				$scope.$broadcast('reload');
 			});
@@ -67,9 +67,6 @@
 				}, ]
 			};
 			
-			$scope.closeAlert = function(index) {
-			    $scope.alerts.splice(index, 1);
-			};
 		} ]);
 </script>
 <style type="text/css">
@@ -88,31 +85,18 @@
 }
 </style>
 </head>
-<body data-ng-app="VPlus">
+<body data-ng-app="VPlus" data-ng-controller="CrudCtrl">
 	<div data-ng-controller="MyCtrl">
 		<div class="navbar">
 			<div class="navbar-inner">
 				<span class="brand">My Database</span>
 				<div class="container pull-right">
-					<div class="nav">
-						<button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Active'">Active</button>
-						<button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Inactive'">Inactve</button>
-						<button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Removed'">Removed</button>						
-				    </div>
-				    <div class="navbar-search">
-			    		<input type="text" data-ng-model="gridOptions.filterOptions.filterText" class="search-query" placeholder="Search by name"/>
-					</div>
-					<form data-ng-submit="add()" class="navbar-search">
-			    		<div class="input-append">
-							<input type="text" data-ng-model="item.name" placeholder="Name" class="input-medium" required="required"/>
-							<button class="btn btn-primary" type="submit">Add!</button>
-						</div>
-					</form>
+					<div data-ng-include src="template"></div>
+					<div data-ng-include src="'form-my-entity.html'"></div>
 				</div>
 			</div>
 		</div>
 		<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 		<div class="grid" data-ng-grid="gridOptions"></div>
 	</div>
-</body>
 </html>
