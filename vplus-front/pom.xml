@@ -12,5 +12,5 @@
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>
 	</build>
-	
+    <name>VPlus Front</name>
 </project>

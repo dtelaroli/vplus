@@ -1,102 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Index</title>
+    <head>
+        <title>Index</title>
 
-<script type="text/javascript" src="/vplus-web/vplus/vendor/ng-grid/lib/jquery-1.9.1.js"></script>
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
-<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/vplus-web/vplus/vendor/ng-grid/lib/jquery-1.9.1.js"></script>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="/vplus-web/vplus/vendor/angular/angular.min.js"></script>
-<script type="text/javascript" src="/vplus-web/vplus/vendor/angular/angular-resource.min.js"></script>
-<script type="text/javascript" src="/vplus-web/vplus/vendor/ui-utils.min.js"></script>
-<script type="text/javascript" src="/vplus-web/vplus/vendor/bootstrap-custom/ui-bootstrap-custom-0.4.0.min.js"></script>
-<script type="text/javascript" src="/vplus-web/vplus/vendor/bootstrap-custom/ui-bootstrap-custom-tpls-0.4.0.min.js"></script>
-<script src="//raw.github.com/angular-ui/bootstrap/master/src/dialog/dialog.js"></script>
-<script type="text/javascript" src="/vplus-web/vplus/vendor/ng-grid/ng-grid-2.0.7.min.js"></script>
-<link type="text/css" rel="stylesheet" href="/vplus-web/vplus/vendor/ng-grid/ng-grid.min.css" />
+        <script type="text/javascript" src="/vplus-web/vplus/vendor/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/vplus-web/vplus/vendor/angular/angular-resource.min.js"></script>
+        <script type="text/javascript" src="/vplus-web/vplus/vendor/ui-utils.min.js"></script>
+        <script type="text/javascript" src="//raw.github.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-0.5.0.min.js"></script>
+        <script type="text/javascript" src="//raw.github.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-0.5.0.min.js"></script>
+        <script type="text/javascript" src="/vplus-web/vplus/vendor/ng-grid/ng-grid-2.0.7.min.js"></script>
+        <link type="text/css" rel="stylesheet" href="/vplus-web/vplus/vendor/ng-grid/ng-grid.min.css" />
 
-<script type="text/javascript" src="/vplus-web/vplus/src/VPlusNamespace.js"></script>
-<script type="text/javascript" src="/vplus-web/vplus/src/VPlusConf.js"></script>
-<script type="text/javascript" src="/vplus-web/vplus/src/VPlusServices.js"></script>
-<script type="text/javascript" src="/vplus-web/vplus/src/VPlusCtrls.js"></script>
-<script type="text/javascript">
-	angular.module('VPlus.Config').constant('URL', '/vplus-web/my/:id');
-	angular.module('VPlus').controller('MyCtrl', ['$rootScope', '$dialog',
-		function($scope, $dialog) {
+        <script type="text/javascript" src="/vplus-web/vplus/src/VPlusNamespace.js"></script>
+        <script type="text/javascript" src="/vplus-web/vplus/src/VPlusConf.js"></script>
+        <script type="text/javascript" src="/vplus-web/vplus/src/VPlusServices.js"></script>
+        <script type="text/javascript" src="/vplus-web/vplus/src/VPlusCtrls.js"></script>
+        <script type="text/javascript">
+            angular.module('VPlus.Config').constant('URL', '/vplus-web/my/:id');
+            angular.module('VPlus').controller('MyCtrl', ['$scope',
+                function($scope) {
 
-			var btnSave = '<div class="ngCellText"><div class="input-prepend"><button data-ng-click="edit(row.rowIndex)" class="btn btn-mini"><i class="icon-edit"></i></button></div>';
-			var btnDel = '<div class="input-append"><button data-ng-click="remove(row.rowIndex)" class="btn btn-mini input-prepend"><i class="icon-remove"></i></button></div></div>';
-			var sel = '<select data-ng-model="list[row.rowIndex].status"><option value="Active">Active</option><option value="Inactive">Inactive</option><option value="Removed">Removed</option></select>';
-			$scope.model = {};
-			$scope.status = 'Active';
-			$scope.$watch('status', function(value, old) {
-				$scope.$broadcast('reload');
-			});
-			
-			$scope.gridOptions = {
-				data : 'list',
-				multiSelect : false,
-				showFooter : true,
-				headerCellTemplate: '',
-				filterOptions : {
-					filterText : '',
-					useExternalFilter : false
-				},
-				columnDefs : [ {
-					field : 'name',
-					displayName : 'Name',
-					enableCellEdit : true
-				}, {
-					field : "created.time",
-					displayName : 'Created',
-					cellFilter : 'date:"short"'
-				}, {
-					field : "modified.time",
-					displayName : 'Modified',
-					cellFilter : 'date:"short"'
-				}, {
-					field : 'status',
-					displayName : 'Status',
-					enableCellEdit : true,
-					editableCellTemplate : sel
-				}, {
-					field : 'action',
-					displayName : 'Action',
-					cellTemplate : btnSave + btnDel
-				}, ]
-			};
-			
-		} ]);
-</script>
-<style type="text/css">
-.grid {
-	border: 1px solid rgb(212, 212, 212);
-	height: 500px;
-}
-.title {
-	height: 50px;
-}
-.btn-margin {
-	margin-right: 5px;
-}
-.col4 {
-	text-align: center;
-}
-</style>
-</head>
-<body data-ng-app="VPlus" data-ng-controller="CrudCtrl">
-	<div data-ng-controller="MyCtrl">
-		<div class="navbar">
-			<div class="navbar-inner">
-				<span class="brand">My Database</span>
-				<div class="container pull-right">
-					<div data-ng-include src="template"></div>
-					<div data-ng-include src="'form-my-entity.html'"></div>
-				</div>
-			</div>
-		</div>
-		<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-		<div class="grid" data-ng-grid="gridOptions"></div>
-	</div>
+                    var btnSave = '<div class="ngCellText"><div class="input-prepend"><button data-ng-click="edit(row.rowIndex)" class="btn btn-mini"><i class="icon-edit"></i></button></div>';
+                    var btnDel = '<div class="input-append"><button data-ng-click="remove(row.rowIndex)" class="btn btn-mini input-prepend"><i class="icon-remove"></i></button></div></div>';
+                    $scope.status = 'Active';
+                    $scope.$watch('status', function(value, old) {
+                        $scope.$broadcast('reload');
+                    });
+                    
+                    $scope.gridOptions = {
+                        data: 'list',
+                        showFooter: true,
+                        filterOptions: {
+                            filterText: '',
+                            useExternalFilter: false
+                        },
+                        minWidth: 200,
+                        multiSelect: false,
+                        columnDefs: [{
+                                field: 'name',
+                                displayName: 'Name'
+                            }, {
+                                field: "created.time",
+                                displayName: 'Created',
+                                cellFilter: 'date:"short"'
+                            }, {
+                                field: "modified.time",
+                                displayName: 'Modified',
+                                cellFilter: 'date:"short"'
+                            }, {
+                                field: 'status',
+                                displayName: 'Status'
+                            }, {
+                                cellTemplate: btnSave + btnDel,
+                                displayName: 'Action',
+                                width: 100
+                            }
+                        ]
+                    };
+                    
+                }]);
+        </script>
+        <style type="text/css">
+            body {
+                padding: 10px;
+            }
+            .nav-tabs li {
+                cursor: pointer;
+            }
+            .grid {
+                border: 1px solid rgb(212, 212, 212);
+                height: 600px;
+            }
+            .col0, .colt0 {
+                width: 100px;
+            }
+            .col4 {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body data-ng-app="VPlus" data-ng-controller="CrudCtrl">
+        <div data-ng-controller="MyCtrl">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <span class="brand">My Database</span>
+                    <div class="container pull-right">
+                        <div class="nav">
+                            <button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Active'">Active</button>
+                            <button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Inactive'">Inactve</button>
+                            <button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Removed'">Removed</button>						
+                        </div>
+
+                        <div class="navbar-search">
+                            <input type="text" data-ng-model="gridOptions.filterOptions.filterText" class="search-query" placeholder="Search by name"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+            <tabset>
+                <tab heading="Itens Saved" active="$parent.grid">
+                    <div class="grid" data-ng-grid="gridOptions"></div>
+                </tab>
+                <tab heading="Form" active="!$parent.grid">
+                    <div data-ng-include src="'form-my-entity.html'"></div>                    
+                </tab>
+            </tabset>
+        </div>
 </html>

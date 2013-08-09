@@ -11,9 +11,8 @@ import br.com.caelum.vraptor.Resource;
 @Path("/my")
 public class MyController extends Scaffold<MyEntity> {
 
-	public MyController(Crud controller, StatusFilter filter) {
-		super(controller);
-		filter.disableFilter();
-	}
-	
+    public MyController(Crud controller, StatusFilter filter) {
+        super(controller);
+        filter.disableFilter();
+    }
 }

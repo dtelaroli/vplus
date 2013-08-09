@@ -123,7 +123,7 @@
 			<id>sonatype-oss-snapshot</id>
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 			<releases>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
@@ -163,19 +163,6 @@
 						</configuration>
 						<goals>
 							<goal>assembly</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.1</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
 						</goals>
 					</execution>
 				</executions>
