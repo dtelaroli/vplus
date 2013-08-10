@@ -28,8 +28,18 @@ angular.module('VPlus.Ctrls').controller('CrudCtrl', ['$scope', '$timeout', '$di
             }
         };
         
-        $scope.list = Rest.query();
+        $scope.status = 'All';
+        $scope.$watch('status', function(value, old) {
+            if(value === 'All') {
+                $scope.list = Rest.query();
+            }
+            else {
+                $scope.list = Rest.find({status: value});
+            }
+            console.log(value, old)
+        });
         
+        $scope.list = [];
         $scope.model = {};
         
         $scope.tabs = [

@@ -26,12 +26,6 @@
                     .constant('URL', '/vplus-web/my/:id');
             angular.module('VPlus').controller('MyCtrl', ['$scope',
                 function($scope) {
-
-                    $scope.status = 'Active';
-                    $scope.$watch('status', function(value, old) {
-                        $scope.$broadcast('reload');
-                    });
-
                     $scope.gridOptions = {
                         data: 'list',
                         showFooter: true,
@@ -74,6 +68,7 @@
                     <span class="brand">My Database</span>
                     <div class="container pull-right">
                         <div class="nav">
+                            <button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'All'">All</button>
                             <button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Active'">Active</button>
                             <button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Inactive'">Inactve</button>
                             <button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Removed'">Removed</button>						
