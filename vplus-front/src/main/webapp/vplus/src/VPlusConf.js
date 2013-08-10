@@ -1,7 +1,9 @@
 'use strict';
 
-angular.module('VPlus.Config').config(['$httpProvider', function($httpProvider) {
+angular.module('VPlus.Config')
+        .config(['$httpProvider', function($httpProvider) {
         var interceptor = ['$rootScope', '$q', function(scope, $q) {
+                scope.alerts = [];
 
                 function success(response) {
                     return response;
@@ -48,4 +50,5 @@ angular.module('VPlus.Config').config(['$httpProvider', function($httpProvider) 
         $httpProvider.responseInterceptors.push(interceptor);
         $httpProvider.defaults.headers.common['Accept'] = 'application/json';
         $httpProvider.defaults.headers.common['Content-Type'] = 'application/json';
-    }]);
+    }])
+        .value('TEMPLATES', {grid: 'tmpl/grid.html', add: 'tmpl/form-add.html', edit: 'tmpl/form-edit.html'});

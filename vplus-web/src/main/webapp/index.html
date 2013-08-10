@@ -3,34 +3,35 @@
     <head>
         <title>Index</title>
 
-        <script type="text/javascript" src="/vplus-web/vplus/vendor/ng-grid/lib/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="vplus/vendor/ng-grid/lib/jquery-1.9.1.js"></script>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
-        <script type="text/javascript" src="/vplus-web/vplus/vendor/angular/angular.min.js"></script>
-        <script type="text/javascript" src="/vplus-web/vplus/vendor/angular/angular-resource.min.js"></script>
-        <script type="text/javascript" src="/vplus-web/vplus/vendor/ui-utils.min.js"></script>
+        <script type="text/javascript" src="vplus/vendor/angular/angular.min.js"></script>
+        <script type="text/javascript" src="vplus/vendor/angular/angular-resource.min.js"></script>
+        <script type="text/javascript" src="vplus/vendor/ui-utils.min.js"></script>
         <script type="text/javascript" src="//raw.github.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-0.5.0.min.js"></script>
         <script type="text/javascript" src="//raw.github.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-0.5.0.min.js"></script>
-        <script type="text/javascript" src="/vplus-web/vplus/vendor/ng-grid/ng-grid-2.0.7.min.js"></script>
-        <link type="text/css" rel="stylesheet" href="/vplus-web/vplus/vendor/ng-grid/ng-grid.min.css" />
+        <script type="text/javascript" src="vplus/vendor/angular-ui/ng-grid/ng-grid-2.0.7.min.js"></script>
+        <link type="text/css" rel="stylesheet" href="vplus/vendor/angular-ui/ng-grid/ng-grid.min.css" />
 
-        <script type="text/javascript" src="/vplus-web/vplus/src/VPlusNamespace.js"></script>
-        <script type="text/javascript" src="/vplus-web/vplus/src/VPlusConf.js"></script>
-        <script type="text/javascript" src="/vplus-web/vplus/src/VPlusServices.js"></script>
-        <script type="text/javascript" src="/vplus-web/vplus/src/VPlusCtrls.js"></script>
+        <script type="text/javascript" src="vplus/src/VPlusNamespace.js"></script>
+        <script type="text/javascript" src="vplus/src/VPlusConf.js"></script>
+        <script type="text/javascript" src="vplus/src/VPlusServices.js"></script>
+        <script type="text/javascript" src="vplus/src/VPlusCtrls.js"></script>
+        <link type="text/css" rel="stylesheet" href="vplus/css/style.css" />
+
         <script type="text/javascript">
-            angular.module('VPlus.Config').constant('URL', '/vplus-web/my/:id');
+            angular.module('VPlus.Config')
+                    .constant('URL', '/vplus-web/my/:id');
             angular.module('VPlus').controller('MyCtrl', ['$scope',
                 function($scope) {
 
-                    var btnSave = '<div class="ngCellText"><div class="input-prepend"><button data-ng-click="edit(row.rowIndex)" class="btn btn-mini"><i class="icon-edit"></i></button></div>';
-                    var btnDel = '<div class="input-append"><button data-ng-click="remove(row.rowIndex)" class="btn btn-mini input-prepend"><i class="icon-remove"></i></button></div></div>';
                     $scope.status = 'Active';
                     $scope.$watch('status', function(value, old) {
                         $scope.$broadcast('reload');
                     });
-                    
+
                     $scope.gridOptions = {
                         data: 'list',
                         showFooter: true,
@@ -44,6 +45,9 @@
                                 field: 'name',
                                 displayName: 'Name'
                             }, {
+                                field: 'status',
+                                displayName: 'Status'
+                            }, {
                                 field: "created.time",
                                 displayName: 'Created',
                                 cellFilter: 'date:"short"'
@@ -52,36 +56,15 @@
                                 displayName: 'Modified',
                                 cellFilter: 'date:"short"'
                             }, {
-                                field: 'status',
-                                displayName: 'Status'
-                            }, {
-                                cellTemplate: btnSave + btnDel,
+                                cellTemplate: '<div data-ng-include src="\'tmpl/buttons.html\'"></div>',
                                 displayName: 'Action',
                                 width: 100
                             }
                         ]
                     };
-                    
+
                 }]);
         </script>
-        <style type="text/css">
-            body {
-                padding: 10px;
-            }
-            .nav-tabs li {
-                cursor: pointer;
-            }
-            .grid {
-                border: 1px solid rgb(212, 212, 212);
-                height: 600px;
-            }
-            .col0, .colt0 {
-                width: 100px;
-            }
-            .col4 {
-                text-align: center;
-            }
-        </style>
     </head>
     <body data-ng-app="VPlus" data-ng-controller="CrudCtrl">
         <div data-ng-controller="MyCtrl">
@@ -103,12 +86,10 @@
             </div>
             <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
             <tabset>
-                <tab heading="Itens Saved" active="$parent.grid">
-                    <div class="grid" data-ng-grid="gridOptions"></div>
-                </tab>
-                <tab heading="Form" active="!$parent.grid">
-                    <div data-ng-include src="'form-my-entity.html'"></div>                    
+                <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
+                    <div data-ng-include src="tab.content"></div>
                 </tab>
             </tabset>
         </div>
+    </body>
 </html>

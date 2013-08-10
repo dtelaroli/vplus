@@ -22,6 +22,11 @@ public abstract class ModelPlus extends Model {
 
 	private static final long serialVersionUID = 5183252859183741057L;
 
+        @NotNull
+	@Column(length = 1)
+	@Enumerated
+	private Status status;
+        
 	@Column(updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar created;
@@ -30,11 +35,6 @@ public abstract class ModelPlus extends Model {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar modified;
 
-	@NotNull
-	@Column(length = 1)
-	@Enumerated
-	private Status status;
-	
 	public ModelPlus() {
 		super();
 		status = Status.Active;
