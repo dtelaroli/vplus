@@ -15,11 +15,11 @@ describe('VPlus Crud Controller', function() {
     }));
 
     describe('CrudCtrl', function() {
-        var scope, dialog, ctrl, $httpBackend;
+        var scope, dialog, ctrl, $httpBackend, $timeout;
 
         beforeEach(angular.mock.module('ui.bootstrap.dialog'));
 
-        beforeEach(inject(function(_$dialog_, _$httpBackend_, $rootScope, $controller) {
+        beforeEach(inject(function(_$dialog_, _$httpBackend_, $rootScope, $controller, _$timeout_) {
             $httpBackend = _$httpBackend_;
             $httpBackend
                     .expectGET('/url')
@@ -38,6 +38,7 @@ describe('VPlus Crud Controller', function() {
                 };
             };
 
+            $timeout = _$timeout_;
             scope = $rootScope.$new();
             ctrl = $controller('CrudCtrl', {
                 $scope: scope,
@@ -106,6 +107,18 @@ describe('VPlus Crud Controller', function() {
 
             scope.closeAlert(0);
 
+            expect(scope.alerts.length).toBe(0);
+        });
+        
+        it('should reset data', function() {
+            var i = {id:1};
+            scope.alerts.push(i);
+            scope.model = i;
+            scope.reset();
+            expect(scope.alerts.length).toBe(1);
+
+            $timeout.flush();
+            expect(scope.model.id).toBeUndefined();
             expect(scope.alerts.length).toBe(0);
         });
 

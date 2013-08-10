@@ -35,7 +35,7 @@ angular.module('VPlus.Ctrls').controller('CrudCtrl', ['$scope', '$timeout', '$di
         $scope.tabs = [
             { title: 'Data grid', content: TEMPLATES.grid },
             { title: 'Add new', content: TEMPLATES.add },
-            { title: 'Edit', content: TEMPLATES.edit, disabled: true }
+            { title: 'Edit item', content: TEMPLATES.edit, disabled: true }
         ];
 
         $scope.add = function() {
