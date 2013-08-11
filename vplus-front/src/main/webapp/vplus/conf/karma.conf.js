@@ -15,10 +15,10 @@ module.exports = function(config) {
 		         'vendor/angular/angular.min.js',
 		         'vendor/angular/angular-mocks.js',
 		         'vendor/angular/angular-resource.min.js',
+		         'vendor/angular/angular-sanitize.min.js',
 		         'vendor/angular-ui/ng-grid/lib/jquery-1.9.1.js',
 		         'vendor/angular-ui/ng-grid/ng-grid-2.0.7.min.js',
-		         'vendor/angular-ui/bootstrap/ui-bootstrap-0.5.0.min.js',
-		         'vendor/angular-ui/bootstrap/ui-bootstrap-tpls-0.5.0.min.js',
+		         'vendor/angular-ui/bootstrap/ui-bootstrap-tpls-0.5.0.js',
 		         'src/VPlusNamespace.js',
 		         'src/*.js',
 		         'test/**/*Spec.js' 

@@ -10,8 +10,8 @@ describe('VPlus Crud Controller', function() {
         });
     });
 
-    beforeEach(angular.mock.module('VPlus.Ctrls', function($provide) {
-        $provide.constant('URL', '/url/:id');
+    beforeEach(angular.mock.module('VPlus', function($provide) {
+        $provide.constant('URL', '/url');
     }));
 
     describe('CrudCtrl', function() {

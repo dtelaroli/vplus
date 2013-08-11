@@ -9,7 +9,6 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
 import br.com.caelum.vraptor.resource.DefaultResourceNotFoundHandler;
 import br.com.caelum.vraptor.resource.HttpMethod;
 
-@Component  
 @RequestScoped
 public class ResourceNotFoundHandler extends DefaultResourceNotFoundHandler {
 	

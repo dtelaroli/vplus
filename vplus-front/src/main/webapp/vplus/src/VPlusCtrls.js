@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('VPlus.Ctrls').controller('CrudCtrl', ['$scope', '$timeout', '$dialog', 'Rest', 'TEMPLATES',
-    function($scope, $timeout, $dialog, Rest, TEMPLATES) {
+angular.module('VPlus').controller('CrudCtrl', ['$scope', '$timeout', '$dialog', 'Rest', 'TEMPLATES', '$location',
+    function($scope, $timeout, $dialog, Rest, TEMPLATES, $location) {
         var _utils = {
             createItem: function() {
                 var object = new Rest();
@@ -27,26 +27,43 @@ angular.module('VPlus.Ctrls').controller('CrudCtrl', ['$scope', '$timeout', '$di
                 }, 8000);
             }
         };
-        
+
+        $scope.gridOptions = {
+            data: 'list',
+            showFooter: true,
+            filterOptions: {
+                filterText: '',
+                useExternalFilter: false
+            },
+            enableColumnResize: false,
+            columnDefs: [{
+                    field: 'name',
+                    displayName: 'Name'
+                }, {
+                    field: 'status',
+                    displayName: 'Status'
+                }, {
+                    field: "created.time",
+                    displayName: 'Created',
+                    cellFilter: 'date:"short"'
+                }, {
+                    field: "modified.time",
+                    displayName: 'Modified',
+                    cellFilter: 'date:"short"'
+                }, {
+                    cellTemplate: '<div data-ng-include src="\'tmpl/buttons.html\'"></div>',
+                    displayName: 'Action',
+                    width: 100,
+                    enableColumnReordering: false
+                }
+            ]
+        };
+
         $scope.status = 'All';
-        $scope.$watch('status', function(value, old) {
-            if(value === 'All') {
-                $scope.list = Rest.query();
-            }
-            else {
-                $scope.list = Rest.find({status: value});
-            }
-            console.log(value, old)
-        });
-        
-        $scope.list = [];
+        $scope.list = Rest.query();
         $scope.model = {};
-        
-        $scope.tabs = [
-            { title: 'Data grid', content: TEMPLATES.grid },
-            { title: 'Add new', content: TEMPLATES.add },
-            { title: 'Edit item', content: TEMPLATES.edit, disabled: true }
-        ];
+        $scope.tabs = [{active: true}];
+        $scope.menus = [{title: 'Home', url: '/'}, {title: 'New', url: '/new'}];
 
         $scope.add = function() {
             var model = _utils.createItem();
@@ -82,12 +99,32 @@ angular.module('VPlus.Ctrls').controller('CrudCtrl', ['$scope', '$timeout', '$di
                 }
             });
         };
-        
+
         $scope.reset = function() {
-            _utils.reset();            
+            _utils.reset();
         };
 
-        $scope.closeAlert = function(index) {
-            $scope.alerts.splice(index, 1);
+        $scope.closeAlert = function(i) {
+            $scope.alerts.splice(i, 1);
         };
+
+        $scope.getActive = function(i) {
+            return $location.path() === $scope.menus[i].url ? 'active' : '';
+        };
+
+        $scope.injectTabs = function(scope) {
+            $scope.tabs = scope.tabs;
+        };
+
+        $scope.filter = function(status) {
+            if (status === 'All') {
+                $scope.list = Rest.query();
+            }
+            else {
+                Rest.find({status: status}, function(response) {
+                    $scope.list = response;
+                });
+            }
+        };
+
     }]);

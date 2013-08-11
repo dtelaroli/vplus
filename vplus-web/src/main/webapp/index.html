@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta name="fragment" content="!" />
         <title>Index</title>
 
         <script type="text/javascript" src="vplus/vendor/ng-grid/lib/jquery-1.9.1.js"></script>
@@ -9,9 +10,9 @@
 
         <script type="text/javascript" src="vplus/vendor/angular/angular.min.js"></script>
         <script type="text/javascript" src="vplus/vendor/angular/angular-resource.min.js"></script>
-        <script type="text/javascript" src="vplus/vendor/ui-utils.min.js"></script>
-        <script type="text/javascript" src="//raw.github.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-0.5.0.min.js"></script>
-        <script type="text/javascript" src="//raw.github.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-0.5.0.min.js"></script>
+        <script type="text/javascript" src="vplus/vendor/angular/angular-sanitize.min.js"></script>
+        <script type="text/javascript" src="vplus/vendor/angular-ui/ui-utils.min.js"></script>
+        <script type="text/javascript" src="vplus/vendor/angular-ui/bootstrap/ui-bootstrap-tpls-0.5.0.js"></script>
         <script type="text/javascript" src="vplus/vendor/angular-ui/ng-grid/ng-grid-2.0.7.min.js"></script>
         <link type="text/css" rel="stylesheet" href="vplus/vendor/angular-ui/ng-grid/ng-grid.min.css" />
 
@@ -23,55 +24,35 @@
 
         <script type="text/javascript">
             angular.module('VPlus.Config')
-                    .constant('URL', '/vplus-web/my/:id');
-            angular.module('VPlus').controller('MyCtrl', ['$scope',
-                function($scope) {
-                    $scope.gridOptions = {
-                        data: 'list',
-                        showFooter: true,
-                        filterOptions: {
-                            filterText: '',
-                            useExternalFilter: false
-                        },
-                        minWidth: 200,
-                        multiSelect: false,
-                        columnDefs: [{
-                                field: 'name',
-                                displayName: 'Name'
-                            }, {
-                                field: 'status',
-                                displayName: 'Status'
-                            }, {
-                                field: "created.time",
-                                displayName: 'Created',
-                                cellFilter: 'date:"short"'
-                            }, {
-                                field: "modified.time",
-                                displayName: 'Modified',
-                                cellFilter: 'date:"short"'
-                            }, {
-                                cellTemplate: '<div data-ng-include src="\'tmpl/buttons.html\'"></div>',
-                                displayName: 'Action',
-                                width: 100,
-                                enableColumnReordering: false
-                            }
-                        ]
-                    };
+                    .constant('URL', '/vplus-web/my')
+                    .value('menus', [{title: 'Menu1', url: 'bla.html'}])
+                    .config(['$routeProvider', function($routeProvider) {
+                    $routeProvider
+                            .when('/', {templateUrl: 'home.html', controller: 'CrudCtrl'})
+                            .when('/new', {templateUrl: 'new.html', controller: 'Test'})
+                            .otherwise({redirectTo: '/'});
+                }]);
+            angular.module('VPlus').controller('Test', ['$scope', function($scope) {
 
                 }]);
         </script>
     </head>
     <body data-ng-app="VPlus" data-ng-controller="CrudCtrl">
-        <div data-ng-controller="MyCtrl">
+        <div>
             <div class="navbar">
                 <div class="navbar-inner">
-                    <span class="brand">My Database</span>
+                    <span class="brand">VPlus Systems Samppl</span>
+                    <ul class="nav">
+                        <li data-ng-repeat="menu in menus" class="{{getActive($index)}}">
+                            <a href="#{{menu.url}}">{{menu.title}}</a>
+                        </li>
+                    </ul>
                     <div class="container pull-right">
-                        <div class="nav">
-                            <button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'All'">All</button>
-                            <button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Active'">Active</button>
-                            <button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Inactive'">Inactve</button>
-                            <button type="button" class="btn btn-primary" data-ng-model="status" data-btn-radio="'Removed'">Removed</button>						
+                        <div class="nav filters">
+                            <button type="button" class="btn btn-primary" data-ng-click="filter('All')">All</button>
+                            <button type="button" class="btn btn-primary" data-ng-click="filter('Active')">Active</button>
+                            <button type="button" class="btn btn-primary" data-ng-click="filter('Inactive')">Disabled</button>
+                            <button type="button" class="btn btn-primary" data-ng-click="filter('Removed')">Removed</button>						
                         </div>
 
                         <div class="navbar-search">
@@ -80,12 +61,8 @@
                     </div>
                 </div>
             </div>
-            <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-            <tabset>
-                <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
-                    <div data-ng-include src="tab.content"></div>
-                </tab>
-            </tabset>
+            <alert data-ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+            <div ng-view></div>
         </div>
     </body>
 </html>

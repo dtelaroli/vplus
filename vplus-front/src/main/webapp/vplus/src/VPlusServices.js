@@ -2,17 +2,16 @@
 
 angular.module('VPlus.Services')
         .factory('Rest', ['$resource', 'URL', function($resource, URL) {
-        var statusUrl = URL + '/status/:status';
-        return $resource(URL, {}, {
+        return $resource(URL + '/:id', {}, {
             find: {
-                url: statusUrl,
+                url: URL + '/status/:status',
                 method: 'GET',
                 isArray: true,
-                params: {status: '@status'}
+                params: { status: '@status' }
             },
             update: {
                 method: 'PUT',
-                params: {id: '@id'}
+                params: { id: '@id' }
             }
         });
     }]);

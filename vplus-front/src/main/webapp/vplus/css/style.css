@@ -26,3 +26,11 @@ body {
 .col4 {
     text-align: center;
 }
+
+.filters .btn {
+    width: 80px;
+}
+
+.navbar .nav > li > a {
+    outline: none;
+}
