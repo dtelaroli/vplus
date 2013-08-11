@@ -25,23 +25,30 @@
         <script type="text/javascript">
             angular.module('VPlus.Config')
                     .constant('URL', '/vplus-web/my')
-                    .value('menus', [{title: 'Menu1', url: 'bla.html'}])
-                    .config(['$routeProvider', function($routeProvider) {
-                    $routeProvider
-                            .when('/', {templateUrl: 'home.html', controller: 'CrudCtrl'})
-                            .when('/new', {templateUrl: 'new.html', controller: 'Test'})
-                            .otherwise({redirectTo: '/'});
-                }]);
-            angular.module('VPlus').controller('Test', ['$scope', function($scope) {
+                    .value('menus', [
+                        {title: 'Home', url: '/', },
+                        {title: 'New', url: '/new'},
+                        {title: 'Foo', url: '/foo'}
+                    ])
 
-                }]);
+                    .config(['$routeProvider', function($routeProvider) {
+                        $routeProvider
+                            .when('/', {templateUrl: 'home.html', controller: 'NewCtrl'})
+                            .when('/new', {templateUrl: 'new.html', controller: 'NewCtrl'})
+                            .when('/foo', {templateUrl: 'foo.html', controller: 'NewCtrl'})
+                            .otherwise({redirectTo: '/'});
+                    }]);
+
+                    angular.module('VPlus').controller('NewCtrl', ['$scope', function($scope) {
+                    
+                    }]);
         </script>
     </head>
     <body data-ng-app="VPlus" data-ng-controller="CrudCtrl">
         <div>
             <div class="navbar">
                 <div class="navbar-inner">
-                    <span class="brand">VPlus Systems Samppl</span>
+                    <span class="brand">VPlus System Sample</span>
                     <ul class="nav">
                         <li data-ng-repeat="menu in menus" class="{{getActive($index)}}">
                             <a href="#{{menu.url}}">{{menu.title}}</a>

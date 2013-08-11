@@ -12,6 +12,7 @@ describe('VPlus Crud Controller', function() {
 
     beforeEach(angular.mock.module('VPlus', function($provide) {
         $provide.constant('URL', '/url');
+        $provide.value('menus', []);
     }));
 
     describe('CrudCtrl', function() {
@@ -62,7 +63,7 @@ describe('VPlus Crud Controller', function() {
                 {id: 1, name: 'Test1', status: 'Active'}
             ]);
             
-            scope.status = 'Active';
+            scope.filter('Active');
             
             $httpBackend.flush();
             
@@ -77,7 +78,7 @@ describe('VPlus Crud Controller', function() {
                 {id: 2, name: 'Test2', status: 'Inactive'}
             ]);
             
-            scope.status = 'Inactive';
+            scope.filter('Inactive');
             
             $httpBackend.flush();
             
@@ -92,7 +93,7 @@ describe('VPlus Crud Controller', function() {
                 {id: 3, name: 'Test3', status: 'Removed'}
             ]);
             
-            scope.status = 'Removed';
+            scope.filter('Removed');
             
             $httpBackend.flush();
             

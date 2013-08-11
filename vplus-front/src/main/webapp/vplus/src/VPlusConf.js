@@ -17,7 +17,7 @@ angular.module('VPlus.Config')
                             err = 'Url not found (404)';
                             scope.alerts = [{type: 'error', msg: err}];
                             break;
-                            
+
                         case 403:
                         case 401:
                             err += ' (Permission)';
@@ -56,5 +56,4 @@ angular.module('VPlus.Config')
         $httpProvider.responseInterceptors.push(interceptor);
         $httpProvider.defaults.headers.common['Accept'] = 'application/json';
         $httpProvider.defaults.headers.common['Content-Type'] = 'application/json';
-    }])
-        .value('TEMPLATES', {grid: 'tmpl/grid.html', add: 'tmpl/form-add.html', edit: 'tmpl/form-edit.html'});
+    }]);

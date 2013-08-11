@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('VPlus').controller('CrudCtrl', ['$scope', '$timeout', '$dialog', 'Rest', 'TEMPLATES', '$location',
-    function($scope, $timeout, $dialog, Rest, TEMPLATES, $location) {
+angular.module('VPlus').controller('CrudCtrl', ['$scope', '$timeout', '$dialog', 'Rest', 'menus', '$location',
+    function($scope, $timeout, $dialog, Rest, menus, $location) {
         var _utils = {
             createItem: function() {
                 var object = new Rest();
@@ -36,6 +36,8 @@ angular.module('VPlus').controller('CrudCtrl', ['$scope', '$timeout', '$dialog',
                 useExternalFilter: false
             },
             enableColumnResize: false,
+            enableCellSelection: false,
+            enableRowSelection: false,
             columnDefs: [{
                     field: 'name',
                     displayName: 'Name'
@@ -63,7 +65,7 @@ angular.module('VPlus').controller('CrudCtrl', ['$scope', '$timeout', '$dialog',
         $scope.list = Rest.query();
         $scope.model = {};
         $scope.tabs = [{active: true}];
-        $scope.menus = [{title: 'Home', url: '/'}, {title: 'New', url: '/new'}];
+        $scope.menus = menus;
 
         $scope.add = function() {
             var model = _utils.createItem();
