@@ -15,9 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.vplus.core.exception.CrudException;
-import org.vplus.core.model.Model;
-import org.vplus.core.model.Status;
-import org.vplus.core.model.StatusFilter;
 import org.vplus.core.persistence.DBList;
 import org.vplus.core.util.TestUtil;
 
@@ -88,8 +85,8 @@ public class StatusFilterTest {
 	
 	@Test
 	public void shouldSetFilterParameterToInactive() {
-		filter.inactive();
-		verify(filter).setStatus(Status.Inactive);
+		filter.disabled();
+		verify(filter).setStatus(Status.Disabled);
 		assertThat(filter.isActiveFilter(), equalTo(true));
 	}
 	

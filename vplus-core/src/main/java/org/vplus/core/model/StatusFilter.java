@@ -33,8 +33,8 @@ public class StatusFilter implements Serializable {
 		return filter != null;
 	}
 
-	public void inactive() {
-		setStatus(Status.Inactive);
+	public void disabled() {
+		setStatus(Status.Disabled);
 	}
 
 	public void active() {

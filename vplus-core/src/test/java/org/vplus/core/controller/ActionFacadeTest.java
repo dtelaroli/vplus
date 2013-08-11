@@ -53,7 +53,7 @@ public class ActionFacadeTest {
 	
 	@Test
 	public void shouldSetStatus() {
-		Status inactive = Status.Inactive;
+		Status inactive = Status.Disabled;
 		facade.setFilter(inactive);
 		assertThat(facade.filter().isActiveFilter(), equalTo(false));
 		verify(filter).setStatus(inactive);

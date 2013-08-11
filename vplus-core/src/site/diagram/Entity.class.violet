@@ -101,7 +101,7 @@
     <void property="methods">
      <void property="text">
       <string>boolean isActive()
-boolean isInactive()
+boolean isDisabled()
 boolean isRemoved()</string>
      </void>
     </void>
@@ -145,7 +145,7 @@ Filter filter</string>
       <string>+StatusFilter(EntityManager em)
 +void disableFilter()
 +boolean isActive()
-+void inactive()
++void disabled()
 +void active()
 +void removed()
 +void setStatus(Status status)

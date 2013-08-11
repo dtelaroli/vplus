@@ -9,7 +9,6 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.vplus.core.model.Status;
 
 public class MyEntityTest {
 
@@ -62,8 +61,8 @@ public class MyEntityTest {
 	
 	@Test
 	public void shouldSetInactive() {
-		my.withStatus(Status.Inactive);
-		assertThat(my.status(), equalTo(Status.Inactive));
+		my.withStatus(Status.Disabled);
+		assertThat(my.status(), equalTo(Status.Disabled));
 	}
 	
 	@Test

@@ -2,13 +2,13 @@ package org.vplus.core.model;
 
 public enum Status {
 	
-	Inactive {
+	Disabled {
 		@Override
 		public boolean isActive() {
 			return false;
 		}
 		@Override
-		public boolean isInactive() {
+		public boolean isDisabled() {
 			return true;
 		}
 		@Override
@@ -23,7 +23,7 @@ public enum Status {
 			return true;
 		}
 		@Override
-		public boolean isInactive() {
+		public boolean isDisabled() {
 			return false;
 		}
 		@Override
@@ -38,7 +38,7 @@ public enum Status {
 			return false;
 		}
 		@Override
-		public boolean isInactive() {
+		public boolean isDisabled() {
 			return false;
 		}
 		@Override
@@ -49,7 +49,7 @@ public enum Status {
 	
 	public abstract boolean isActive();
 	
-	public abstract boolean isInactive();
+	public abstract boolean isDisabled();
 
 	public abstract boolean isRemoved();
 	

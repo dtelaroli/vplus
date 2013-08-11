@@ -1,14 +1,14 @@
 
 import static br.com.caelum.vraptor.view.Results.json;
 
-import org.vplus.core.generics.MyEntity;
 import org.vplus.core.generics.StatusFilter;
-import org.vplus.core.persistence.MyFind;
 import org.vplus.core.persistence.Persistence;
 import org.vplus.core.persistence.Persistences;
 
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import java.util.List;
+import org.vplus.core.model.StatusFilter;
 
 @Resource
 public class MyController {
