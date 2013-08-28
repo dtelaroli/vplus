@@ -22,7 +22,7 @@ public abstract class ModelPlus extends Model {
 
 	private static final long serialVersionUID = 5183252859183741057L;
 
-        @NotNull
+    @NotNull
 	@Column(length = 1)
 	@Enumerated
 	private Status status;
