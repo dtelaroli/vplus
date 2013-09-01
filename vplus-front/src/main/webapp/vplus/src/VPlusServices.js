@@ -12,6 +12,10 @@ angular.module('VPlus.Services')
             update: {
                 method: 'PUT',
                 params: { id: '@id' }
+            },
+            remove: {
+            	method: 'DELETE',
+            	params: { id: '@id' }
             }
         });
     }]);
