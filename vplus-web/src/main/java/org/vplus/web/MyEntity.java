@@ -2,8 +2,8 @@ package org.vplus.web;
 
 import javax.persistence.Entity;
 
+import org.dtelaroli.vplus.core.model.ModelPlus;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.vplus.core.model.ModelPlus;
 
 /**
  * Class for to help in tests

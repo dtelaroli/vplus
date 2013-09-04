@@ -8,13 +8,13 @@
 		<artifactId>oss-parent</artifactId>
 		<version>7</version>
 	</parent>
-	<groupId>org.vplus</groupId>
+	<groupId>org.dtelaroli.vplus</groupId>
 	<artifactId>vplus-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>VPlus Microframework</name>
 	<description>VPlus Microframework</description>
-	<url>http://github.com/dtelaroli/vplus</url>
+	<url>http://vplus.dtelaroli.org</url>
 	
 	<scm>
 		<connection>scm:git:git@github.com:dtelaroli/vplus.git</connection>
@@ -34,7 +34,7 @@
 		<developer>
 			<id>dtelaroli</id>
 			<email>ddts80@gmail.com</email>
-			<name>Denilson Telaorli</name>
+			<name>Denilson Telaroli</name>
 		</developer>
 	</developers>
 

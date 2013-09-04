@@ -1,8 +1,8 @@
-package org.vplus.core.controller;
+package org.dtelaroli.vplus.core.controller;
 
-import static org.vplus.core.persistence.Persistences.save;
+import static org.dtelaroli.vplus.core.persistence.Persistences.save;
 
-import org.vplus.core.exception.CrudException;
+import org.dtelaroli.vplus.core.exception.CrudException;
 
 import br.com.caelum.vraptor.ioc.Component;
 

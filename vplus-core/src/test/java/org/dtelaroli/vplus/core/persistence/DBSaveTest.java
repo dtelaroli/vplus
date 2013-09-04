@@ -1,4 +1,4 @@
-package org.vplus.core.persistence;
+package org.dtelaroli.vplus.core.persistence;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
@@ -9,12 +9,12 @@ import static org.junit.Assert.assertThat;
 import java.util.Calendar;
 
 import org.dbunit.DatabaseUnitException;
+import org.dtelaroli.vplus.core.model.MyEntity;
+import org.dtelaroli.vplus.core.model.Status;
+import org.dtelaroli.vplus.core.util.TestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vplus.core.model.MyEntity;
-import org.vplus.core.model.Status;
-import org.vplus.core.util.TestUtil;
 
 public class DBSaveTest {
 
