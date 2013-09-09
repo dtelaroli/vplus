@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -14,7 +15,7 @@
 	<name>VPlus Microframework</name>
 	<description>VPlus Microframework</description>
 	<url>http://vplus.dtelaroli.org</url>
-	
+
 	<scm>
 		<connection>scm:git:git@github.com:dtelaroli/vplus.git</connection>
 		<developerConnection>scm:git:git@github.com:dtelaroli/vplus.git</developerConnection>
@@ -28,7 +29,7 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-	
+
 	<developers>
 		<developer>
 			<id>dtelaroli</id>
@@ -47,9 +48,9 @@
 		<module>vplus-core</module>
 		<module>vplus-web</module>
 		<module>vplus-front</module>
-    <module>vplus-tags</module>
-    <module>vplus-assets</module>
-  </modules>
+		<module>vplus-tags</module>
+		<module>vplus-assets</module>
+	</modules>
 
 	<build>
 		<finalName>vplus</finalName>

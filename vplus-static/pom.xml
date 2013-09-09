@@ -8,7 +8,7 @@
 		<artifactId>vplus-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>vplus-assets</artifactId>
+	<artifactId>vplus-static</artifactId>
 	<packaging>war</packaging>
 	<name>vplus-assets Maven Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -24,7 +24,7 @@
 				<executions>
 					<execution>
 						<id>default-minify</id>
-						<phase>package</phase>
+						<!-- <phase>package</phase> -->
 						<goals>
 							<goal>minify</goal>
 						</goals>
