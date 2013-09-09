@@ -12,7 +12,7 @@ import br.com.caelum.vraptor.ioc.Component;
 public class CrudImpl implements Crud {
 
 	private Class<? extends Model> clazz;
-	private Controller controller;
+	private final Controller controller;
 	private AbstractAction action;
 	private Direction direction;
 	private String order;

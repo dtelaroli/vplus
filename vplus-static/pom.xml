@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.dtelaroli.vplus</groupId>
+		<artifactId>vplus-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>vplus-assets</artifactId>
+	<packaging>war</packaging>
+	<name>vplus-assets Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<build>
+		<finalName>vp-static</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>com.samaxes.maven</groupId>
+				<artifactId>minify-maven-plugin</artifactId>
+				<version>1.7.1</version>
+				<executions>
+					<execution>
+						<id>default-minify</id>
+						<phase>package</phase>
+						<goals>
+							<goal>minify</goal>
+						</goals>
+						<configuration>
+							<debug>true</debug>
+							<cssSourceIncludes>
+								<cssSourceInclude>**</cssSourceInclude>
+							</cssSourceIncludes>
+							<jsSourceFiles>
+								<jsSourceFile>vplus/src/VPlusConf.js</jsSourceFile>
+							</jsSourceFiles>
+							<jsFinalFile>fmk.js</jsFinalFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

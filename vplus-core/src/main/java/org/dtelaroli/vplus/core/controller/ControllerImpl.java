@@ -6,7 +6,7 @@ import br.com.caelum.vraptor.ioc.Container;
 @Component
 public class ControllerImpl implements Controller {
 
-	private Container container;
+	private final Container container;
 	
 	public ControllerImpl(Container container) {
 		this.container = container;

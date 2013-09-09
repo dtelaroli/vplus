@@ -49,7 +49,7 @@ public class ScaffoldTest {
 	
 	@Test
 	public void shouldInvokeListOrderMethod() throws CrudException {
-		scaffold.all("order", Direction.ASC, 1);
+		scaffold.paginate("order", Direction.ASC, 1);
 		verify(crud).withOrder("order");
 		verify(crud).withDirection(Direction.ASC);
 		verify(crud).withLimit(1);
@@ -85,7 +85,7 @@ public class ScaffoldTest {
 	
 	@Test
 	public void shouldInvokeListWithFilter() throws CrudException {
-		scaffold.all(Status.Disabled);
+		scaffold.byStatus(Status.Disabled);
 		verify(crud).list();
 		verify(crud).withStatus(Status.Disabled);
 	}

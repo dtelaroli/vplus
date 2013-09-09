@@ -18,7 +18,7 @@ import br.com.caelum.vraptor.validator.Validations;
 
 public abstract class AbstractAction implements Action {
 
-	private ActionFacade actionFacade;
+	private final ActionFacade actionFacade;
 	private Class<? extends Model> clazz;
 	private Model model;
 	protected String order;

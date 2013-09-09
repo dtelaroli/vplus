@@ -15,7 +15,7 @@ import br.com.caelum.vraptor.Put;
 
 public abstract class Scaffold<T extends Model> {
 
-	private Crud crud;
+	private final Crud crud;
 
 	public Scaffold(Crud controller) {
 		this.crud = controller;
@@ -32,12 +32,12 @@ public abstract class Scaffold<T extends Model> {
 	}
 	
 	@Get("/status/{status}")
-	public void all(Status status) throws CrudException {
+	public void byStatus(Status status) throws CrudException {
 		crud.of(type()).withStatus(status).list();		
 	}
 	
 	@Get("/order/{order}/dir/{direction}/limit/{limit}")
-	public void all(String order, Direction direction, Integer limit) throws CrudException {
+	public void paginate(String order, Direction direction, Integer limit) throws CrudException {
 		crud.withOrder(order).withDirection(direction).withLimit(limit).list();
 	}
 	
