@@ -49,7 +49,7 @@
 		<module>vplus-web</module>
 		<module>vplus-front</module>
 		<module>vplus-tags</module>
-		<module>vplus-assets</module>
+		<module>vplus-static</module>
 	</modules>
 
 	<build>

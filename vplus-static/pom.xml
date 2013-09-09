@@ -10,7 +10,7 @@
 	</parent>
 	<artifactId>vplus-static</artifactId>
 	<packaging>war</packaging>
-	<name>vplus-assets Maven Webapp</name>
+	<name>VPlus Static Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<build>
