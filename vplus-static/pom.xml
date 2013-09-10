@@ -20,7 +20,7 @@
 			<plugin>
 				<groupId>com.samaxes.maven</groupId>
 				<artifactId>minify-maven-plugin</artifactId>
-				<version>1.7.1</version>
+				<version>1.7.2</version>
 				<executions>
 					<execution>
 						<id>default-minify</id>
@@ -29,14 +29,21 @@
 							<goal>minify</goal>
 						</goals>
 						<configuration>
+							<verbose>true</verbose>
 							<debug>true</debug>
-							<cssSourceIncludes>
-								<cssSourceInclude>**</cssSourceInclude>
-							</cssSourceIncludes>
-							<jsSourceFiles>
-								<jsSourceFile>vplus/src/VPlusConf.js</jsSourceFile>
-							</jsSourceFiles>
-							<jsFinalFile>fmk.js</jsFinalFile>
+							<webappSourceDir>${basedir}/src/main</webappSourceDir>
+							<jsSourceIncludes>
+								<jsSourceInclude>vplus/src/*.js</jsSourceInclude>
+								<jsSourceInclude>vplus/vendor/**/*.js</jsSourceInclude>
+							</jsSourceIncludes>
+							<jsSourceExcludes>
+								<jsSourceExclude>**/*.min.js</jsSourceExclude>
+								<jsSourceExclude>**/*Spec.js</jsSourceExclude>
+								<jsSourceExclude>**/angular*.js</jsSourceExclude>
+								<jsSourceExclude>ckeditor/***</jsSourceExclude>
+							</jsSourceExcludes>
+							<jsFinalFile>vplus.js</jsFinalFile>
+							<cssFinalFile>vplus.css</cssFinalFile>
 						</configuration>
 					</execution>
 				</executions>
