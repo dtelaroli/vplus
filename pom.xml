@@ -12,9 +12,8 @@
 	<artifactId>vplus-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>VPlus Microframework</name>
-	<description>VPlus Microframework</description>
-	<url>http://vplus.dtelaroli.org</url>
+	<name>VPlus Parent</name>
+	<url>http://github.com/dtelaroli/vplus</url>
 
 	<scm>
 		<connection>scm:git:git@github.com:dtelaroli/vplus.git</connection>

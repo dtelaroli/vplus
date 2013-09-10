@@ -11,7 +11,7 @@
 	<artifactId>vplus</artifactId>
 	<packaging>jar</packaging>
 
-	<name>VPlus Core</name>
+	<name>VPlus MicroFramework</name>
 
 	<dependencies>
 		<dependency>
@@ -196,4 +196,5 @@
 		</plugins>
 	</build>
 
+	<url>https://github.com/dtelaroli/vplus/tree/master/vplus-core</url>
 </project>

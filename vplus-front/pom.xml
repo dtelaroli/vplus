@@ -13,4 +13,5 @@
         <finalName>${project.artifactId}-${project.version}</finalName>
     </build>
     <name>VPlus Front</name>
+    <url>https://github.com/dtelaroli/vplus/tree/master/vplus-front</url>
 </project>

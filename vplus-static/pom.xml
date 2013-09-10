@@ -11,7 +11,7 @@
 	<artifactId>vplus-static</artifactId>
 	<packaging>war</packaging>
 	<name>VPlus Static Webapp</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/dtelaroli/vplus/tree/master/vplus-static</url>
 
 	<build>
 		<finalName>vp-static</finalName>

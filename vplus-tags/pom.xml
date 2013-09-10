@@ -9,8 +9,8 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>vplus-tags</artifactId>
-	<name>vplus-tags</name>
-	<url>http://maven.apache.org</url>
+	<name>VPlus Tag Libraries</name>
+	<url>https://github.com/dtelaroli/vplus/tree/master/vplus-tags</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
