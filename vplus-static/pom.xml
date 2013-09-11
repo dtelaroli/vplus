@@ -24,7 +24,6 @@
 				<executions>
 					<execution>
 						<id>default-minify</id>
-						<!-- <phase>package</phase> -->
 						<goals>
 							<goal>minify</goal>
 						</goals>
@@ -32,16 +31,22 @@
 							<verbose>true</verbose>
 							<debug>true</debug>
 							<webappSourceDir>${basedir}/src/main</webappSourceDir>
-							<jsSourceIncludes>
-								<jsSourceInclude>vplus/src/*.js</jsSourceInclude>
-								<jsSourceInclude>vplus/vendor/**/*.js</jsSourceInclude>
-							</jsSourceIncludes>
-							<jsSourceExcludes>
-								<jsSourceExclude>**/*.min.js</jsSourceExclude>
-								<jsSourceExclude>**/*Spec.js</jsSourceExclude>
-								<jsSourceExclude>**/angular*.js</jsSourceExclude>
-								<jsSourceExclude>ckeditor/***</jsSourceExclude>
-							</jsSourceExcludes>
+
+							<cssSourceIncludes>
+								<cssSourceInclude>**/*.css</cssSourceInclude>
+							</cssSourceIncludes>
+							
+							<jsSourceFiles>
+								<jsSourceFile>vplus/vendor/jquery/jquery-1.10.2.min.js</jsSourceFile>
+								<jsSourceFile>vplus/vendor/bootstrap/bootstrap.js</jsSourceFile>
+								<jsSourceFile>vplus/vendor/angular-ui/ui-utils.min.js</jsSourceFile>
+								<jsSourceFile>vplus/vendor/angular-ui/bootstrap/ui-bootstrap-tpls-0.5.0.js</jsSourceFile>
+
+								<jsSourceFile>vplus/src/VPlusNamespace.js</jsSourceFile>
+								<jsSourceFile>vplus/src/VPlusConf.js</jsSourceFile>
+								<jsSourceFile>vplus/src/VPlusServices.js</jsSourceFile>
+							</jsSourceFiles>
+							
 							<jsFinalFile>vplus.js</jsFinalFile>
 							<cssFinalFile>vplus.css</cssFinalFile>
 						</configuration>
