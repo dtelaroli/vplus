@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('VPlus.Services')
         .factory('Rest', ['$resource', 'URL', function($resource, URL) {
         return $resource(URL + '/:id', {}, {
