@@ -15,8 +15,26 @@
 
 	<build>
 		<finalName>vp-static</finalName>
-
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>${basedir}/src/main/static/app</directory>
+							<filtering>false</filtering>
+							<includes>
+								<include>**</include>
+							</includes>
+							<excludes>
+								<exclude>js/*</exclude>
+							</excludes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>com.samaxes.maven</groupId>
 				<artifactId>minify-maven-plugin</artifactId>
@@ -24,31 +42,39 @@
 				<executions>
 					<execution>
 						<id>default-minify</id>
+						<phase>package</phase>
 						<goals>
 							<goal>minify</goal>
 						</goals>
 						<configuration>
 							<verbose>true</verbose>
-							<debug>true</debug>
-							<webappSourceDir>${basedir}/src/main</webappSourceDir>
-
+							<webappSourceDir>${basedir}/src/main/static</webappSourceDir>
+							
+							<jsSourceDir>app</jsSourceDir>
+							<jsTargetDir>js</jsTargetDir>
+							<jsFinalFile>vplus.js</jsFinalFile>
+							
+							<cssSourceDir>app</cssSourceDir>
+							<cssTargetDir>css</cssTargetDir>							
+							<cssFinalFile>vplus.css</cssFinalFile>
+							
 							<cssSourceIncludes>
 								<cssSourceInclude>**/*.css</cssSourceInclude>
 							</cssSourceIncludes>
 							
 							<jsSourceFiles>
-								<jsSourceFile>vplus/vendor/jquery/jquery-1.10.2.min.js</jsSourceFile>
-								<jsSourceFile>vplus/vendor/bootstrap/bootstrap.js</jsSourceFile>
-								<jsSourceFile>vplus/vendor/angular-ui/ui-utils.min.js</jsSourceFile>
-								<jsSourceFile>vplus/vendor/angular-ui/bootstrap/ui-bootstrap-tpls-0.5.0.js</jsSourceFile>
+								<jsSourceFile>lib/jquery-2.0.3.min.js</jsSourceFile>
+								<jsSourceFile>lib/bootstrap-3.0.0/js/bootstrap.js</jsSourceFile>
+								<jsSourceFile>lib/ng-table/ng-table.src.js</jsSourceFile>
 
-								<jsSourceFile>vplus/src/VPlusNamespace.js</jsSourceFile>
-								<jsSourceFile>vplus/src/VPlusConf.js</jsSourceFile>
-								<jsSourceFile>vplus/src/VPlusServices.js</jsSourceFile>
+								<jsSourceFile>js/directives.js</jsSourceFile>
+								<jsSourceFile>js/filters.js</jsSourceFile>
+								<jsSourceFile>js/services.js</jsSourceFile>
+								<jsSourceFile>js/controllers.js</jsSourceFile>
+								<jsSourceFile>js/app.js</jsSourceFile>
 							</jsSourceFiles>
 							
-							<jsFinalFile>vplus.js</jsFinalFile>
-							<cssFinalFile>vplus.css</cssFinalFile>
+							
 						</configuration>
 					</execution>
 				</executions>
