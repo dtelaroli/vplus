@@ -1,15 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<taglib version="2.0">
-  <tlib-version>1.2</tlib-version>
-  <uri>http://vplus.dtelaroli.org/tags</uri>
-  
-  <tag-file>
-    <name>css</name>
-    <path>/META-INF/tags/css.tag</path>
-  </tag-file>
-  
-  <tag-file>
-    <name>js</name>
-    <path>/META-INF/tags/js.tag</path>
-  </tag-file>
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	version="2.1">
+	<description>VPlus Tag Library</description>
+	<display-name>VPlus Tags</display-name>
+	<tlib-version>1.2</tlib-version>
+	<short-name>vp</short-name>
+	<uri>http://vplus.dtelaroli.org/tags</uri>
+
+	<tag>
+		<name>css</name>
+		<tag-class>org.dtelaroli.vplus.tags.CssTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>js</name>
+		<tag-class>org.dtelaroli.vplus.tags.JsTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+		</attribute>
+	</tag>
+
 </taglib>
