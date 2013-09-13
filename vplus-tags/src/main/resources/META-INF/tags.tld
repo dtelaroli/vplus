@@ -8,24 +8,14 @@
 	<short-name>vp</short-name>
 	<uri>http://vplus.dtelaroli.org/tags</uri>
 
-	<tag>
-		<name>css</name>
-		<tag-class>org.dtelaroli.vplus.tags.CssTag</tag-class>
-		<body-content>empty</body-content>
-		<attribute>
-			<name>value</name>
-			<required>true</required>
-		</attribute>
-	</tag>
-	
-	<tag>
+	<tag-file>
 		<name>js</name>
-		<tag-class>org.dtelaroli.vplus.tags.JsTag</tag-class>
-		<body-content>empty</body-content>
-		<attribute>
-			<name>value</name>
-			<required>true</required>
-		</attribute>
-	</tag>
-
+		<path>/META-INF/tags/js.tag</path>
+	</tag-file>
+	
+	<tag-file>
+		<name>css</name>
+		<path>/META-INF/tags/css.tag</path>
+	</tag-file>
+	
 </taglib>
