@@ -2,4 +2,4 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', ['ngTable', 'ui.bootstrap']);
+angular.module('myApp.controllers', ['ngRoute', 'ngTable', 'ui.bootstrap.dialog']);

@@ -55,17 +55,21 @@
 							<cssTargetDir>css</cssTargetDir>
 							<cssFinalFile>vplus.css</cssFinalFile>
 
-							<cssSourceIncludes>
-								<cssSourceInclude>**/*.css</cssSourceInclude>
-							</cssSourceIncludes>
+							<cssSourceFiles>
+								<cssSourceFile>lib/bootstrap-3.0.0/css/bootstrap.css</cssSourceFile>
+								<cssSourceFile>lib/bootstrap-3.0.0/css/bootstrap-theme.css</cssSourceFile>
+								<cssSourceFile>lib/ng-table/ng-table.css</cssSourceFile>
+								<cssSourceFile>css/app.css</cssSourceFile>
+							</cssSourceFiles>
 
 							<cssSourceExcludes>
 								<cssSourceExclude>lib/ckeditor/**</cssSourceExclude>
+								<cssSourceExclude>app.css</cssSourceExclude>
 							</cssSourceExcludes>
 
 							<jsSourceFiles>
 								<jsSourceFile>lib/angular/angular-resource.js</jsSourceFile>
-								<jsSourceFile>lib/angular/angular-sanitize.js</jsSourceFile>
+								<jsSourceFile>lib/angular/angular-route.js</jsSourceFile>
 								<jsSourceFile>lib/bootstrap-3.0.0/js/bootstrap.js</jsSourceFile>
 								<jsSourceFile>lib/ui-bootstrap/ui-bootstrap-tpls-0.5.0.js</jsSourceFile>
 								<jsSourceFile>lib/ng-table/ng-table.src.js</jsSourceFile>

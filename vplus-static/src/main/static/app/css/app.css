@@ -1,1 +1,15 @@
 /* app css stylesheet */
+
+.fixed {
+	position: fixed;	
+}
+
+.center {
+	text-align: center;
+}
+
+.modal {
+	display: block;
+	height: 0;
+	overflow: visible;
+}
