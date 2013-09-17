@@ -1,7 +1,6 @@
 /* app css stylesheet */
-
 .fixed {
-	position: fixed;	
+	position: fixed;
 }
 
 .center {
@@ -12,4 +11,8 @@
 	display: block;
 	height: 0;
 	overflow: visible;
+}
+
+.modal-backdrop {
+	opacity: 0.75;
 }
