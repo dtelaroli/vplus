@@ -17,7 +17,6 @@ public class TestUtilTest {
 
 	@Test
 	public void shouldInitialize() {
-		assertThat(util.environment(), notNullValue());
 		assertThat(util.jpaUtil(), notNullValue());
 		assertThat(util.dbUnitUtil(), notNullValue());
 		assertThat(util.actionFacadeMock(), notNullValue());

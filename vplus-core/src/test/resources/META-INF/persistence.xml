@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
 
 	<persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:testdb" />
+			<property name="javax.persistence.jdbc.user" value="sa" />
+			<property name="javax.persistence.jdbc.password" value="" />
+
+			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+
+			<property name="hibernate.cache.provider_class"	value="org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider" />
+			<property name="maxPoolSize" value="20" />
+			<property name="minPoolSize" value="3" />
+			<property name="initialPoolSize" value="3" />
+			<property name="timeout" value="25200" />
+			<property name="acquireIncrement" value="3" />
+			<property name="idleConnectionTestPeriod" value="1000" />
+		</properties>
 	</persistence-unit>
 
 </persistence>

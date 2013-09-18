@@ -19,24 +19,17 @@ import org.dtelaroli.vplus.core.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.caelum.vraptor.environment.Environment;
-
-import com.google.common.base.Strings;
-
 public class DBUnitUtil {
 	
 	private Logger LOG = LoggerFactory.getLogger(DBUnitUtil.class.getName());
 
-	protected static final String VPLUS_DBUNIT_DATASET_PACKAGE = "vplus.dbunit.datasetPackage";
 	protected static final String DEFAULT_DATASET_PATH = "src/test/java/datasets";
 	private final JPAUtil jpa;
-	private final Environment env;
 	private List<String> datasetNames;
 	private List<IDataSet> datasets;
 
-	public DBUnitUtil(JPAUtil jpa, Environment env) {
+	public DBUnitUtil(JPAUtil jpa) {
 		this.jpa = jpa;
-		this.env = env;
 		this.datasetNames = new ArrayList<String>();
 		this.datasets = new ArrayList<IDataSet>();
 	}
@@ -100,11 +93,6 @@ public class DBUnitUtil {
 	}
 
 	protected String defaultDatasetPath() {
-		String path = env.get(VPLUS_DBUNIT_DATASET_PACKAGE);
-		if(!Strings.isNullOrEmpty(path)) {
-			LOG.debug("Using dataset path {}", path);
-			return path;
-		}
 		LOG.info("Using default dataset path {}", DEFAULT_DATASET_PATH);
 		return DEFAULT_DATASET_PATH;
 	}

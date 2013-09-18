@@ -8,21 +8,17 @@ import org.dbunit.DatabaseUnitException;
 import org.dtelaroli.vplus.core.mock.ActionFacadeMock;
 import org.dtelaroli.vplus.core.model.Model;
 
-import br.com.caelum.vraptor.environment.DefaultEnvironment;
-import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.util.test.MockSerializationResult;
 
 public class TestUtil {
 	
 	protected JPAUtil jpaUtil;
 	protected DBUnitUtil dbUnitUtil;
-	protected Environment env;
 	private ActionFacadeMock actionFacadeMock;
 	
 	TestUtil() throws IOException {
 		jpaUtil = new JPAUtil("test");
-		env = new DefaultEnvironment("vplus");
-		dbUnitUtil = new DBUnitUtil(jpaUtil, env);
+		dbUnitUtil = new DBUnitUtil(jpaUtil);
 		actionFacadeMock = new ActionFacadeMock();
 	}
 	
@@ -58,10 +54,6 @@ public class TestUtil {
 		return dbUnitUtil;
 	}
 	
-	public Environment environment() {
-		return env;
-	}
-
 	public ActionFacadeMock actionFacadeMock() {
 		return actionFacadeMock;
 	}

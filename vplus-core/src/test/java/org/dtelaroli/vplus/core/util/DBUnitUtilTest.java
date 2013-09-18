@@ -4,8 +4,6 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,20 +21,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.vraptor.environment.DefaultEnvironment;
-import br.com.caelum.vraptor.environment.Environment;
-
 public class DBUnitUtilTest {
 
 	DBUnitUtil dbunit;
-	private Environment env;
 	private JPAUtil util;
 	
 	@Before
 	public void setUp() throws Exception {
 		util = new JPAUtil("test");
-		env = spy(new DefaultEnvironment("vplus"));
-		dbunit = new DBUnitUtil(util, env);
+		dbunit = new DBUnitUtil(util);
 	}
 	
 	@After
@@ -59,13 +52,6 @@ public class DBUnitUtilTest {
 	
 	@Test
 	public void shouldGetResourceDefaultPath() {
-		String path = dbunit.defaultDatasetPath();
-		assertThat(path, equalTo(DBUnitUtil.DEFAULT_DATASET_PATH));
-	}
-	
-	@Test
-	public void shouldGetResourceDefaultPathWhenEnvIsNull() {
-		when(env.get(DBUnitUtil.VPLUS_DBUNIT_DATASET_PACKAGE)).thenReturn(null);
 		String path = dbunit.defaultDatasetPath();
 		assertThat(path, equalTo(DBUnitUtil.DEFAULT_DATASET_PATH));
 	}
