@@ -29,6 +29,13 @@
 								<include>**</include>
 							</includes>
 						</resource>
+						<resource>
+							<directory>${basedir}/src/main/static/app/lib/bootstrap-3.0.0</directory>
+							<filtering>false</filtering>
+							<includes>
+								<include>fonts/*</include>
+							</includes>
+						</resource>
 					</webResources>
 				</configuration>
 			</plugin>
@@ -57,7 +64,6 @@
 
 							<cssSourceFiles>
 								<cssSourceFile>lib/bootstrap-3.0.0/css/bootstrap.css</cssSourceFile>
-								<cssSourceFile>lib/bootstrap-3.0.0/css/bootstrap-theme.css</cssSourceFile>
 								<cssSourceFile>lib/ng-table/ng-table.css</cssSourceFile>
 								<cssSourceFile>css/app.css</cssSourceFile>
 							</cssSourceFiles>

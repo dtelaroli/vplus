@@ -16,3 +16,7 @@
 .modal-backdrop {
 	opacity: 0.75;
 }
+
+section .row {
+	margin: 20px 50px;
+}

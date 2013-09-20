@@ -11,16 +11,23 @@ angular.module('myApp.controllers',
 
 } ])
 
+.controller('SearchCtrl', [ '$scope', '$dataService', function($scope, $data) {
+
+    $scope.clear = function() {
+	$scope.filter = '';
+    };
+
+    $scope.$watch('filter', function(filter) {
+	$data.set('filter', filter);
+    });
+
+} ])
+
 .controller(
 	'GridCtrl',
-	[
-		'$scope',
-		'$restService',
-		'$filter',
-		'$dialog',
-		'ngTableParams',
-		function($scope, $rest, $filter, $dialog,
-			$table) {
+	[ '$scope', '$restService', '$filter', '$dialog', 'ngTableParams',
+		'$dataService',
+		function($scope, $rest, $filter, $dialog, $table, $data) {
 
 		    function filter(list, params) {
 			if (params.filter) {
@@ -50,7 +57,8 @@ angular.module('myApp.controllers',
 			$scope.$tableParams = new $table({
 			    page : 1,
 			    total : data.length,
-			    count : 10
+			    count : 10,
+			    filter : $data.get('filter')
 			});
 		    });
 
@@ -60,6 +68,12 @@ angular.module('myApp.controllers',
 			    params.total = orderedData.length;
 			    $scope.$items = paginate(orderedData, params);
 			}
+		    }, true);
+
+		    $scope.$watch(function() {
+			return $data.get('filter');
+		    }, function(filter) {
+			$scope.$tableParams.filter = filter;
 		    });
 
 		} ])
