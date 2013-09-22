@@ -17,6 +17,44 @@
 	opacity: 0.75;
 }
 
-section .row {
-	margin: 20px 50px;
+section > .container > .row {
+	margin: 30px 0;
+}
+
+footer > .container > .row {
+	margin: 15px;
+}
+
+section .container .row .col-md-8 .row {
+	margin: 0;
+}
+
+.well.well-transparent {
+	background-color: white;
+	border: 1px solid #E3E3E3;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+	border-radius: 6px 6px 6px 6px;
+}
+
+.lead {
+	font-size: 20px;
+	font-weight: 200;
+	line-height: 30px;
+}
+
+.copyleft {
+	line-height: 35px;
+	vertical-align: middle;
+}
+
+.container .row .lead a {
+	text-decoration: none;
+}
+
+.icon-stack:hover {
+	text-decoration: underline;
+}
+
+.geometry {
+	background: url(/vp-static/img/geometry.png) repeat scroll 0% 0% transparent;
 }

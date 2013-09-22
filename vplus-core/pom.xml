@@ -94,11 +94,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-c3p0</artifactId>
-			<version>${version.hibernate}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.0.1.Final</version>
 		</dependency>
@@ -174,4 +169,7 @@
 		</plugins>
 	</build>
 
+	<properties>
+		<version.hibernate>4.2.5.Final</version.hibernate>
+	</properties>
 </project>

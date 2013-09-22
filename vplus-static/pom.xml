@@ -36,6 +36,13 @@
 								<include>fonts/*</include>
 							</includes>
 						</resource>
+						<resource>
+							<directory>${basedir}/src/main/static/app/lib/font-awesome</directory>
+							<filtering>false</filtering>
+							<includes>
+								<include>font/*</include>
+							</includes>
+						</resource>
 					</webResources>
 				</configuration>
 			</plugin>
@@ -63,7 +70,8 @@
 							<cssFinalFile>vplus.css</cssFinalFile>
 
 							<cssSourceFiles>
-								<cssSourceFile>lib/bootstrap-3.0.0/css/bootstrap.css</cssSourceFile>
+								<cssSourceFile>lib/bootstrap-3.0.0/css/bootstrap.flatly.min.css</cssSourceFile>
+								<cssSourceFile>lib/font-awesome/css/font-awesome.css</cssSourceFile>
 								<cssSourceFile>lib/ng-table/ng-table.css</cssSourceFile>
 								<cssSourceFile>css/app.css</cssSourceFile>
 							</cssSourceFiles>
