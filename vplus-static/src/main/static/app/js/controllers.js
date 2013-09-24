@@ -167,11 +167,12 @@ angular.module('myApp.controllers',
 
 .controller(
 	'ViewCtrl',
-	[ '$scope', '$restService', '$routeParams',
-		function($scope, $rest, $routeParams) {
+	[ '$scope', '$restService', '$sce', '$routeParams',
+		function($scope, $rest, $sce, $routeParams) {
 		    $rest.get({
 			id : $routeParams.id
 		    }, function(result) {
 			$scope.$model = result;
+			$scope.$model.content = $sce.trustAsHtml(result.content);
 		    });
 		} ]);
