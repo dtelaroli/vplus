@@ -17,8 +17,8 @@ public abstract class Scaffold<T extends Model> {
 
 	private final Crud crud;
 
-	public Scaffold(Crud controller) {
-		this.crud = controller;
+	public Scaffold(Crud crud) {
+		this.crud = crud;
 	}
 
 	@SuppressWarnings("unchecked")
