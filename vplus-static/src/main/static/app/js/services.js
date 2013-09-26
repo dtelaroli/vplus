@@ -20,26 +20,34 @@ angular.module('myApp.services', [ 'ngResource' ])
 }])
 
 .factory('$restService', [ '$resource', 'REST_URL', function($resource, URL) {
-    return $resource(URL + '/:id/:action/:status', {}, {
-	find : {
-	    method : 'GET',
-	    isArray : true,
-	    params : {
-		action : status,
-		status : '@status'
+    return {
+	$delegate: function($url) {
+	    if($url === undefined) {
+		$url = URL + '/:id/:action/:status';
 	    }
-	},
-	update : {
-	    method : 'PUT',
-	    params : {
-		id : '@id'
-	    }
-	},
-	remove : {
-	    method : 'DELETE',
-	    params : {
-		id : '@id'
-	    }
+	    
+	    return $resource($url, {}, {
+		find : {
+		    method : 'GET',
+		    isArray : true,
+		    params : {
+			action : status,
+			status : '@status'
+		    }
+		},
+		update : {
+		    method : 'PUT',
+		    params : {
+			id : '@id'
+		    }
+		},
+		remove : {
+		    method : 'DELETE',
+		    params : {
+			id : '@id'
+		    }
+		}
+	    });
 	}
-    });
+    };
 } ]);

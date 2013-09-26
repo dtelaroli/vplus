@@ -52,7 +52,7 @@ angular.module('myApp.controllers',
 
 		    $scope.$tableParams = {};
 
-		    $rest.query(function(data) {
+		    $rest.$delegate().query(function(data) {
 			$scope.$list = data;
 			$scope.$tableParams = new $table({
 			    page : 1,
@@ -83,7 +83,7 @@ angular.module('myApp.controllers',
 	[ '$scope', '$restService', '$routeParams',
 		function($scope, $rest, $routeParams) {
 
-		    $scope.$model = new $rest();
+		    $scope.$model = new $rest().$delegate();
 		    $scope.persist = function() {
 			$scope.$model.$save();
 		    };
@@ -95,7 +95,7 @@ angular.module('myApp.controllers',
 	[ '$scope', '$restService', '$routeParams',
 		function($scope, $rest, $routeParams) {
 
-		    $rest.get({
+		    $rest.$delegate().get({
 			id : $routeParams.id
 		    }, function(result) {
 			$scope.$model = result;
