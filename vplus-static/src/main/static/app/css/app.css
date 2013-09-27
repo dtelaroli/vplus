@@ -58,3 +58,43 @@ section .container .row .col-md-8 .row {
 .geometry {
 	background: url(/vp-static/img/geometry.png) repeat scroll 0% 0% transparent;
 }
+
+.no-bullets {
+	list-style-type: none;
+}
+
+.checkbox-group {
+	list-style-type: none;
+	padding: 12px;
+	border: 2px solid #DCE4EC;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.checkbox-group > li label {
+	font-weight: normal;
+	margin-bottom: 0;
+}
+
+.checkbox-group-pull-left > li {
+	display: inline-block;
+}
+
+.checkbox-group-pull-left > li:AFTER {
+	content: '\00a0\00a0\00a0';
+}
+
+.no-padding {
+	padding: 0;
+}
+
+.no-margin {
+	margin: 0;
+}
+
+/**** ADMIN ***/
+
+.admin section > .row {
+	margin: 20px;
+}
+
+/**** BLOG ****/

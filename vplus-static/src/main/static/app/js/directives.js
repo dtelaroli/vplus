@@ -10,6 +10,14 @@ angular.module('myApp.directives', [])
     };
 } ])
 
+.directive('vpBlank', [ function() {
+    return {
+	link: function(scope, elm, attrs) {
+	    elm.attr('target', '_blank');
+	}
+    };
+} ])
+
 .directive('ckEditor', [ function() {
     return {
 	require : '?ngModel',

@@ -159,7 +159,7 @@ angular.module('myApp.controllers',
 
 .controller('IndexCtrl', [ '$scope', '$restService', function($scope, $rest) {
 
-    $rest.query(function(data) {
+    $rest.$delegate().query(function(data) {
 	$scope.$list = data;
     });
 
@@ -169,7 +169,7 @@ angular.module('myApp.controllers',
 	'ViewCtrl',
 	[ '$scope', '$restService', '$sce', '$routeParams',
 		function($scope, $rest, $sce, $routeParams) {
-		    $rest.get({
+		    $rest.$delegate().get({
 			id : $routeParams.id
 		    }, function(result) {
 			$scope.$model = result;
