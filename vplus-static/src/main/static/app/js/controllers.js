@@ -3,13 +3,23 @@
 /* Controllers */
 
 angular.module('myApp.controllers',
-	[ 'ngRoute', 'ngTable', 'ui.bootstrap.dialog' ])
+	[ 'ngRoute', 'ngTable', 'ui.bootstrap.dialog', 'seo' ])
 
 .config([ '$locationProvider', function($locationProvider) {
 
     $locationProvider.html5Mode(false).hashPrefix('!');
 
 } ])
+
+.run(
+	[
+		'$rootScope',
+		'$location',
+		'$log',
+		function($rootScope, $location) {
+		    $rootScope.ABSOLUTE_URL = $location.absUrl().replace(
+			    /localhost:\d{2,4}/, 'dtelaroli.org');
+		} ])
 
 .controller('SearchCtrl', [ '$scope', '$dataService', function($scope, $data) {
 
@@ -80,12 +90,13 @@ angular.module('myApp.controllers',
 
 .controller(
 	'AddCtrl',
-	[ '$scope', '$restService', '$routeParams',
-		function($scope, $rest, $routeParams) {
-
-		    $scope.$model = new $rest().$delegate();
+	[ '$scope', '$restService', '$routeParams', '$log',
+		function($scope, $rest, $routeParams, $log) {
+		    $scope.$model = { parent: null };
 		    $scope.persist = function() {
-			$scope.$model.$save();
+			$rest.$delegate().save({ model: $scope.$model }, function(result) {
+			    $scope.$model = result;
+			});
 		    };
 
 		} ])
@@ -133,7 +144,7 @@ angular.module('myApp.controllers',
 
 		    .open().then(function(result) {
 			if (result) {
-			    $rest.remove({
+			    $rest.$delegate().remove({
 				id : $routeParams.id
 			    }, function() {
 				$location.path('/');
@@ -167,12 +178,19 @@ angular.module('myApp.controllers',
 
 .controller(
 	'ViewCtrl',
-	[ '$scope', '$restService', '$sce', '$routeParams',
+	[
+		'$scope',
+		'$restService',
+		'$sce',
+		'$routeParams',
 		function($scope, $rest, $sce, $routeParams) {
-		    $rest.$delegate().get({
-			id : $routeParams.id
-		    }, function(result) {
-			$scope.$model = result;
-			$scope.$model.content = $sce.trustAsHtml(result.content);
-		    });
+		    $rest.$delegate().get(
+			    {
+				id : $routeParams.id
+			    },
+			    function(result) {
+				$scope.$model = result;
+				$scope.$model.content = $sce
+					.trustAsHtml(result.content);
+			    });
 		} ]);
