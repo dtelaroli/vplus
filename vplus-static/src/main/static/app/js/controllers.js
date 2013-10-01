@@ -2,8 +2,10 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers',
-	[ 'ngRoute', 'ngTable', 'ui.bootstrap.dialog', 'seo' ])
+angular.module(
+	'myApp.controllers',
+	[ 'ngRoute', 'ngTable', 'ui.bootstrap.dialog', 'angulartics',
+		'angulartics.google.analytics' ])
 
 .config([ '$locationProvider', function($locationProvider) {
 
@@ -15,7 +17,6 @@ angular.module('myApp.controllers',
 	[
 		'$rootScope',
 		'$location',
-		'$log',
 		function($rootScope, $location) {
 		    $rootScope.ABSOLUTE_URL = $location.absUrl().replace(
 			    /localhost:\d{2,4}/, 'dtelaroli.org');
@@ -62,7 +63,7 @@ angular.module('myApp.controllers',
 
 		    $scope.$tableParams = {};
 
-		    $rest.$delegate().query(function(data) {
+		    $rest().query(function(data) {
 			$scope.$list = data;
 			$scope.$tableParams = new $table({
 			    page : 1,
@@ -92,9 +93,13 @@ angular.module('myApp.controllers',
 	'AddCtrl',
 	[ '$scope', '$restService', '$routeParams', '$log',
 		function($scope, $rest, $routeParams, $log) {
-		    $scope.$model = { parent: null };
+		    $scope.$model = {
+			parent : null
+		    };
 		    $scope.persist = function() {
-			$rest.$delegate().save({ model: $scope.$model }, function(result) {
+			$rest().save({
+			    model : $scope.$model
+			}, function(result) {
 			    $scope.$model = result;
 			});
 		    };
@@ -106,7 +111,7 @@ angular.module('myApp.controllers',
 	[ '$scope', '$restService', '$routeParams',
 		function($scope, $rest, $routeParams) {
 
-		    $rest.$delegate().get({
+		    $rest().get({
 			id : $routeParams.id
 		    }, function(result) {
 			$scope.$model = result;
@@ -144,7 +149,7 @@ angular.module('myApp.controllers',
 
 		    .open().then(function(result) {
 			if (result) {
-			    $rest.$delegate().remove({
+			    $rest().remove({
 				id : $routeParams.id
 			    }, function() {
 				$location.path('/');
@@ -168,9 +173,10 @@ angular.module('myApp.controllers',
 
 } ])
 
-.controller('IndexCtrl', [ '$scope', '$restService', function($scope, $rest) {
+.controller('IndexCtrl', [ '$scope', '$restService', '$analytics', function($scope, $rest, $analytics) {
 
-    $rest.$delegate().query(function(data) {
+    $analytics.pageTrack('/vp-blog/');
+    $rest().query(function(data) {
 	$scope.$list = data;
     });
 
@@ -183,8 +189,10 @@ angular.module('myApp.controllers',
 		'$restService',
 		'$sce',
 		'$routeParams',
-		function($scope, $rest, $sce, $routeParams) {
-		    $rest.$delegate().get(
+		'$analytics',
+		function($scope, $rest, $sce, $routeParams, $analytics) {
+		    $analytics.pageTrack('/vp-blog/' + $routeParams.id);
+		    $rest().get(
 			    {
 				id : $routeParams.id
 			    },

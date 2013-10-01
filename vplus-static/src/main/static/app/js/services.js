@@ -19,9 +19,8 @@ angular.module('myApp.services', [ 'ngResource' ])
     };
 }])
 
-.factory('$restService', [ '$resource', 'REST_URL', function($resource, URL) {
-    return {
-	$delegate: function($url) {
+.factory('$restService', [ '$resource', 'URL', function($resource, URL) {
+    var rest = function($url) {
 	    if($url === undefined) {
 		$url = URL + '/:id/:action/:status';
 	    }
@@ -48,6 +47,6 @@ angular.module('myApp.services', [ 'ngResource' ])
 		    }
 		}
 	    });
-	}
-    };
+	};
+    return rest;
 } ]);

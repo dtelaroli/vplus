@@ -15,6 +15,11 @@
 
 	<build>
 		<finalName>vp-static</finalName>
+		<resources>
+			<resource>
+				<directory>target/vp-static</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -78,7 +83,6 @@
 
 							<cssSourceExcludes>
 								<cssSourceExclude>lib/ckeditor/**</cssSourceExclude>
-								<cssSourceExclude>app.css</cssSourceExclude>
 							</cssSourceExcludes>
 
 							<jsSourceFiles>
