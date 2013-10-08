@@ -3,9 +3,7 @@ package org.dtelaroli.vplus.media.domain;
 import java.io.IOException;
 
 import javax.persistence.Entity;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Transient;
+import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 
 import org.dtelaroli.vplus.core.model.ModelPlus;
@@ -14,17 +12,21 @@ import org.hibernate.validator.constraints.NotEmpty;
 import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 
 import com.google.common.io.ByteStreams;
+import com.google.common.io.Files;
 
 @Entity
 public class File extends ModelPlus {
 
-	private static final long serialVersionUID = 1503777731816339258L;
+	private static final long serialVersionUID = -2975538224089747881L;
 
+	@NotEmpty
+	private String originalName;
+	
 	@NotEmpty
 	private String name;
 	
 	@NotEmpty
-	private String description;
+	private String fileDescription;
 	
 	@NotEmpty
 	private String ext;
@@ -39,17 +41,23 @@ public class File extends ModelPlus {
 	private String hash;
 	
 	@NotNull
-	private byte[] binary;
+	@Lob
+	private byte[] content;
 	
-	@Transient
-	private UploadedFile uploadedFile;
+	public File() {
+	}
 	
-	@PrePersist
-	@PreUpdate
-	public void setByteArray() throws IOException {
-		name = uploadedFile.getFileName();
+	public File(UploadedFile uploadedFile) throws IOException {
+		parse(uploadedFile);
+	}
+
+	public void parse(UploadedFile uploadedFile) throws IOException {
+		originalName = uploadedFile.getFileName();
+		ext = Files.getFileExtension(originalName);
+		name = originalName.replace("\\." + ext, "");
 		size = uploadedFile.getSize();
-		binary = ByteStreams.toByteArray(uploadedFile.getFile());
+		type = uploadedFile.getContentType();
+		content = ByteStreams.toByteArray(uploadedFile.getFile());
 	}
 
 	protected String getName() {
@@ -58,14 +66,6 @@ public class File extends ModelPlus {
 
 	protected void setName(String name) {
 		this.name = name;
-	}
-
-	protected String getDescription() {
-		return description;
-	}
-
-	protected void setDescription(String description) {
-		this.description = description;
 	}
 
 	protected String getExt() {
@@ -100,12 +100,37 @@ public class File extends ModelPlus {
 		this.hash = hash;
 	}
 
-	protected byte[] getBinary() {
-		return binary;
+	protected byte[] getContent() {
+		return content;
 	}
 
-	protected void setBinary(byte[] binary) {
-		this.binary = binary;
+	protected void setContent(byte[] content) {
+		this.content = content;
+	}
+
+	protected String getOriginalName() {
+		return originalName;
+	}
+
+	protected void setOriginalName(String fullName) {
+		this.originalName = fullName;
+	}
+
+	protected String getFileDescription() {
+		return fileDescription;
+	}
+
+	public void setFileDescription(String fileDescription) {
+		this.fileDescription = fileDescription;
+	}
+
+	@Override
+	public String toString() {
+		return "File [fullName=" + originalName + ", name=" + name
+				+ ", fileDescription=" + fileDescription + ", ext=" + ext
+				+ ", type=" + type + ", size=" + size + ", hash=" + hash
+				+ ", Super."
+				+ super.toString() + "]";
 	}
 	
 }

@@ -19,6 +19,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+		<dependency>
 			<groupId>org.dtelaroli.vplus</groupId>
 			<artifactId>vplus</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -43,6 +48,12 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -60,13 +71,20 @@
 		<finalName>vplus-media</finalName>
 		<resources>
 			<resource>
+				<directory>src/main/webapp</directory>
+			</resource>
+			<resource>
 				<directory>src/main/java</directory>
 			</resource>
 			<resource>
 				<directory>src/main/webapp</directory>
 			</resource>
 			<resource>
-				<directory>src/main/resources</directory>
+				<directory>${basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**</include>
+				</includes>
 			</resource>
 			<resource>
 				<directory>src/test/java</directory>
@@ -82,7 +100,30 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.3</version>
 				<configuration>
-					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+					<webResources>
+						<resource>
+							<directory>${basedir}/src/main/resources</directory>
+							<filtering>true</filtering>
+							<includes>
+								<include>**</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>${basedir}/src/main/webapp</directory>
+							<filtering>true</filtering>
+							<includes>
+								<include>**/web.xml</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>${basedir}/src/main/resources</directory>
+							<filtering>true</filtering>
+							<includes>
+								<include>**</include>
+							</includes>
+						</resource>
+					</webResources>
+					<webXml>${project.build.directory}/${project.build.finalName}/WEB-INF/web.xml</webXml>
 				</configuration>
 			</plugin>
 		</plugins>
