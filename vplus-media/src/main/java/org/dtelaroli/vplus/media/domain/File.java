@@ -2,8 +2,11 @@ package org.dtelaroli.vplus.media.domain;
 
 import java.io.IOException;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 
 import org.dtelaroli.vplus.core.model.ModelPlus;
@@ -11,7 +14,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 
-import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;
 
 @Entity
@@ -25,8 +27,7 @@ public class File extends ModelPlus {
 	@NotEmpty
 	private String name;
 	
-	@NotEmpty
-	private String fileDescription;
+	private String description;
 	
 	@NotEmpty
 	private String ext;
@@ -37,12 +38,11 @@ public class File extends ModelPlus {
 	@NotNull
 	private Long size;
 	
-	@NotEmpty
 	private String hash;
 	
-	@NotNull
-	@Lob
-	private byte[] content;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private FileContent content;
 	
 	public File() {
 	}
@@ -57,7 +57,7 @@ public class File extends ModelPlus {
 		name = originalName.replace("\\." + ext, "");
 		size = uploadedFile.getSize();
 		type = uploadedFile.getContentType();
-		content = ByteStreams.toByteArray(uploadedFile.getFile());
+		content = new FileContent(uploadedFile.getFile(), this);
 	}
 
 	protected String getName() {
@@ -101,11 +101,7 @@ public class File extends ModelPlus {
 	}
 
 	protected byte[] getContent() {
-		return content;
-	}
-
-	protected void setContent(byte[] content) {
-		this.content = content;
+		return content.getContent();
 	}
 
 	protected String getOriginalName() {
@@ -116,21 +112,13 @@ public class File extends ModelPlus {
 		this.originalName = fullName;
 	}
 
-	protected String getFileDescription() {
-		return fileDescription;
+	protected String getDescription() {
+		return description;
 	}
 
-	public void setFileDescription(String fileDescription) {
-		this.fileDescription = fileDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	@Override
-	public String toString() {
-		return "File [fullName=" + originalName + ", name=" + name
-				+ ", fileDescription=" + fileDescription + ", ext=" + ext
-				+ ", type=" + type + ", size=" + size + ", hash=" + hash
-				+ ", Super."
-				+ super.toString() + "]";
-	}
 	
 }
