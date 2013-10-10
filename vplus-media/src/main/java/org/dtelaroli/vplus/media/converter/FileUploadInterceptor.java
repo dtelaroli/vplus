@@ -54,9 +54,13 @@ public class FileUploadInterceptor implements MultipartInterceptor {
     private final Validator validator;
     private final ServletFileUploadCreator fileUploadCreator;
     private Multiset<String> indexes;
-    
-    private final File file;
 
+	private final File file;
+    private String path;
+    private String description;
+
+	private Multimap<String, String> params;
+	
     public FileUploadInterceptor(HttpServletRequest request, MutableRequest parameters, MultipartConfig cfg,
             Validator validator, ServletFileUploadCreator fileUploadCreator) {
     	this.request = request;
@@ -88,7 +92,7 @@ public class FileUploadInterceptor implements MultipartInterceptor {
             final List<FileItem> items = uploader.parseRequest(request);
             logger.debug("Found {} attributes in the multipart form submission. Parsing them.", items.size());
 
-            final Multimap<String, String> params = LinkedListMultimap.create();
+            params = LinkedListMultimap.create();
 
             for (FileItem item : items) {
                 String name = item.getFieldName();
@@ -141,13 +145,12 @@ public class FileUploadInterceptor implements MultipartInterceptor {
     protected void processFile(FileItem item, String name) {
         try {
             UploadedFile upload = new DefaultUploadedFile(item.getInputStream(), item.getName(), item.getContentType(), item.getSize());
-            parameters.setParameter(name, name);
-//            request.setAttribute(name, upload);
-
-            logger.debug("Uploaded file: {} with {}", name, upload);
-            
             file.parse(upload);
-			request.setAttribute(name, file);
+            path = name.replaceFirst("^(.+)\\..+", "$1");
+            if(!Strings.isNullOrEmpty(description)) {
+            	file.setDescription(description);
+            }
+			request.setAttribute(path, file);
 
 			logger.debug("File parsed: {} with {}", name, file);
         } catch (IOException e) {
@@ -167,13 +170,24 @@ public class FileUploadInterceptor implements MultipartInterceptor {
         String encoding = request.getCharacterEncoding();
         if (!Strings.isNullOrEmpty(encoding)) {
             try {
+            	checkDescription(item);
                 return item.getString(encoding);
             } catch (UnsupportedEncodingException e) {
                 logger.warn("Request have an invalid encoding. Ignoring it");
             }
         }
+        checkDescription(item);
         return item.getString();
     }
+
+	private void checkDescription(FileItem item) {
+		if(item.getFieldName().equals(path + ".description")) {
+        	file.setDescription(item.getString());
+        }
+		else if(item.getFieldName().endsWith(".description")) {
+			description = item.getString();
+		}
+	}
 
     protected String fixIndexedParameters(String name) {
         if (name.contains("[]")) {

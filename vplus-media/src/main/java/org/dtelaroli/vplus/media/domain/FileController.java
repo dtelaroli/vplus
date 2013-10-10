@@ -14,10 +14,19 @@ public class FileController extends Scaffold<File> {
 		super(crud);
 	}
 	
+	public static class newModel {
+		File file;
+		String bla;
+	}
+	
 	@Override
 	@Post("")
 	public void add(File model) throws CrudException {
 		super.add(model);
+	}
+	
+	public void b(newModel model) {
+		System.out.println(model);
 	}
 
 }

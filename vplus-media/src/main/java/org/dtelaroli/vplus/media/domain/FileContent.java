@@ -24,7 +24,7 @@ public class FileContent implements Serializable {
 	private Long id;
 	
 	@MapsId
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "fileContent")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "content")
 	@JoinColumn(name = "id")
 	private File file;
 	

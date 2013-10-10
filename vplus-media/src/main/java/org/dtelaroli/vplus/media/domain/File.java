@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.dtelaroli.vplus.core.model.ModelPlus;
@@ -44,6 +45,9 @@ public class File extends ModelPlus {
     @PrimaryKeyJoinColumn
     private FileContent content;
 	
+	@Transient
+	private UploadedFile upload;
+	
 	public File() {
 	}
 	
@@ -58,6 +62,12 @@ public class File extends ModelPlus {
 		size = uploadedFile.getSize();
 		type = uploadedFile.getContentType();
 		content = new FileContent(uploadedFile.getFile(), this);
+		upload = uploadedFile;
+	}
+	
+	public File build() throws IOException {
+		parse(upload);
+		return this;
 	}
 
 	protected String getName() {
@@ -120,5 +130,21 @@ public class File extends ModelPlus {
 		this.description = description;
 	}
 
-	
+	protected UploadedFile getUpload() {
+		return upload;
+	}
+
+	protected void setUpload(UploadedFile upload) {
+		this.upload = upload;
+	}
+
+	@Override
+	public String toString() {
+		return "File [originalName=" + originalName + ", name=" + name
+				+ ", description=" + description + ", ext=" + ext + ", type="
+				+ type + ", size=" + size + ", hash=" + hash + ", content="
+				+ content + ", upload=" + upload + ", Super="
+				+ super.toString() + "]";
+	}
+
 }
