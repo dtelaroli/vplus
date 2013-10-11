@@ -44,7 +44,7 @@ public class File extends ModelPlus {
 	
 	private String hash;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private FileContent content;
 	

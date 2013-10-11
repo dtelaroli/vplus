@@ -42,6 +42,7 @@ public class FileContent implements Serializable {
 	public FileContent(InputStream inputStream, File file) throws IOException {
 		content = ByteStreams.toByteArray(inputStream);
 		this.file = file;
+		this.id = file.getId();
 	}
 
 	protected byte[] getContent() {
